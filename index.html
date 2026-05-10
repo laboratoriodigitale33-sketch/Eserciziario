@@ -11,7 +11,6 @@
       --bg: #f6f4ef;
       --panel: #ffffff;
       --panel-soft: rgba(255, 255, 255, 0.84);
-      --panel-warm: #fbfaf6;
       --text: #1f2933;
       --muted: #667085;
       --muted-soft: #8a94a3;
@@ -22,19 +21,14 @@
       --accent-soft: rgba(54, 95, 133, 0.12);
       --shadow: 0 18px 45px rgba(0, 0, 0, 0.075);
       --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.045);
+      --radius-xl: 28px;
       --radius-lg: 24px;
       --radius-md: 16px;
-      --radius-sm: 12px;
       --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -47,18 +41,14 @@
         linear-gradient(180deg, #f8f6f0 0%, var(--bg) 100%);
     }
 
-    a {
-      color: inherit;
-    }
+    a { color: inherit; }
 
     .site-shell {
       width: min(1180px, calc(100% - 2rem));
       margin: 0 auto;
     }
 
-    header {
-      padding: 4rem 0 2.25rem;
-    }
+    header { padding: 4rem 0 2.25rem; }
 
     .top-row {
       display: flex;
@@ -74,9 +64,7 @@
       letter-spacing: 0.02em;
     }
 
-    .hero {
-      max-width: 880px;
-    }
+    .hero { max-width: 880px; }
 
     h1 {
       margin: 0;
@@ -87,16 +75,14 @@
       font-weight: 780;
     }
 
-    main {
-      padding-bottom: 4rem;
-    }
+    main { padding-bottom: 4rem; }
 
     .controls {
       position: sticky;
       top: 0.75rem;
       z-index: 20;
       display: grid;
-      grid-template-columns: 1.7fr repeat(3, minmax(130px, 0.55fr));
+      grid-template-columns: 1.7fr repeat(2, minmax(130px, 0.55fr));
       gap: 0.8rem;
       margin: 1.2rem 0 1.1rem;
       padding: 1rem;
@@ -153,31 +139,31 @@
 
     .results {
       display: grid;
-      gap: 1rem;
+      gap: 1.15rem;
     }
 
-    .category-block {
-      --cat-color: var(--accent);
-      background: var(--panel-soft);
+    .subject-block {
+      --subject-color: var(--accent);
+      background: rgba(255, 255, 255, 0.82);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-xl);
       box-shadow: var(--shadow-soft);
       overflow: hidden;
-      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
     }
 
-    .category-block:hover {
-      border-color: color-mix(in srgb, var(--cat-color) 38%, var(--border));
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.065);
+    .subject-block:hover {
+      border-color: color-mix(in srgb, var(--subject-color) 35%, var(--border));
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.065);
     }
 
+    .subject-toggle,
     .category-toggle {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      padding: 1.1rem 1.25rem;
       border: 0;
       background: transparent;
       color: var(--text);
@@ -185,39 +171,57 @@
       cursor: pointer;
     }
 
+    .subject-toggle {
+      padding: 1.28rem 1.35rem;
+    }
+
+    .category-toggle {
+      padding: 1rem 1.08rem;
+    }
+
+    .subject-toggle:hover,
     .category-toggle:hover {
       background: rgba(255, 255, 255, 0.42);
     }
 
+    .subject-toggle:focus-visible,
     .category-toggle:focus-visible {
-      outline: 3px solid color-mix(in srgb, var(--cat-color) 24%, transparent);
+      outline: 3px solid color-mix(in srgb, var(--subject-color, var(--cat-color)) 24%, transparent);
       outline-offset: -3px;
     }
 
+    .subject-left,
     .category-left {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.9rem;
       min-width: 0;
+    }
+
+    .subject-dot,
+    .category-dot {
+      border-radius: 50%;
+      flex: 0 0 auto;
+      opacity: 0.9;
+    }
+
+    .subject-dot {
+      width: 0.88rem;
+      height: 0.88rem;
+      background: var(--subject-color);
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--subject-color) 14%, transparent);
     }
 
     .category-dot {
-      width: 0.72rem;
-      height: 0.72rem;
-      border-radius: 50%;
-      flex: 0 0 auto;
+      width: 0.66rem;
+      height: 0.66rem;
       background: var(--cat-color);
-      box-shadow: 0 0 0 4px color-mix(in srgb, var(--cat-color) 16%, transparent);
-      opacity: 0.88;
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--cat-color) 14%, transparent);
     }
 
-    .category-text {
-      min-width: 0;
-    }
-
+    .subject-title,
     .category-title {
       margin: 0;
-      font-size: 1.22rem;
       line-height: 1.2;
       letter-spacing: -0.025em;
       display: flex;
@@ -225,19 +229,31 @@
       gap: 0.45rem;
     }
 
-    .category-icon {
-      color: var(--cat-color);
-      opacity: 0.8;
+    .subject-title {
+      font-size: 1.55rem;
     }
 
+    .category-title {
+      font-size: 1.14rem;
+    }
+
+    .subject-desc,
     .category-desc {
       margin: 0.35rem 0 0;
       color: var(--muted);
       line-height: 1.5;
-      font-size: 0.9rem;
-      max-width: 780px;
+      max-width: 820px;
     }
 
+    .subject-desc {
+      font-size: 0.94rem;
+    }
+
+    .category-desc {
+      font-size: 0.88rem;
+    }
+
+    .subject-right,
     .category-right {
       display: flex;
       align-items: center;
@@ -245,10 +261,11 @@
       flex: 0 0 auto;
     }
 
+    .subject-count,
     .category-count {
       color: var(--muted);
       border: 1px solid var(--border-soft);
-      background: rgba(255, 255, 255, 0.62);
+      background: rgba(255, 255, 255, 0.66);
       border-radius: 999px;
       padding: 0.32rem 0.65rem;
       font-size: 0.78rem;
@@ -256,24 +273,46 @@
       white-space: nowrap;
     }
 
+    .subject-chevron,
     .category-chevron {
       color: var(--muted);
       font-size: 0.9rem;
       transition: transform 180ms ease;
     }
 
+    .subject-toggle[aria-expanded="true"] .subject-chevron,
     .category-toggle[aria-expanded="true"] .category-chevron {
       transform: rotate(180deg);
+    }
+
+    .subject-content {
+      border-top: 1px solid var(--border-soft);
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    .subject-content[hidden],
+    .category-content[hidden] {
+      display: none;
+    }
+
+    .category-list {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .category-block {
+      --cat-color: var(--subject-color);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.76);
+      overflow: hidden;
     }
 
     .category-content {
       border-top: 1px solid var(--border-soft);
       padding: 1rem;
-      background: rgba(255, 255, 255, 0.48);
-    }
-
-    .category-content[hidden] {
-      display: none;
+      background: rgba(255, 255, 255, 0.5);
     }
 
     .grid {
@@ -360,7 +399,7 @@
       font-size: 1.05rem;
     }
 
-    .card h3 {
+    .card h4 {
       margin: 0;
       font-size: 1.12rem;
       line-height: 1.28;
@@ -435,9 +474,7 @@
       line-height: 1.6;
     }
 
-    .error strong {
-      color: var(--text);
-    }
+    .error strong { color: var(--text); }
 
     footer {
       width: min(1180px, calc(100% - 2rem));
@@ -454,63 +491,41 @@
       text-decoration: none;
     }
 
-    footer a:hover {
-      color: var(--accent);
-    }
+    footer a:hover { color: var(--accent); }
 
     @media (max-width: 900px) {
       .controls {
         position: static;
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .controls input {
-        grid-column: 1 / -1;
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 700px) {
-      header {
-        padding-top: 2.4rem;
-      }
+      header { padding-top: 2.4rem; }
 
-      .top-row {
-        margin-bottom: 2.2rem;
-      }
+      .top-row { margin-bottom: 2.2rem; }
 
-      h1 {
-        font-size: clamp(2.55rem, 12vw, 4rem);
-      }
-
-      .controls {
-        grid-template-columns: 1fr;
-      }
+      h1 { font-size: clamp(2.55rem, 12vw, 4rem); }
 
       .utility-row {
         justify-content: flex-start;
         flex-wrap: wrap;
       }
 
+      .subject-toggle,
       .category-toggle {
         align-items: flex-start;
       }
 
+      .subject-right,
       .category-right {
         flex-direction: column;
         align-items: flex-end;
       }
 
-      .category-desc {
-        max-width: none;
-      }
+      .grid { grid-template-columns: 1fr; }
 
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      footer {
-        text-align: left;
-      }
+      footer { text-align: left; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -537,10 +552,6 @@
     <section class="controls" aria-label="Filtri esercizi">
       <input id="searchInput" type="search" placeholder="Cerca per titolo, argomento, tag, formula..." />
 
-      <select id="categoryFilter">
-        <option value="">Tutte le categorie</option>
-      </select>
-
       <select id="topicFilter">
         <option value="">Tutti gli argomenti</option>
       </select>
@@ -555,7 +566,7 @@
       <button id="resetButton" class="reset-button" type="button">Azzera filtri</button>
     </div>
 
-    <section id="results" class="results" aria-label="Categorie esercizi">
+    <section id="results" class="results" aria-label="Materie e categorie esercizi">
       <div class="empty">Caricamento catalogo...</div>
     </section>
   </main>
@@ -569,17 +580,34 @@
   <script>
     const CATALOG_FILE = "esercizi.json";
 
+    const DEFAULT_SUBJECTS = [
+      {
+        name: "Fisica",
+        order: 1,
+        color: "#5bd4c4",
+        description: "Esercizi di fisica organizzati per ambito."
+      },
+      {
+        name: "Matematica",
+        order: 2,
+        color: "#8ab4f0",
+        description: "Esercizi di matematica organizzati per argomento."
+      }
+    ];
+
     const state = {
+      subjects: [],
+      subjectByName: new Map(),
       categories: [],
-      categoryByName: new Map(),
+      categoryByKey: new Map(),
       exercises: [],
       filtered: [],
+      expandedSubjectKey: null,
       expandedCategoryKey: null,
       forceExpandAll: false
     };
 
     const searchInput = document.getElementById("searchInput");
-    const categoryFilter = document.getElementById("categoryFilter");
     const topicFilter = document.getElementById("topicFilter");
     const levelFilter = document.getElementById("levelFilter");
     const resetButton = document.getElementById("resetButton");
@@ -597,14 +625,18 @@
         const rawData = await response.json();
         const catalog = normalizeCatalog(rawData);
 
+        state.subjects = normalizeSubjects(catalog.subjects);
+        state.subjectByName = new Map(
+          state.subjects.map(subject => [normalize(subject.name), subject])
+        );
+
         state.categories = normalizeCategories(catalog.categories);
-        state.categoryByName = new Map(
-          state.categories
-            .filter(category => category && category.name)
-            .map(category => [normalize(category.name), category])
+        state.categoryByKey = new Map(
+          state.categories.map(category => [categoryKey(category.subject, category.name), category])
         );
 
         state.exercises = catalog.exercises.map(normalizeExercise).filter(Boolean);
+        ensureCategoriesFromExercises();
         sortExercises();
         populateFilters();
         applyFilters();
@@ -625,6 +657,7 @@
     function normalizeCatalog(rawData) {
       if (Array.isArray(rawData)) {
         return {
+          subjects: DEFAULT_SUBJECTS,
           categories: [],
           exercises: rawData
         };
@@ -635,6 +668,7 @@
       }
 
       return {
+        subjects: Array.isArray(rawData.subjects) ? rawData.subjects : DEFAULT_SUBJECTS,
         categories: Array.isArray(rawData.categories) ? rawData.categories : [],
         exercises: Array.isArray(rawData.exercises)
           ? rawData.exercises
@@ -644,11 +678,31 @@
       };
     }
 
+    function normalizeSubjects(subjects) {
+      const byName = new Map();
+
+      [...DEFAULT_SUBJECTS, ...subjects].forEach((subject, index) => {
+        if (!subject || typeof subject !== "object") return;
+        const name = String(subject.name || "").trim();
+        if (!name) return;
+
+        byName.set(normalize(name), {
+          name,
+          description: String(subject.description || "").trim(),
+          color: String(subject.color || "#365f85").trim(),
+          order: Number.isFinite(Number(subject.order)) ? Number(subject.order) : 100000 + index
+        });
+      });
+
+      return [...byName.values()].sort((a, b) => a.order - b.order || a.name.localeCompare(b.name, "it"));
+    }
+
     function normalizeCategories(categories) {
       return categories
         .filter(category => category && typeof category === "object" && category.name)
         .map((category, index) => ({
           name: String(category.name || "").trim(),
+          subject: String(category.subject || inferSubjectFromCategory(category.name) || "Fisica").trim(),
           description: String(category.description || "").trim(),
           color: String(category.color || "#365f85").trim(),
           icon: String(category.icon || "").trim(),
@@ -661,14 +715,15 @@
       if (!exercise || typeof exercise !== "object") return null;
 
       const file = String(exercise.file || exercise.path || "").trim();
+      const inferred = inferFromPath(file);
 
       return {
         ...exercise,
         title: String(exercise.title || "Esercizio senza titolo").trim(),
         description: String(exercise.description || "Nessuna descrizione disponibile.").trim(),
-        category: String(exercise.category || inferCategoryFromPath(file) || "Senza categoria").trim(),
-        topic: String(exercise.topic || "").trim(),
-        subject: String(exercise.subject || "").trim(),
+        subject: String(exercise.subject || inferred.subject || "Fisica").trim(),
+        category: String(exercise.category || inferred.category || "Senza categoria").trim(),
+        topic: String(exercise.topic || inferred.topic || "").trim(),
         icon: String(exercise.icon || "📄").trim(),
         order: Number.isFinite(Number(exercise.order)) ? Number(exercise.order) : 999999,
         tags: Array.isArray(exercise.tags) ? exercise.tags.map(tag => String(tag).trim()).filter(Boolean) : [],
@@ -679,19 +734,38 @@
       };
     }
 
-    function sortExercises() {
-      const categoryOrder = new Map(
-        state.categories.map((category, index) => [
-          normalize(category.name),
-          Number.isFinite(Number(category.order)) ? Number(category.order) : 100000 + index
-        ])
-      );
+    function ensureCategoriesFromExercises() {
+      const existing = new Set(state.categories.map(category => categoryKey(category.subject, category.name)));
 
+      state.exercises.forEach(exercise => {
+        const key = categoryKey(exercise.subject, exercise.category);
+        if (existing.has(key)) return;
+
+        const subject = state.subjectByName.get(normalize(exercise.subject));
+        const newCategory = {
+          name: exercise.category || "Senza categoria",
+          subject: exercise.subject || "Fisica",
+          description: "",
+          color: subject?.color || "#365f85",
+          icon: "",
+          order: 999999
+        };
+
+        state.categories.push(newCategory);
+        state.categoryByKey.set(key, newCategory);
+        existing.add(key);
+      });
+    }
+
+    function sortExercises() {
       state.exercises.sort((a, b) => {
-        const categoryA = categoryOrder.get(normalize(a.category)) ?? 999999;
-        const categoryB = categoryOrder.get(normalize(b.category)) ?? 999999;
+        const subjectA = state.subjectByName.get(normalize(a.subject))?.order ?? 999999;
+        const subjectB = state.subjectByName.get(normalize(b.subject))?.order ?? 999999;
+        const categoryA = state.categoryByKey.get(categoryKey(a.subject, a.category))?.order ?? 999999;
+        const categoryB = state.categoryByKey.get(categoryKey(b.subject, b.category))?.order ?? 999999;
 
         return (
+          subjectA - subjectB ||
           categoryA - categoryB ||
           String(a.topic || "").localeCompare(String(b.topic || ""), "it") ||
           a.order - b.order ||
@@ -701,31 +775,13 @@
     }
 
     function populateFilters() {
-      fillSelect(categoryFilter, categoriesForFilter());
       fillSelect(topicFilter, uniqueExerciseValues("topic"));
-      fillSelect(levelFilter, uniqueExerciseValues("level"));
-    }
-
-    function categoriesForFilter() {
-      const exerciseCategoryNames = new Set(
-        state.exercises
-          .map(exercise => String(exercise.category || "").trim())
-          .filter(Boolean)
-      );
-
-      if (state.categories.length > 0) {
-        const fromKnownCategories = state.categories
-          .map(category => category.name)
-          .filter(name => exerciseCategoryNames.has(name));
-
-        const missing = [...exerciseCategoryNames]
-          .filter(name => !fromKnownCategories.includes(name))
-          .sort((a, b) => a.localeCompare(b, "it"));
-
-        return [...fromKnownCategories, ...missing];
-      }
-
-      return [...exerciseCategoryNames].sort((a, b) => a.localeCompare(b, "it"));
+      fillSelect(levelFilter, uniqueExerciseValues("level").map(levelLabel));
+      const rawLevels = uniqueExerciseValues("level");
+      [...levelFilter.options].forEach((option, index) => {
+        if (index === 0) return;
+        option.value = rawLevels[index - 1];
+      });
     }
 
     function uniqueExerciseValues(key) {
@@ -752,7 +808,6 @@
 
     function applyFilters() {
       const query = normalize(searchInput.value);
-      const category = categoryFilter.value;
       const topic = topicFilter.value;
       const level = levelFilter.value;
 
@@ -771,7 +826,6 @@
 
         return (
           (!query || searchableText.includes(query)) &&
-          (!category || exercise.category === category) &&
           (!topic || exercise.topic === topic) &&
           (!level || exercise.level === level)
         );
@@ -783,57 +837,42 @@
     function hasActiveFilters() {
       return Boolean(
         normalize(searchInput.value) ||
-        normalize(categoryFilter.value) ||
         normalize(topicFilter.value) ||
         normalize(levelFilter.value)
       );
     }
 
     function renderResults() {
-      if (state.filtered.length === 0) {
-        results.innerHTML = `
-          <div class="empty">
-            Nessun esercizio corrisponde ai filtri selezionati.
-          </div>
-        `;
-        return;
-      }
-
-      const grouped = groupByCategory(state.filtered);
+      const grouped = groupBySubjectAndCategory(state.filtered);
       const autoExpand = hasActiveFilters() || state.forceExpandAll;
 
-      const html = grouped.map((group, index) => {
-        const category = group.category;
-        const exercises = group.exercises;
-        const key = normalize(category.name);
-        const isExpanded = autoExpand || state.expandedCategoryKey === key;
-        const color = category.color || "#365f85";
+      const html = state.subjects.map(subject => {
+        const key = normalize(subject.name);
+        const subjectGroup = grouped.get(key);
+        const subjectExercisesCount = subjectGroup ? countExercisesInSubject(subjectGroup) : 0;
+        const isExpanded = autoExpand || state.expandedSubjectKey === key;
+        const subjectColor = subject.color || "#365f85";
 
         return `
-          <section class="category-block" style="--cat-color: ${escapeAttribute(color)}">
-            <button class="category-toggle" type="button"
-                    data-category="${escapeAttribute(category.name)}"
+          <section class="subject-block" style="--subject-color: ${escapeAttribute(subjectColor)}">
+            <button class="subject-toggle" type="button"
+                    data-subject="${escapeAttribute(subject.name)}"
                     aria-expanded="${isExpanded ? "true" : "false"}">
-              <div class="category-left">
-                <div class="category-dot" aria-hidden="true"></div>
-                <div class="category-text">
-                  <h2 class="category-title">
-                    ${category.icon ? `<span class="category-icon" aria-hidden="true">${escapeHtml(category.icon)}</span>` : ""}
-                    ${escapeHtml(category.name)}
-                  </h2>
-                  ${category.description ? `<p class="category-desc">${escapeHtml(category.description)}</p>` : ""}
+              <div class="subject-left">
+                <div class="subject-dot" aria-hidden="true"></div>
+                <div>
+                  <h2 class="subject-title">${escapeHtml(subject.name)}</h2>
+                  ${subject.description ? `<p class="subject-desc">${escapeHtml(subject.description)}</p>` : ""}
                 </div>
               </div>
-              <div class="category-right">
-                <span class="category-count">${escapeHtml(exerciseCountLabel(exercises.length))}</span>
-                <span class="category-chevron" aria-hidden="true">▾</span>
+              <div class="subject-right">
+                <span class="subject-count">${escapeHtml(exerciseCountLabel(subjectExercisesCount))}</span>
+                <span class="subject-chevron" aria-hidden="true">▾</span>
               </div>
             </button>
 
-            <div class="category-content" ${isExpanded ? "" : "hidden"}>
-              <div class="grid">
-                ${exercises.map(exercise => renderExerciseCard(exercise, color)).join("")}
-              </div>
+            <div class="subject-content" ${isExpanded ? "" : "hidden"}>
+              ${renderSubjectContent(subject, subjectGroup, autoExpand)}
             </div>
           </section>
         `;
@@ -843,46 +882,117 @@
       updateExpandButtonLabel();
     }
 
-    function groupByCategory(exercises) {
-      const groupedMap = new Map();
+    function renderSubjectContent(subject, subjectGroup, autoExpand) {
+      if (!subjectGroup || subjectGroup.categories.length === 0) {
+        return `<div class="empty">Nessun esercizio ancora presente in questa sezione.</div>`;
+      }
+
+      return `
+        <div class="category-list">
+          ${subjectGroup.categories.map(categoryGroup => renderCategoryBlock(subject, categoryGroup, autoExpand)).join("")}
+        </div>
+      `;
+    }
+
+    function renderCategoryBlock(subject, categoryGroup, autoExpand) {
+      const category = categoryGroup.category;
+      const exercises = categoryGroup.exercises;
+      const key = categoryKey(subject.name, category.name);
+      const isExpanded = autoExpand || state.expandedCategoryKey === key;
+      const color = category.color || subject.color || "#365f85";
+
+      return `
+        <section class="category-block" style="--cat-color: ${escapeAttribute(color)}">
+          <button class="category-toggle" type="button"
+                  data-subject="${escapeAttribute(subject.name)}"
+                  data-category="${escapeAttribute(category.name)}"
+                  aria-expanded="${isExpanded ? "true" : "false"}">
+            <div class="category-left">
+              <div class="category-dot" aria-hidden="true"></div>
+              <div>
+                <h3 class="category-title">
+                  ${category.icon ? `<span aria-hidden="true">${escapeHtml(category.icon)}</span>` : ""}
+                  ${escapeHtml(category.name)}
+                </h3>
+                ${category.description ? `<p class="category-desc">${escapeHtml(category.description)}</p>` : ""}
+              </div>
+            </div>
+            <div class="category-right">
+              <span class="category-count">${escapeHtml(exerciseCountLabel(exercises.length))}</span>
+              <span class="category-chevron" aria-hidden="true">▾</span>
+            </div>
+          </button>
+
+          <div class="category-content" ${isExpanded ? "" : "hidden"}>
+            <div class="grid">
+              ${exercises.map(exercise => renderExerciseCard(exercise, color)).join("")}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function groupBySubjectAndCategory(exercises) {
+      const grouped = new Map();
 
       for (const exercise of exercises) {
-        const key = normalize(exercise.category || "Senza categoria");
+        const subjectKey = normalize(exercise.subject);
+        const catKey = categoryKey(exercise.subject, exercise.category);
 
-        if (!groupedMap.has(key)) {
-          const known = state.categoryByName.get(key);
-          groupedMap.set(key, {
-            category: known || {
-              name: exercise.category || "Senza categoria",
-              description: "",
+        if (!grouped.has(subjectKey)) {
+          grouped.set(subjectKey, {
+            subject: state.subjectByName.get(subjectKey) || {
+              name: exercise.subject,
+              order: 999999,
               color: "#365f85",
-              icon: "",
-              order: 999999
+              description: ""
             },
+            categoriesMap: new Map()
+          });
+        }
+
+        const subjectGroup = grouped.get(subjectKey);
+
+        if (!subjectGroup.categoriesMap.has(catKey)) {
+          const category = state.categoryByKey.get(catKey) || {
+            name: exercise.category || "Senza categoria",
+            subject: exercise.subject,
+            description: "",
+            color: subjectGroup.subject.color,
+            icon: "",
+            order: 999999
+          };
+
+          subjectGroup.categoriesMap.set(catKey, {
+            category,
             exercises: []
           });
         }
 
-        groupedMap.get(key).exercises.push(exercise);
+        subjectGroup.categoriesMap.get(catKey).exercises.push(exercise);
       }
 
-      return [...groupedMap.values()]
-        .map(group => ({
-          ...group,
-          exercises: group.exercises.sort((a, b) => {
+      grouped.forEach(subjectGroup => {
+        subjectGroup.categories = [...subjectGroup.categoriesMap.values()]
+          .map(categoryGroup => ({
+            ...categoryGroup,
+            exercises: categoryGroup.exercises.sort((a, b) => {
+              return (
+                String(a.topic || "").localeCompare(String(b.topic || ""), "it") ||
+                a.order - b.order ||
+                String(a.title || "").localeCompare(String(b.title || ""), "it")
+              );
+            })
+          }))
+          .sort((a, b) => {
             return (
-              String(a.topic || "").localeCompare(String(b.topic || ""), "it") ||
-              a.order - b.order ||
-              String(a.title || "").localeCompare(String(b.title || ""), "it")
+              a.category.order - b.category.order ||
+              a.category.name.localeCompare(b.category.name, "it")
             );
-          })
-        }))
-        .sort((a, b) => {
-          return (
-            a.category.order - b.category.order ||
-            a.category.name.localeCompare(b.category.name, "it")
-          );
-        });
+          });
+      });
+
+      return grouped;
     }
 
     function renderExerciseCard(exercise, color) {
@@ -905,7 +1015,7 @@
 
           <div class="card-header">
             ${exercise.icon ? `<span class="exercise-icon" aria-hidden="true">${escapeHtml(exercise.icon)}</span>` : ""}
-            <h3>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h3>
+            <h4>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h4>
           </div>
 
           <p class="description">
@@ -922,6 +1032,30 @@
       `;
     }
 
+    function toggleSubject(toggle) {
+      if (!toggle || hasActiveFilters() || state.forceExpandAll) return;
+
+      const block = toggle.closest(".subject-block");
+      const content = block?.querySelector(".subject-content");
+      if (!block || !content) return;
+
+      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+
+      results.querySelectorAll(".subject-toggle[aria-expanded='true']").forEach(button => {
+        if (button === toggle) return;
+        button.setAttribute("aria-expanded", "false");
+        const otherContent = button.closest(".subject-block")?.querySelector(".subject-content");
+        if (otherContent) otherContent.hidden = true;
+      });
+
+      const nextExpanded = !isExpanded;
+      toggle.setAttribute("aria-expanded", nextExpanded ? "true" : "false");
+      content.hidden = !nextExpanded;
+
+      state.expandedSubjectKey = nextExpanded ? normalize(toggle.dataset.subject || "") : null;
+      state.expandedCategoryKey = null;
+    }
+
     function toggleCategory(toggle) {
       if (!toggle || hasActiveFilters() || state.forceExpandAll) return;
 
@@ -931,7 +1065,8 @@
 
       const isExpanded = toggle.getAttribute("aria-expanded") === "true";
 
-      results.querySelectorAll(".category-toggle[aria-expanded='true']").forEach(button => {
+      const parentSubject = toggle.closest(".subject-content");
+      parentSubject?.querySelectorAll(".category-toggle[aria-expanded='true']").forEach(button => {
         if (button === toggle) return;
         button.setAttribute("aria-expanded", "false");
         const otherContent = button.closest(".category-block")?.querySelector(".category-content");
@@ -942,14 +1077,16 @@
       toggle.setAttribute("aria-expanded", nextExpanded ? "true" : "false");
       content.hidden = !nextExpanded;
 
-      state.expandedCategoryKey = nextExpanded ? normalize(toggle.dataset.category || "") : null;
+      state.expandedCategoryKey = nextExpanded
+        ? categoryKey(toggle.dataset.subject || "", toggle.dataset.category || "")
+        : null;
     }
 
     function resetFilters() {
       searchInput.value = "";
-      categoryFilter.value = "";
       topicFilter.value = "";
       levelFilter.value = "";
+      state.expandedSubjectKey = null;
       state.expandedCategoryKey = null;
       state.forceExpandAll = false;
       applyFilters();
@@ -958,6 +1095,7 @@
     function toggleExpandAll() {
       state.forceExpandAll = !state.forceExpandAll;
       if (state.forceExpandAll) {
+        state.expandedSubjectKey = null;
         state.expandedCategoryKey = null;
       }
       renderResults();
@@ -965,6 +1103,10 @@
 
     function updateExpandButtonLabel() {
       expandAllButton.textContent = state.forceExpandAll ? "Chiudi tutto" : "Apri tutto";
+    }
+
+    function countExercisesInSubject(subjectGroup) {
+      return subjectGroup.categories.reduce((sum, categoryGroup) => sum + categoryGroup.exercises.length, 0);
     }
 
     function exerciseCountLabel(count) {
@@ -979,10 +1121,30 @@
       return value || "";
     }
 
-    function inferCategoryFromPath(filePath) {
+    function categoryKey(subject, category) {
+      return `${normalize(subject)}::${normalize(category)}`;
+    }
+
+    function inferFromPath(filePath) {
       const parts = String(filePath || "").split("/").filter(Boolean);
-      if (parts.length <= 1) return "";
-      return titleCaseFromSlug(parts[0]);
+      return {
+        subject: titleCaseFromSlug(parts[0] || ""),
+        category: titleCaseFromSlug(parts[1] || ""),
+        topic: titleCaseFromSlug(parts[2] || "")
+      };
+    }
+
+    function inferSubjectFromCategory(categoryName) {
+      const name = normalize(categoryName);
+      const mathNames = [
+        "algebra",
+        "geometria analitica",
+        "analisi",
+        "trigonometria",
+        "probabilita e statistica",
+        "probabilità e statistica"
+      ];
+      return mathNames.includes(name) ? "Matematica" : "Fisica";
     }
 
     function titleCaseFromSlug(value) {
@@ -1013,16 +1175,21 @@
     }
 
     searchInput.addEventListener("input", applyFilters);
-    categoryFilter.addEventListener("change", applyFilters);
     topicFilter.addEventListener("change", applyFilters);
     levelFilter.addEventListener("change", applyFilters);
     resetButton.addEventListener("click", resetFilters);
     expandAllButton.addEventListener("click", toggleExpandAll);
 
     results.addEventListener("click", event => {
-      const toggle = event.target.closest(".category-toggle");
-      if (toggle) {
-        toggleCategory(toggle);
+      const categoryToggle = event.target.closest(".category-toggle");
+      if (categoryToggle) {
+        toggleCategory(categoryToggle);
+        return;
+      }
+
+      const subjectToggle = event.target.closest(".subject-toggle");
+      if (subjectToggle) {
+        toggleSubject(subjectToggle);
       }
     });
 
