@@ -1,0 +1,75 @@
+{
+  "collection": {
+    "title": "Limiti",
+    "description": "Esercizi svolti sui limiti con soluzioni espandibili.",
+    "subject": "Matematica",
+    "category": "Analisi",
+    "topic": "Limiti",
+    "icon": "∞",
+    "order": 10.0,
+    "tags": [
+      "limiti",
+      "polinomi",
+      "continuità",
+      "zero su zero",
+      "scomposizione"
+    ],
+    "level": "base",
+    "schoolYear": "Quinta superiore",
+    "estimatedTime": "11 min",
+    "isWip": false,
+    "count": 2
+  },
+  "exercises": [
+    {
+      "title": "Limite di un polinomio",
+      "description": "Calcolo di un limite finito usando la continuità dei polinomi.",
+      "subject": "Matematica",
+      "category": "Analisi",
+      "topic": "Limiti",
+      "collection": "Limiti",
+      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
+      "icon": "∞",
+      "order": 10,
+      "tags": [
+        "limiti",
+        "polinomi",
+        "continuità"
+      ],
+      "level": "base",
+      "schoolYear": "Quinta superiore",
+      "estimatedTime": "5 min",
+      "isWip": false,
+      "collectionOrder": 10,
+      "file": "limite-01-polinomio.html",
+      "sourceFile": "matematica/limiti/limite-01-polinomio.html",
+      "statementHtml": "<p>Calcola il seguente limite:</p>\n  \\[\n    \\lim_{x \\to 2} (3x^2 - 5x + 1)\n  \\]\n  <p><strong>Richiesta:</strong> stabilire se basta la sostituzione diretta.</p>",
+      "solutionHtml": "<p>La funzione è un polinomio, quindi è continua per ogni valore reale di \\(x\\).</p>\n  \\[\n    \\lim_{x \\to 2} (3x^2 - 5x + 1)\n    = 3 \\cdot 2^2 - 5 \\cdot 2 + 1\n    = 12 - 10 + 1 = 3\n  \\]\n  <p><strong>Risultato:</strong> \\(3\\).</p>"
+    },
+    {
+      "title": "Forma indeterminata 0/0",
+      "description": "Limite razionale risolto tramite differenza di quadrati.",
+      "subject": "Matematica",
+      "category": "Analisi",
+      "topic": "Limiti",
+      "collection": "Limiti",
+      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
+      "icon": "∞",
+      "order": 20,
+      "tags": [
+        "limiti",
+        "zero su zero",
+        "scomposizione"
+      ],
+      "level": "base",
+      "schoolYear": "Quinta superiore",
+      "estimatedTime": "6 min",
+      "isWip": false,
+      "collectionOrder": 20,
+      "file": "limite-02-zero-su-zero.html",
+      "sourceFile": "matematica/limiti/limite-02-zero-su-zero.html",
+      "statementHtml": "<p>Calcola il seguente limite:</p>\n  \\[\n    \\lim_{x \\to 3} \\frac{x^2 - 9}{x - 3}\n  \\]\n  <p><strong>Richiesta:</strong> riconoscere la forma indeterminata e semplificare.</p>",
+      "solutionHtml": "<p>Sostituendo \\(x = 3\\) si ottiene \\(0/0\\), quindi bisogna trasformare l'espressione.</p>\n  \\[\n    x^2 - 9 = (x - 3)(x + 3)\n  \\]\n  \\[\n    \\frac{x^2 - 9}{x - 3}\n    = \\frac{(x - 3)(x + 3)}{x - 3}\n    = x + 3\n  \\]\n  \\[\n    \\lim_{x \\to 3} (x + 3) = 6\n  \\]\n  <p><strong>Risultato:</strong> \\(6\\).</p>"
+    }
+  ]
+}

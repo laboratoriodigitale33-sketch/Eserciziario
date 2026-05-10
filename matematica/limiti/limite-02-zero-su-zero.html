@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Forma 0/0</title>
+  <script>
+    window.EXERCISE_METADATA = {
+      title: "Forma indeterminata 0/0",
+      description: "Limite razionale risolto tramite differenza di quadrati.",
+      subject: "Matematica",
+      category: "Analisi",
+      topic: "Limiti",
+      collection: "Limiti",
+      collectionDescription: "Esercizi svolti sui limiti con soluzioni espandibili.",
+      icon: "∞",
+      order: 20,
+      tags: ["limiti", "zero su zero", "scomposizione"],
+      level: "base",
+      schoolYear: "Quinta superiore",
+      estimatedTime: "6 min",
+      isWip: false
+    };
+  </script>
+</head>
+<body>
+<template data-exercise-statement>
+  <p>Calcola il seguente limite:</p>
+  \[
+    \lim_{x \to 3} \frac{x^2 - 9}{x - 3}
+  \]
+  <p><strong>Richiesta:</strong> riconoscere la forma indeterminata e semplificare.</p>
+</template>
+
+<template data-exercise-solution>
+  <p>Sostituendo \(x = 3\) si ottiene \(0/0\), quindi bisogna trasformare l'espressione.</p>
+  \[
+    x^2 - 9 = (x - 3)(x + 3)
+  \]
+  \[
+    \frac{x^2 - 9}{x - 3}
+    = \frac{(x - 3)(x + 3)}{x - 3}
+    = x + 3
+  \]
+  \[
+    \lim_{x \to 3} (x + 3) = 6
+  \]
+  <p><strong>Risultato:</strong> \(6\).</p>
+</template>
+</body>
+</html>
