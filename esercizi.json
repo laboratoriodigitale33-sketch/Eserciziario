@@ -15,14 +15,313 @@
   ],
   "categories": [
     {
+      "name": "Fondamenti",
+      "subject": "Fisica",
+      "order": 1,
+      "color": "#8ab4f0",
+      "description": "Il linguaggio con cui la fisica descrive il mondo."
+    },
+    {
+      "name": "Algebra",
+      "subject": "Matematica",
+      "order": 10,
+      "color": "#8ab4f0",
+      "description": "Equazioni, disequazioni, polinomi e calcolo simbolico."
+    },
+    {
       "name": "Analisi",
       "subject": "Matematica",
       "order": 10.0,
       "color": "#8f6f3d",
       "description": "Esercizi di analisi."
+    },
+    {
+      "name": "Meccanica",
+      "subject": "Fisica",
+      "order": 10,
+      "color": "#5bd4c4",
+      "description": "Moto, forze, equilibrio, energia e leggi di Newton."
+    },
+    {
+      "name": "Geometria Analitica",
+      "subject": "Matematica",
+      "order": 20,
+      "color": "#93c5fd",
+      "description": "Rette, circonferenze, coniche e coordinate cartesiane."
+    },
+    {
+      "name": "Gravitazione",
+      "subject": "Fisica",
+      "order": 20,
+      "color": "#a78bfa",
+      "description": "La forza che domina su grandi scale: dalla caduta dei corpi alle orbite."
+    },
+    {
+      "name": "Fluidodinamica",
+      "subject": "Fisica",
+      "order": 30,
+      "color": "#5bc8f0",
+      "description": "Il comportamento di liquidi, gas e fluidi in movimento."
+    },
+    {
+      "name": "Termodinamica",
+      "subject": "Fisica",
+      "order": 40,
+      "color": "#f08c5b",
+      "description": "Calore, temperatura, energia interna, entropia e macchine termiche."
+    },
+    {
+      "name": "Onde",
+      "subject": "Fisica",
+      "order": 50,
+      "color": "#f0c060",
+      "description": "Propagazione, interferenza, diffrazione e fenomeni ondulatori."
+    },
+    {
+      "name": "Ottica",
+      "subject": "Fisica",
+      "order": 60,
+      "color": "#f0e060",
+      "description": "Riflessione, rifrazione, lenti, specchi e comportamento della luce."
+    },
+    {
+      "name": "Elettromagnetismo",
+      "subject": "Fisica",
+      "order": 70,
+      "color": "#f07070",
+      "description": "Cariche, campi elettrici, magnetismo, circuiti e onde elettromagnetiche."
+    },
+    {
+      "name": "Relatività",
+      "subject": "Fisica",
+      "order": 80,
+      "color": "#c084fc",
+      "description": "Spazio, tempo, simultaneità, gravità relativistica e struttura dello spaziotempo."
+    },
+    {
+      "name": "Meccanica Quantistica",
+      "subject": "Fisica",
+      "order": 90,
+      "color": "#7dd3fc",
+      "description": "Fenomeni microscopici, stati quantistici, probabilità e misura."
+    },
+    {
+      "name": "Astrofisica",
+      "subject": "Fisica",
+      "order": 100,
+      "color": "#e879f9",
+      "description": "Stelle, galassie, cosmologia e fenomeni fisici su scala astronomica."
+    },
+    {
+      "name": "Fisica Nucleare",
+      "subject": "Fisica",
+      "order": 110,
+      "color": "#fb923c",
+      "description": "Nuclei, decadimenti, reazioni nucleari e applicazioni delle radiazioni."
+    },
+    {
+      "name": "Fisica delle Particelle",
+      "subject": "Fisica",
+      "order": 120,
+      "color": "#fb923c",
+      "description": "Particelle elementari, interazioni fondamentali e modello standard."
     }
   ],
   "exercises": [
+    {
+      "title": "Libro in equilibrio su un tavolo",
+      "description": "Esercizio svolto sul diagramma delle forze di un libro in quiete su un tavolo e sul calcolo della reazione normale.",
+      "category": "Meccanica",
+      "topic": "Dinamica",
+      "subject": "Fisica",
+      "icon": "📘",
+      "order": 110,
+      "tags": [
+        "dinamica",
+        "primo principio",
+        "inerzia",
+        "equilibrio",
+        "forza normale",
+        "peso"
+      ],
+      "level": "base",
+      "schoolYear": "Seconda superiore",
+      "estimatedTime": "8 min",
+      "isWip": false,
+      "file": "fisica/meccanica/dinamica/libro-equilibrio-tavolo.html"
+    },
+    {
+      "title": "Grafico spazio-tempo e principio di inerzia",
+      "description": "Esercizio svolto sull’interpretazione di un grafico posizione-tempo per riconoscere quando la forza risultante è nulla o non nulla.",
+      "category": "Meccanica",
+      "topic": "Dinamica",
+      "subject": "Fisica",
+      "icon": "📈",
+      "order": 120,
+      "tags": [
+        "dinamica",
+        "primo principio",
+        "grafico spazio-tempo",
+        "velocità",
+        "forza risultante"
+      ],
+      "level": "intermedio",
+      "schoolYear": "Seconda superiore",
+      "estimatedTime": "12 min",
+      "isWip": false,
+      "file": "fisica/meccanica/dinamica/grafico-spazio-tempo-primo-principio.html"
+    },
+    {
+      "title": "Spinta su una cassa su piano senza attrito",
+      "description": "Esercizio svolto sul secondo principio della dinamica applicato a una cassa spinta su piano orizzontale liscio.",
+      "category": "Meccanica",
+      "topic": "Dinamica",
+      "subject": "Fisica",
+      "icon": "➡️",
+      "order": 210,
+      "tags": [
+        "dinamica",
+        "secondo principio",
+        "forza",
+        "massa",
+        "accelerazione",
+        "moto uniformemente accelerato"
+      ],
+      "level": "base",
+      "schoolYear": "Seconda superiore",
+      "estimatedTime": "10 min",
+      "isWip": false,
+      "file": "fisica/meccanica/dinamica/spinta-cassa-piano-senza-attrito.html"
+    },
+    {
+      "title": "Due blocchi a contatto su piano senza attrito",
+      "description": "Esercizio svolto su un sistema di due blocchi a contatto, con calcolo dell’accelerazione comune e della forza di contatto.",
+      "category": "Meccanica",
+      "topic": "Dinamica",
+      "subject": "Fisica",
+      "icon": "▭",
+      "order": 220,
+      "tags": [
+        "dinamica",
+        "secondo principio",
+        "sistemi di corpi",
+        "forza di contatto",
+        "accelerazione"
+      ],
+      "level": "intermedio",
+      "schoolYear": "Seconda superiore",
+      "estimatedTime": "15 min",
+      "isWip": false,
+      "file": "fisica/meccanica/dinamica/due-blocchi-contatto-piano-senza-attrito.html"
+    },
+    {
+      "title": "Pattinatori che si spingono",
+      "description": "Esercizio svolto sul terzo principio della dinamica e sul confronto tra forze uguali e accelerazioni diverse.",
+      "category": "Meccanica",
+      "topic": "Dinamica",
+      "subject": "Fisica",
+      "icon": "↔️",
+      "order": 310,
+      "tags": [
+        "dinamica",
+        "terzo principio",
+        "azione e reazione",
+        "accelerazione",
+        "masse diverse"
+      ],
+      "level": "base",
+      "schoolYear": "Seconda superiore",
+      "estimatedTime": "10 min",
+      "isWip": false,
+      "file": "fisica/meccanica/dinamica/pattinatori-terzo-principio.html"
+    },
+    {
+      "title": "Astronauti collegati da una fune",
+      "description": "Esercizio svolto sulla tensione in una fune, sul terzo principio della dinamica e sul moto relativo di due astronauti.",
+      "category": "Meccanica",
+      "topic": "Dinamica",
+      "subject": "Fisica",
+      "icon": "🧑‍🚀",
+      "order": 320,
+      "tags": [
+        "dinamica",
+        "terzo principio",
+        "tensione",
+        "fune",
+        "accelerazione",
+        "spazio percorso"
+      ],
+      "level": "intermedio",
+      "schoolYear": "Seconda superiore",
+      "estimatedTime": "15 min",
+      "isWip": false,
+      "file": "fisica/meccanica/dinamica/astronauti-fune-terzo-principio.html"
+    },
+    {
+      "title": "Ascensore e peso apparente",
+      "description": "Esercizio svolto sul peso apparente in un ascensore in accelerazione, con interpretazione nel sistema inerziale e non inerziale.",
+      "category": "Meccanica",
+      "topic": "Dinamica",
+      "subject": "Fisica",
+      "icon": "↕️",
+      "order": 410,
+      "tags": [
+        "dinamica",
+        "ascensore",
+        "peso apparente",
+        "forza normale",
+        "sistemi non inerziali",
+        "pseudoforza"
+      ],
+      "level": "base",
+      "schoolYear": "Seconda superiore",
+      "estimatedTime": "12 min",
+      "isWip": false,
+      "file": "fisica/meccanica/dinamica/ascensore-peso-apparente.html"
+    },
+    {
+      "title": "Giostra e forza centrifuga",
+      "description": "Esercizio svolto sulla forza centripeta reale nel sistema inerziale e sulla forza centrifuga fittizia nel sistema rotante.",
+      "category": "Meccanica",
+      "topic": "Dinamica",
+      "subject": "Fisica",
+      "icon": "🌀",
+      "order": 420,
+      "tags": [
+        "dinamica",
+        "moto circolare",
+        "forza centripeta",
+        "forza centrifuga",
+        "sistemi non inerziali",
+        "giostra"
+      ],
+      "level": "intermedio",
+      "schoolYear": "Seconda superiore",
+      "estimatedTime": "15 min",
+      "isWip": false,
+      "file": "fisica/meccanica/dinamica/giostra-forza-centrifuga.html"
+    },
+    {
+      "title": "Limite di un polinomio",
+      "description": "Calcolo di un limite finito usando la continuità dei polinomi.",
+      "subject": "Matematica",
+      "category": "Analisi",
+      "topic": "Limiti",
+      "collection": "Limiti",
+      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
+      "icon": "∞",
+      "order": 10,
+      "tags": [
+        "limiti",
+        "polinomi",
+        "continuità"
+      ],
+      "level": "base",
+      "schoolYear": "Quinta superiore",
+      "estimatedTime": "5 min",
+      "isWip": false,
+      "file": "matematica/limiti/limite-01-polinomio.html"
+    },
     {
       "title": "Limiti",
       "description": "Esercizi svolti sui limiti con soluzioni espandibili.",
@@ -36,15 +335,60 @@
         "polinomi",
         "continuità",
         "zero su zero",
+        "scomposizione",
+        "infinito su infinito",
+        "funzioni razionali"
+      ],
+      "level": "base",
+      "schoolYear": "Quinta superiore",
+      "estimatedTime": "18 min",
+      "file": "matematica/limiti/index.html",
+      "isWip": false,
+      "type": "collection",
+      "count": 3
+    },
+    {
+      "title": "Forma indeterminata 0/0",
+      "description": "Limite razionale risolto tramite differenza di quadrati.",
+      "subject": "Matematica",
+      "category": "Analisi",
+      "topic": "Limiti",
+      "collection": "Limiti",
+      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
+      "icon": "∞",
+      "order": 20,
+      "tags": [
+        "limiti",
+        "zero su zero",
         "scomposizione"
       ],
       "level": "base",
       "schoolYear": "Quinta superiore",
-      "estimatedTime": "11 min",
-      "file": "matematica/limiti/index.html",
+      "estimatedTime": "6 min",
       "isWip": false,
-      "type": "collection",
-      "count": 2
+      "file": "matematica/limiti/limite-02-zero-su-zero.html"
+    },
+    {
+      "title": "Forma indeterminata infinito su infinito",
+      "description": "Limite di una funzione razionale per x che tende a infinito, risolto confrontando i termini di grado massimo.",
+      "subject": "Matematica",
+      "category": "Analisi",
+      "topic": "Limiti",
+      "collection": "Limiti",
+      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
+      "icon": "∞",
+      "order": 30,
+      "tags": [
+        "limiti",
+        "infinito su infinito",
+        "polinomi",
+        "funzioni razionali"
+      ],
+      "level": "base",
+      "schoolYear": "Quinta superiore",
+      "estimatedTime": "7 min",
+      "isWip": false,
+      "file": "matematica/limiti/limite-03-infinito-su-infinito.html"
     }
   ]
 }
