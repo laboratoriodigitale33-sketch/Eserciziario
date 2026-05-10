@@ -1,36 +1,18 @@
 {
-  "collection": {
-    "title": "Limiti",
-    "description": "Esercizi svolti sui limiti con soluzioni espandibili.",
-    "subject": "Matematica",
-    "category": "Analisi",
-    "topic": "Limiti",
-    "icon": "∞",
-    "order": 10.0,
-    "tags": [
-      "limiti",
-      "polinomi",
-      "continuità",
-      "zero su zero",
-      "scomposizione",
-      "infinito su infinito",
-      "funzioni razionali"
-    ],
-    "level": "base",
-    "schoolYear": "Quinta superiore",
-    "estimatedTime": "18 min",
-    "isWip": false,
-    "count": 3
-  },
+  "generator": "collection-v2",
+  "title": "Limiti",
+  "subject": "Matematica",
+  "category": "Limiti",
+  "topic": "Limiti",
+  "description": "Raccolta di esercizi svolti di limiti: 3 esercizi con testo, schema e soluzione commentata.",
+  "count": 3,
   "exercises": [
     {
       "title": "Limite di un polinomio",
       "description": "Calcolo di un limite finito usando la continuità dei polinomi.",
       "subject": "Matematica",
-      "category": "Analisi",
+      "category": "Limiti",
       "topic": "Limiti",
-      "collection": "Limiti",
-      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
       "icon": "∞",
       "order": 10,
       "tags": [
@@ -42,20 +24,15 @@
       "schoolYear": "Quinta superiore",
       "estimatedTime": "5 min",
       "isWip": false,
-      "collectionOrder": 10,
-      "file": "limite-01-polinomio.html",
-      "sourceFile": "matematica/limiti/limite-01-polinomio.html",
-      "statementHtml": "<p>Calcola il seguente limite:</p>\n  \\[\n    \\lim_{x \\to 2} (3x^2 - 5x + 1)\n  \\]\n  <p><strong>Richiesta:</strong> stabilire se basta la sostituzione diretta.</p>",
-      "solutionHtml": "<p>La funzione è un polinomio, quindi è continua per ogni valore reale di \\(x\\).</p>\n  \\[\n    \\lim_{x \\to 2} (3x^2 - 5x + 1)\n    = 3 \\cdot 2^2 - 5 \\cdot 2 + 1\n    = 12 - 10 + 1 = 3\n  \\]\n  <p><strong>Risultato:</strong> \\(3\\).</p>"
+      "source": "limite-01-polinomio.html",
+      "sourceFormat": "template"
     },
     {
       "title": "Forma indeterminata 0/0",
       "description": "Limite razionale risolto tramite differenza di quadrati.",
       "subject": "Matematica",
-      "category": "Analisi",
+      "category": "Limiti",
       "topic": "Limiti",
-      "collection": "Limiti",
-      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
       "icon": "∞",
       "order": 20,
       "tags": [
@@ -67,20 +44,15 @@
       "schoolYear": "Quinta superiore",
       "estimatedTime": "6 min",
       "isWip": false,
-      "collectionOrder": 20,
-      "file": "limite-02-zero-su-zero.html",
-      "sourceFile": "matematica/limiti/limite-02-zero-su-zero.html",
-      "statementHtml": "<p>Calcola il seguente limite:</p>\n  \\[\n    \\lim_{x \\to 3} \\frac{x^2 - 9}{x - 3}\n  \\]\n  <p><strong>Richiesta:</strong> riconoscere la forma indeterminata e semplificare.</p>",
-      "solutionHtml": "<p>Sostituendo \\(x = 3\\) si ottiene \\(0/0\\), quindi bisogna trasformare l'espressione.</p>\n  \\[\n    x^2 - 9 = (x - 3)(x + 3)\n  \\]\n  \\[\n    \\frac{x^2 - 9}{x - 3}\n    = \\frac{(x - 3)(x + 3)}{x - 3}\n    = x + 3\n  \\]\n  \\[\n    \\lim_{x \\to 3} (x + 3) = 6\n  \\]\n  <p><strong>Risultato:</strong> \\(6\\).</p>"
+      "source": "limite-02-zero-su-zero.html",
+      "sourceFormat": "template"
     },
     {
       "title": "Forma indeterminata infinito su infinito",
       "description": "Limite di una funzione razionale per x che tende a infinito, risolto confrontando i termini di grado massimo.",
       "subject": "Matematica",
-      "category": "Analisi",
+      "category": "Limiti",
       "topic": "Limiti",
-      "collection": "Limiti",
-      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
       "icon": "∞",
       "order": 30,
       "tags": [
@@ -93,11 +65,8 @@
       "schoolYear": "Quinta superiore",
       "estimatedTime": "7 min",
       "isWip": false,
-      "collectionOrder": 30,
-      "file": "limite-03-infinito-su-infinito.html",
-      "sourceFile": "matematica/limiti/limite-03-infinito-su-infinito.html",
-      "statementHtml": "<p>Calcola il seguente limite:</p>\n\n  \\[\n    \\lim_{x \\to +\\infty}\n    \\frac{6x^2 - 5x + 1}{3x^2 + 4x - 2}\n  \\]\n\n  <p><strong>Richiesta:</strong> riconoscere la forma indeterminata e risolvere il limite confrontando i termini di grado massimo.</p>",
-      "solutionHtml": "<p>Per \\(x \\to +\\infty\\), il numeratore e il denominatore tendono entrambi a \\(+\\infty\\). La forma iniziale è quindi:</p>\n\n  \\[\n    \\frac{+\\infty}{+\\infty}\n  \\]\n\n  <p>Questa è una forma indeterminata. Poiché numeratore e denominatore sono polinomi dello stesso grado, conviene raccogliere la potenza più alta, cioè \\(x^2\\).</p>\n\n  \\[\n    \\frac{6x^2 - 5x + 1}{3x^2 + 4x - 2}\n    =\n    \\frac{x^2\\left(6 - \\frac{5}{x} + \\frac{1}{x^2}\\right)}\n         {x^2\\left(3 + \\frac{4}{x} - \\frac{2}{x^2}\\right)}\n  \\]\n\n  <p>Per \\(x \\neq 0\\), possiamo semplificare il fattore comune \\(x^2\\):</p>\n\n  \\[\n    \\frac{x^2\\left(6 - \\frac{5}{x} + \\frac{1}{x^2}\\right)}\n         {x^2\\left(3 + \\frac{4}{x} - \\frac{2}{x^2}\\right)}\n    =\n    \\frac{6 - \\frac{5}{x} + \\frac{1}{x^2}}\n         {3 + \\frac{4}{x} - \\frac{2}{x^2}}\n  \\]\n\n  <p>Ora usiamo il fatto che, per \\(x \\to +\\infty\\), valgono:</p>\n\n  \\[\n    \\frac{1}{x} \\to 0,\n    \\qquad\n    \\frac{1}{x^2} \\to 0\n  \\]\n\n  <p>Quindi:</p>\n\n  \\[\n    \\lim_{x \\to +\\infty}\n    \\frac{6 - \\frac{5}{x} + \\frac{1}{x^2}}\n         {3 + \\frac{4}{x} - \\frac{2}{x^2}}\n    =\n    \\frac{6 - 0 + 0}{3 + 0 - 0}\n    =\n    \\frac{6}{3}\n    =\n    2\n  \\]\n\n  <p><strong>Risultato:</strong> \\(2\\).</p>"
+      "source": "limite-03-infinito-su-infinito.html",
+      "sourceFormat": "template"
     }
   ]
 }

@@ -1,180 +1,734 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Raccolta esercizi</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-  <style>
-    :root {
-      --bg: #f6f4ef;
-      --panel: #ffffff;
-      --text: #1f2933;
-      --muted: #667085;
-      --border: #d8d3c7;
-      --accent: #365f85;
-      --accent-soft: rgba(54,95,133,.12);
-      --shadow: 0 14px 34px rgba(0,0,0,.065);
-      --radius: 22px;
-      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: var(--sans);
-      color: var(--text);
-      background: radial-gradient(circle at 8% 4%, rgba(54,95,133,.13), transparent 22rem), var(--bg);
-    }
-    .shell { width: min(980px, calc(100% - 2rem)); margin: 0 auto; }
-    header { padding: 3.2rem 0 1.7rem; }
-    h1 { margin: 0; font-size: clamp(2.2rem, 6vw, 4.5rem); line-height: .95; letter-spacing: -.055em; }
-    .subtitle { margin-top: .9rem; color: var(--muted); line-height: 1.55; }
-    .toolbar { display: flex; gap: .7rem; margin: 1.5rem 0; flex-wrap: wrap; }
-    input, select { border: 1px solid var(--border); border-radius: 999px; padding: .75rem .95rem; background: #fff; color: var(--text); font-size: .95rem; }
-    input { flex: 1 1 260px; }
-    .list { display: grid; gap: 1rem; padding-bottom: 4rem; }
-    .card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-    .card-head { padding: 1.1rem 1.25rem; display: flex; gap: .8rem; align-items: flex-start; justify-content: space-between; }
-    .card-title { margin: 0; font-size: 1.15rem; line-height: 1.25; }
-    .desc { margin: .45rem 0 0; color: var(--muted); line-height: 1.55; }
-    .meta { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
-    .pill { font-size: .75rem; padding: .24rem .52rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 700; }
-    .statement { padding: 0 1.25rem 1.1rem; color: var(--text); line-height: 1.65; }
-    .actions { padding: .85rem 1.25rem; border-top: 1px solid var(--border); display: flex; gap: .65rem; flex-wrap: wrap; }
-    button, .open-link { border: 1px solid var(--border); background: #fff; color: var(--accent); border-radius: 999px; padding: .58rem .78rem; font-weight: 750; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
-    button:hover, .open-link:hover { border-color: var(--accent); }
-    .solution { display: none; padding: 1.1rem 1.25rem 1.25rem; border-top: 1px dashed var(--border); line-height: 1.65; }
-    .card.open .solution { display: block; }
-    .empty, .error { background: #fff; border: 1px dashed var(--border); border-radius: var(--radius); padding: 2rem; color: var(--muted); line-height: 1.6; }
-    svg, canvas, img { max-width: 100%; }
-    @media (max-width: 680px) { .card-head { flex-direction: column; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dinamica | Esercizi svolti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --cream-dark: #ede5d5;
+    --ink: #1a1612;
+    --ink-light: #3d3530;
+    --ink-faint: #7a6f65;
+    --accent: #8b3a2a;
+    --accent-warm: #b5622a;
+    --gold: #c9a84c;
+    --border: #c8b89a;
+    --border-light: #ddd0bc;
+    --blue-muted: #3a5a7a;
+    --green-muted: #3a6a4a;
+    --shadow: rgba(26,22,18,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--cream); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; line-height: 1.7; }
+  .site-header { background: var(--ink); color: var(--cream); padding: 3rem 2rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .site-header::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,0.015) 40px,rgba(255,255,255,0.015) 41px); }
+  .site-header h1 { font-family: 'EB Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 500; letter-spacing: 0.02em; position: relative; }
+  .site-header .subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--gold); margin-top: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; position: relative; }
+  .site-header .meta-row { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.2rem; font-size: 0.82rem; color: rgba(245,240,232,0.6); position: relative; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+  .intro-box { background: var(--cream-dark); border-left: 4px solid var(--gold); padding: 1.4rem 1.6rem; margin: 2.5rem 0; font-family: 'EB Garamond', serif; font-size: 1.08rem; font-style: italic; color: var(--ink-light); border-radius: 0 4px 4px 0; }
+  .toc { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: -1rem 0 2rem; }
+  .toc span { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--ink-faint); border: 1px solid var(--border-light); background: rgba(255,255,255,0.55); border-radius: 999px; padding: 0.24rem 0.55rem; }
+  .section-header { margin-top: 3.5rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--ink); display: flex; align-items: baseline; gap: 1rem; }
+  .section-number { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .section-title { font-family: 'EB Garamond', serif; font-size: 1.7rem; font-weight: 500; color: var(--ink); }
+  .section-desc { margin-top: 0.8rem; color: var(--ink-faint); font-size: 0.93rem; font-style: italic; }
+  .law-card { background: var(--ink); color: var(--cream); border-radius: 6px; padding: 1.2rem 1.6rem; margin: 1.8rem 0 0; display: flex; gap: 1.2rem; align-items: flex-start; }
+  .law-card .law-num { font-family: 'EB Garamond', serif; font-size: 2.8rem; font-weight: 600; color: var(--gold); line-height: 1; flex-shrink: 0; }
+  .law-card .law-content h3 { font-family: 'EB Garamond', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .law-card .law-content p { font-size: 0.88rem; color: rgba(245,240,232,0.7); line-height: 1.55; }
+  .law-card .law-formula { margin-top: 0.5rem; font-size: 0.95rem; }
+  .exercise-card { background: white; border: 1px solid var(--border); border-radius: 6px; margin-top: 2rem; overflow: hidden; box-shadow: 0 2px 8px var(--shadow); }
+  .exercise-header { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.4rem; background: var(--ink); color: var(--cream); }
+  .exercise-badge { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; background: var(--accent); color: white; padding: 0.2rem 0.6rem; border-radius: 3px; white-space: nowrap; letter-spacing: 0.05em; }
+  .exercise-badge.medium { background: var(--accent-warm); }
+  .exercise-badge.hard { background: var(--blue-muted); }
+  .exercise-title { font-family: 'EB Garamond', serif; font-size: 1.12rem; font-weight: 500; flex: 1; }
+  .exercise-problem { padding: 1.4rem 1.6rem 0; }
+  .problem-text { font-family: 'EB Garamond', serif; font-size: 1.05rem; color: var(--ink); line-height: 1.75; }
+  .schema-wrap { margin: 1.2rem 0 0; background: var(--cream-dark); border: 1px solid var(--border); border-radius: 4px; padding: 1rem; text-align: center; }
+  .schema-wrap .schema-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--ink-faint); margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  svg { max-width: 100%; overflow: visible; }
+  canvas { max-width: 100%; }
+  .solution-toggle { display: flex; align-items: center; gap: 0.7rem; padding: 0.85rem 1.6rem; cursor: pointer; user-select: none; border-top: 1px solid var(--border-light); margin-top: 1.2rem; color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.15s; }
+  .solution-toggle:hover { background: var(--cream); }
+  .solution-toggle .sol-icon { display: inline-block; transition: transform 0.3s; font-size: 0.9rem; }
+  .exercise-card.open .solution-toggle .sol-icon { transform: rotate(180deg); }
+  .exercise-solution { display: none; padding: 0 1.6rem 1.4rem; border-top: 1px dashed var(--border-light); }
+  .exercise-card.open .exercise-solution { display: block; }
+  .solution-divider { display: flex; align-items: center; gap: 0.8rem; margin: 1.2rem 0 1rem; }
+  .solution-divider span { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; white-space: nowrap; }
+  .solution-divider::before, .solution-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .step { margin: 1rem 0; padding-left: 1rem; border-left: 3px solid var(--border-light); }
+  .step-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .step p { font-size: 0.95rem; color: var(--ink-light); line-height: 1.65; }
+  .step .math-block { margin: 0.6rem 0; }
+  .result-box { background: linear-gradient(135deg, var(--ink) 0%, #2d2420 100%); color: var(--cream); border-radius: 5px; padding: 1rem 1.4rem; margin-top: 1.4rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .result-box .res-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.12em; white-space: nowrap; }
+  .result-box .res-value { font-family: 'EB Garamond', serif; font-size: 1.1rem; }
+  .concept-note { background: #f0f5f0; border-left: 3px solid var(--green-muted); padding: 0.8rem 1.1rem; margin-top: 1.2rem; border-radius: 0 4px 4px 0; font-size: 0.9rem; color: var(--ink-light); }
+  .concept-note .cn-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--green-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .warning-band { background: var(--blue-muted); color: white; padding: 0.28rem 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  #graph-canvas { cursor: crosshair; display: block; margin: 0 auto; }
+  .graph-info { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--ink-faint); text-align: center; margin-top: 0.4rem; }
+  .graph-legend { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 0.7rem; }
+  .graph-legend span { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; display: flex; align-items: center; gap: 0.4rem; }
+  .leg-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  footer { text-align: center; padding: 2rem; font-family: 'EB Garamond', serif; font-size: 1rem; font-style: italic; color: var(--ink-faint); border-top: 1px solid var(--border-light); margin-top: 4rem; }
+  .katex-display { margin: 0.7rem 0 !important; }
+  @media (max-width: 600px) {
+    .site-header h1 { font-size: 2rem; }
+    .law-card { flex-direction: column; gap: 0.5rem; }
+    .law-card .law-num { font-size: 2rem; }
+  }
+</style>
 </head>
 <body>
-  <header class="shell">
-    <h1 id="title">Raccolta esercizi</h1>
-    <p id="subtitle" class="subtitle">Caricamento...</p>
-    <div class="toolbar">
-      <input id="search" type="search" placeholder="Cerca esercizio..." />
-      <select id="level"><option value="">Tutti i livelli</option></select>
-    </div>
-  </header>
-  <main class="shell">
-    <section id="list" class="list"><div class="empty">Caricamento raccolta...</div></section>
-  </main>
+<header class="site-header">
+  <h1>Dinamica</h1>
+  <p class="subtitle">Fisica · Meccanica · Dinamica</p>
+  <div class="meta-row"><span>8 esercizi svolti</span><span>·</span><span>testo sempre visibile</span><span>·</span><span>soluzione espandibile</span></div>
+</header>
 
-  <script>
-    const CATALOG_FILE = "dinamica.json";
-    const state = { exercises: [], filtered: [] };
-    const titleEl = document.getElementById('title');
-    const subtitleEl = document.getElementById('subtitle');
-    const listEl = document.getElementById('list');
-    const searchEl = document.getElementById('search');
-    const levelEl = document.getElementById('level');
+<div class="container">
+  <div class="intro-box">Raccolta di esercizi svolti di dinamica: 8 esercizi con testo, schema e soluzione commentata. Clicca su <em>Mostra soluzione</em> per espandere solo la soluzione.</div>
+  <div class="toc"><span>1. Libro in equilibrio su un tavolo</span>
+<span>2. Grafico spazio-tempo e principio di inerzia</span>
+<span>3. Spinta su una cassa su piano senza attrito</span>
+<span>4. Due blocchi a contatto su piano senza attrito</span>
+<span>5. Pattinatori che si spingono</span>
+<span>6. Astronauti collegati da una fune</span>
+<span>7. Ascensore e peso apparente</span>
+<span>8. Giostra e forza centrifuga</span></div>
 
-    function esc(value) {
-      return String(value ?? '')
-        .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
-        .replaceAll('\"','&quot;').replaceAll("'",'&#039;');
+<div class="exercise-card">
+<div class="exercise-header">
+<span class="exercise-badge">Facile</span>
+<span class="exercise-title">Libro in equilibrio su un tavolo</span>
+</div>
+<div class="exercise-problem">
+<p class="problem-text">Un libro di massa $m = 1{,}2\,\text{kg}$ è in quiete su un tavolo orizzontale. Quali forze agiscono su di esso? Sono in equilibrio? Calcola il modulo della forza normale esercitata dal tavolo.</p>
+<div class="schema-wrap">
+<svg height="195" viewbox="0 0 320 195" width="320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a1d" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#1a1612"></path></marker>
+<marker id="a1b" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a5a7a"></path></marker>
+</defs>
+<rect fill="#c8b89a" height="14" rx="2" width="240" x="40" y="128"></rect>
+<rect fill="#8b3a2a" height="40" rx="3" width="84" x="118" y="88"></rect>
+<text fill="white" font-family="IBM Plex Sans" font-size="12" text-anchor="middle" x="160" y="113">libro  m = 1,2 kg</text>
+<line marker-end="url(#a1d)" stroke="#1a1612" stroke-width="2.5" x1="160" x2="160" y1="128" y2="178"></line>
+<text fill="#1a1612" font-family="IBM Plex Mono" font-size="11" x="168" y="164">P = mg</text>
+<line marker-end="url(#a1b)" stroke="#3a5a7a" stroke-width="2.5" x1="160" x2="160" y1="88" y2="42"></line>
+<text fill="#3a5a7a" font-family="IBM Plex Mono" font-size="11" x="168" y="66">N</text>
+<text fill="#7a6f65" font-family="IBM Plex Mono" font-size="10" x="18" y="138">tavolo</text>
+</svg>
+<p class="schema-caption">Diagramma delle forze (FBD — Free Body Diagram) sul libro</p>
+</div>
+</div>
+<div class="solution-toggle" onclick="toggleSol(this)"><span class="sol-icon">▼</span> <span class="solution-label">Mostra soluzione</span></div>
+<div class="exercise-solution">
+<div class="solution-divider"><span>Soluzione</span></div>
+<div class="step">
+<p class="step-label">Identificazione delle forze</p>
+<p>Sul libro agiscono due forze: il <strong>peso</strong> $\vec{P} = m\vec{g}$ diretto verticalmente verso il basso, e la <strong>forza normale</strong> $\vec{N}$ esercitata dal tavolo, diretta verso l'alto. Non vi sono forze orizzontali.</p>
+</div>
+<div class="step">
+<p class="step-label">Applicazione del Primo Principio</p>
+<p>Il libro è in quiete, quindi la forza risultante è nulla. In direzione verticale:</p>
+<div class="math-block">$$\sum F_y = N - P = 0 \implies N = P = mg$$</div>
+</div>
+<div class="step">
+<p class="step-label">Calcolo numerico</p>
+<div class="math-block">$$N = mg = 1{,}2\,\text{kg} \times 9{,}81\,\text{m/s}^2 \approx 11{,}8\,\text{N}$$</div>
+</div>
+<div class="result-box">
+<span class="res-label">Risultato</span>
+<span class="res-value">$N = mg \approx 11{,}8\,\text{N}$, diretta verso l'alto</span>
+</div>
+<div class="concept-note">
+<p class="cn-label">Nota concettuale</p>
+<p>$\vec{N}$ e $\vec{P}$ non sono una coppia azione-reazione del Terzo Principio: sono entrambe forze sullo stesso corpo. La vera coppia è: il libro spinge il tavolo verso il basso con $-\vec{N}$, e il tavolo spinge il libro verso l'alto con $\vec{N}$. Il peso $\vec{P}$ è l'attrazione gravitazionale della Terra sul libro, la cui reazione è l'attrazione del libro sulla Terra.</p>
+</div>
+</div>
+</div>
+
+<div class="exercise-card">
+<div class="exercise-header">
+<span class="exercise-badge medium">Medio</span>
+<span class="exercise-title">Grafico spazio-tempo e principio di inerzia</span>
+</div>
+<div class="exercise-problem">
+<p class="problem-text">Il grafico mostra la posizione $x$ di un corpo in funzione del tempo $t$, diviso in quattro tratti (A, B, C, D). Per ciascun tratto indica se il corpo è soggetto a una forza risultante nulla o non nulla, motivando la risposta con il Primo Principio. Puoi passare il cursore sul grafico per leggere i valori.</p>
+<div class="schema-wrap" style="padding-bottom:0.5rem;">
+<canvas height="280" id="graph-canvas" width="500"></canvas>
+<p class="graph-info" id="graph-coords">Passa il cursore sul grafico</p>
+<div class="graph-legend">
+<span><span class="leg-dot" style="background:#3a5a7a"></span>Tratto A</span>
+<span><span class="leg-dot" style="background:#3a6a4a"></span>Tratto B</span>
+<span><span class="leg-dot" style="background:#c9a84c"></span>Tratto C</span>
+<span><span class="leg-dot" style="background:#8b3a2a"></span>Tratto D</span>
+</div>
+<p class="schema-caption">Grafico $x$-$t$: la pendenza in ogni punto è la velocità istantanea</p>
+</div>
+</div>
+<div class="solution-toggle" onclick="toggleSol(this)"><span class="sol-icon">▼</span> <span class="solution-label">Mostra soluzione</span></div>
+<div class="exercise-solution">
+<div class="solution-divider"><span>Soluzione</span></div>
+<div class="step">
+<p class="step-label">Criterio generale</p>
+<p>Il Primo Principio stabilisce che $\sum \vec{F} = \vec{0}$ se e solo se il corpo è in quiete oppure in moto rettilineo uniforme (velocità costante). In un grafico $x$-$t$ la velocità è la <em>pendenza</em>: un tratto rettilineo a pendenza costante indica velocità costante, quindi forza nulla. Un tratto curvilineo indica velocità variabile, quindi forza non nulla.</p>
+</div>
+<div class="step">
+<p class="step-label">Tratto A (0–2 s) — pendenza positiva costante</p>
+<p>Segmento rettilineo con pendenza positiva: il corpo si muove in avanti a velocità costante. Per il Primo Principio, $\sum \vec{F} = \vec{0}$.</p>
+</div>
+<div class="step">
+<p class="step-label">Tratto B (2–4 s) — pendenza nulla</p>
+<p>Il segmento è orizzontale: $x = \text{cost}$, il corpo è fermo. La velocità è zero e costante: $\sum \vec{F} = \vec{0}$.</p>
+</div>
+<div class="step">
+<p class="step-label">Tratto C (4–6 s) — curva (parabola)</p>
+<p>La curva è non lineare: la pendenza aumenta nel tempo. Il corpo accelera, quindi la velocità non è costante e $\sum \vec{F} \neq \vec{0}$.</p>
+</div>
+<div class="step">
+<p class="step-label">Tratto D (6–8 s) — pendenza negativa costante</p>
+<p>Segmento rettilineo con pendenza negativa: velocità costante nel verso negativo. Il segno della velocità non conta; ciò che conta è che sia costante: $\sum \vec{F} = \vec{0}$.</p>
+</div>
+<div class="result-box">
+<span class="res-label">Risultato</span>
+<span class="res-value">Forza nulla: A, B, D  |  Forza non nulla: solo C (tratto curvilineo)</span>
+</div>
+<div class="concept-note">
+<p class="cn-label">Nota concettuale</p>
+<p>La velocità è la derivata (pendenza) di $x(t)$. Solo dove la curva è non lineare la velocità varia ed è presente una forza. In tutti i tratti rettilinei, indipendentemente dal valore o dal segno della pendenza, il corpo è in moto rettilineo uniforme (o in quiete) e non agisce nessuna forza netta.</p>
+</div>
+</div>
+</div>
+
+<div class="exercise-card">
+<div class="exercise-header">
+<span class="exercise-badge">Facile</span>
+<span class="exercise-title">Spinta su una cassa su piano senza attrito</span>
+</div>
+<div class="exercise-problem">
+<p class="problem-text">Una cassa di massa $m = 25\,\text{kg}$ è su un piano orizzontale privo di attrito. Una forza orizzontale $F = 80\,\text{N}$ viene applicata alla cassa. Calcola l'accelerazione prodotta. Dopo quanto tempo raggiunge la velocità di $v = 6\,\text{m/s}$ partendo da ferma?</p>
+<div class="schema-wrap">
+<svg height="160" viewbox="0 0 340 160" width="340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a2b" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a5a7a"></path></marker>
+<marker id="a2g" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a6a4a"></path></marker>
+<marker id="a2d" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#1a1612"></path></marker>
+<marker id="a2gr" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#7a6f65"></path></marker>
+</defs>
+<rect fill="#c8b89a" height="10" width="300" x="20" y="120"></rect>
+<rect fill="#8b3a2a" height="45" rx="3" width="80" x="120" y="75"></rect>
+<text fill="white" font-family="IBM Plex Sans" font-size="12" text-anchor="middle" x="160" y="103">m = 25 kg</text>
+<line marker-end="url(#a2b)" stroke="#3a5a7a" stroke-width="3" x1="50" x2="118" y1="98" y2="98"></line>
+<text fill="#3a5a7a" font-family="IBM Plex Mono" font-size="11" x="52" y="88">F = 80 N</text>
+<line marker-end="url(#a2g)" stroke="#3a6a4a" stroke-dasharray="6,3" stroke-width="2.5" x1="202" x2="270" y1="98" y2="98"></line>
+<text fill="#3a6a4a" font-family="IBM Plex Mono" font-size="11" x="210" y="88">a = ?</text>
+<line marker-end="url(#a2d)" stroke="#1a1612" stroke-width="2" x1="160" x2="160" y1="120" y2="148"></line>
+<text fill="#1a1612" font-family="IBM Plex Mono" font-size="10" x="164" y="144">P</text>
+<line marker-end="url(#a2gr)" stroke="#7a6f65" stroke-width="2" x1="160" x2="160" y1="75" y2="50"></line>
+<text fill="#7a6f65" font-family="IBM Plex Mono" font-size="10" x="164" y="66">N</text>
+</svg>
+<p class="schema-caption">Piano orizzontale privo di attrito: l'unica forza orizzontale è F</p>
+</div>
+</div>
+<div class="solution-toggle" onclick="toggleSol(this)"><span class="sol-icon">▼</span> <span class="solution-label">Mostra soluzione</span></div>
+<div class="exercise-solution">
+<div class="solution-divider"><span>Soluzione</span></div>
+<div class="step">
+<p class="step-label">Analisi delle forze</p>
+<p>Verticalmente: $N = mg$ (equilibrio). Orizzontalmente: l'unica forza è $F = 80\,\text{N}$ (piano liscio, nessun attrito).</p>
+</div>
+<div class="step">
+<p class="step-label">Secondo Principio — accelerazione</p>
+<div class="math-block">$$a = \frac{F}{m} = \frac{80\,\text{N}}{25\,\text{kg}} = 3{,}2\,\text{m/s}^2$$</div>
+</div>
+<div class="step">
+<p class="step-label">Tempo per raggiungere 6 m/s</p>
+<p>Moto uniformemente accelerato con $v_0 = 0$: $v = at \implies t = v/a$</p>
+<div class="math-block">$$t = \frac{6\,\text{m/s}}{3{,}2\,\text{m/s}^2} \approx 1{,}9\,\text{s}$$</div>
+</div>
+<div class="result-box">
+<span class="res-label">Risultato</span>
+<span class="res-value">$a = 3{,}2\,\text{m/s}^2$;   $t \approx 1{,}9\,\text{s}$</span>
+</div>
+</div>
+</div>
+
+<div class="exercise-card">
+<div class="exercise-header">
+<span class="exercise-badge medium">Medio</span>
+<span class="exercise-title">Due blocchi a contatto su piano senza attrito</span>
+</div>
+<div class="exercise-problem">
+<p class="problem-text">Due blocchi, $m_1 = 3\,\text{kg}$ e $m_2 = 7\,\text{kg}$, sono a contatto su un piano orizzontale privo di attrito. Una forza $F = 40\,\text{N}$ viene applicata orizzontalmente al blocco $m_1$, che spinge $m_2$. Calcola: (a) l'accelerazione del sistema; (b) la forza di contatto $F_c$ che $m_1$ esercita su $m_2$.</p>
+<div class="schema-wrap">
+<svg height="155" viewbox="0 0 380 155" width="380" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a3b" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a5a7a"></path></marker>
+<marker id="a3g" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a6a4a"></path></marker>
+<marker id="a3o" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#c9a84c"></path></marker>
+</defs>
+<rect fill="#c8b89a" height="10" width="340" x="20" y="118"></rect>
+<rect fill="#3a5a7a" height="43" rx="3" width="65" x="105" y="75"></rect>
+<text fill="white" font-family="IBM Plex Sans" font-size="11" text-anchor="middle" x="137" y="101">m₁ = 3 kg</text>
+<rect fill="#8b3a2a" height="50" rx="3" width="90" x="170" y="68"></rect>
+<text fill="white" font-family="IBM Plex Sans" font-size="11" text-anchor="middle" x="215" y="98">m₂ = 7 kg</text>
+<line marker-end="url(#a3b)" stroke="#3a5a7a" stroke-width="3" x1="35" x2="103" y1="96" y2="96"></line>
+<text fill="#3a5a7a" font-family="IBM Plex Mono" font-size="11" x="35" y="86">F = 40 N</text>
+<line marker-end="url(#a3o)" stroke="#c9a84c" stroke-dasharray="5,3" stroke-width="2.5" x1="172" x2="228" y1="84" y2="84"></line>
+<text fill="#c9a84c" font-family="IBM Plex Mono" font-size="10" x="173" y="75">Fc (su m₂)</text>
+<line marker-end="url(#a3g)" stroke="#3a6a4a" stroke-dasharray="6,3" stroke-width="2.5" x1="262" x2="338" y1="90" y2="90"></line>
+<text fill="#3a6a4a" font-family="IBM Plex Mono" font-size="10" x="267" y="80">a</text>
+</svg>
+<p class="schema-caption">I due blocchi si muovono insieme; $F_c$ è la forza di contatto interna al sistema</p>
+</div>
+</div>
+<div class="solution-toggle" onclick="toggleSol(this)"><span class="sol-icon">▼</span> <span class="solution-label">Mostra soluzione</span></div>
+<div class="exercise-solution">
+<div class="solution-divider"><span>Soluzione</span></div>
+<div class="step">
+<p class="step-label">(a) Sistema complessivo</p>
+<p>I due blocchi si muovono insieme come un unico corpo di massa $M = m_1 + m_2 = 10\,\text{kg}$. La sola forza esterna orizzontale è $F$ (piano liscio; la forza di contatto è interna). Dal Secondo Principio:</p>
+<div class="math-block">$$a = \frac{F}{m_1 + m_2} = \frac{40\,\text{N}}{10\,\text{kg}} = 4{,}0\,\text{m/s}^2$$</div>
+</div>
+<div class="step">
+<p class="step-label">(b) Forza di contatto — analisi del solo blocco $m_2$</p>
+<p>Il blocco $m_2$ accelera con $a = 4\,\text{m/s}^2$. L'unica forza orizzontale su $m_2$ è la forza di contatto $F_c$:</p>
+<div class="math-block">$$F_c = m_2 \cdot a = 7\,\text{kg} \times 4{,}0\,\text{m/s}^2 = 28\,\text{N}$$</div>
+</div>
+<div class="step">
+<p class="step-label">Verifica con il blocco $m_1$</p>
+<p>Su $m_1$ agiscono $F = 40\,\text{N}$ in avanti e la reazione $-F_c = 28\,\text{N}$ indietro (Terzo Principio). Risultante: $40 - 28 = 12\,\text{N}$. Accelerazione: $12/3 = 4\,\text{m/s}^2$. ✓</p>
+</div>
+<div class="result-box">
+<span class="res-label">Risultato</span>
+<span class="res-value">$a = 4{,}0\,\text{m/s}^2$;   $F_c = 28\,\text{N}$</span>
+</div>
+<div class="concept-note">
+<p class="cn-label">Nota concettuale</p>
+<p>La forza di contatto $F_c$ è sempre minore di $F$: deve accelerare solo $m_2$, non il sistema intero. In generale $F_c = F \cdot m_2/(m_1+m_2)$. Se $m_2 \to 0$ non serve forza di contatto; se $m_1 \to 0$ allora $F_c \to F$.</p>
+</div>
+</div>
+</div>
+
+<div class="exercise-card">
+<div class="exercise-header">
+<span class="exercise-badge">Facile</span>
+<span class="exercise-title">Pattinatori che si spingono</span>
+</div>
+<div class="exercise-problem">
+<p class="problem-text">Due pattinatori su ghiaccio liscio sono fermi uno di fronte all'altro. Il pattinatore A ($m_A = 60\,\text{kg}$) spinge il pattinatore B ($m_B = 80\,\text{kg}$) con una forza di $F = 120\,\text{N}$. Trova le accelerazioni di entrambi e spiega perché si muovono in direzioni opposte.</p>
+<div class="schema-wrap">
+<svg height="138" viewbox="0 0 340 138" width="340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a4r" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#8b3a2a"></path></marker>
+<marker id="a4b" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a5a7a"></path></marker>
+<marker id="a4b2" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a5a7a"></path></marker>
+<marker id="a4r2" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#8b3a2a"></path></marker>
+</defs>
+<rect fill="#dde8f0" height="14" rx="2" width="340" x="0" y="108"></rect>
+<circle cx="100" cy="68" fill="#3a5a7a" r="20"></circle>
+<rect fill="#3a5a7a" height="20" rx="3" width="30" x="85" y="86"></rect>
+<text fill="white" font-family="IBM Plex Sans" font-size="10" text-anchor="middle" x="100" y="73">A 60 kg</text>
+<circle cx="240" cy="68" fill="#8b3a2a" r="20"></circle>
+<rect fill="#8b3a2a" height="20" rx="3" width="30" x="225" y="86"></rect>
+<text fill="white" font-family="IBM Plex Sans" font-size="10" text-anchor="middle" x="240" y="73">B 80 kg</text>
+<line marker-end="url(#a4r)" stroke="#8b3a2a" stroke-width="2.5" x1="128" x2="218" y1="78" y2="78"></line>
+<text fill="#8b3a2a" font-family="IBM Plex Mono" font-size="10" x="155" y="70">F (A→B)</text>
+<line marker-end="url(#a4b)" stroke="#3a5a7a" stroke-width="2.5" x1="215" x2="130" y1="93" y2="93"></line>
+<text fill="#3a5a7a" font-family="IBM Plex Mono" font-size="10" x="148" y="107">−F (B→A)</text>
+<line marker-end="url(#a4b2)" stroke="#3a5a7a" stroke-width="2" x1="82" x2="28" y1="50" y2="50"></line>
+<line marker-end="url(#a4r2)" stroke="#8b3a2a" stroke-width="2" x1="258" x2="312" y1="50" y2="50"></line>
+<text fill="#3a5a7a" font-family="IBM Plex Mono" font-size="9" x="26" y="44">aA</text>
+<text fill="#8b3a2a" font-family="IBM Plex Mono" font-size="9" x="300" y="44">aB</text>
+</svg>
+<p class="schema-caption">Le forze di azione e reazione sono uguali in modulo, opposte in verso, applicate su corpi diversi</p>
+</div>
+</div>
+<div class="solution-toggle" onclick="toggleSol(this)"><span class="sol-icon">▼</span> <span class="solution-label">Mostra soluzione</span></div>
+<div class="exercise-solution">
+<div class="solution-divider"><span>Soluzione</span></div>
+<div class="step">
+<p class="step-label">Terzo Principio</p>
+<p>Mentre A spinge B con $\vec{F}_{A \to B} = +120\,\text{N}$ verso destra, B spinge A con $\vec{F}_{B \to A} = -120\,\text{N}$ verso sinistra: stessa intensità, verso opposto.</p>
+</div>
+<div class="step">
+<p class="step-label">Accelerazione di B (verso destra)</p>
+<div class="math-block">$$a_B = \frac{F}{m_B} = \frac{120\,\text{N}}{80\,\text{kg}} = 1{,}5\,\text{m/s}^2$$</div>
+</div>
+<div class="step">
+<p class="step-label">Accelerazione di A (verso sinistra)</p>
+<div class="math-block">$$a_A = \frac{F}{m_A} = \frac{120\,\text{N}}{60\,\text{kg}} = 2{,}0\,\text{m/s}^2$$</div>
+</div>
+<div class="result-box">
+<span class="res-label">Risultato</span>
+<span class="res-value">$a_B = 1{,}5\,\text{m/s}^2$;   $a_A = 2{,}0\,\text{m/s}^2$ (direzioni opposte)</span>
+</div>
+<div class="concept-note">
+<p class="cn-label">Nota concettuale</p>
+<p>Le forze sono uguali in modulo ma le accelerazioni sono diverse perché le masse sono diverse: il corpo più leggero acquista l'accelerazione maggiore. È un errore frequente pensare che "azione e reazione si annullino": agiscono su corpi diversi e non possono mai cancellarsi tra loro.</p>
+</div>
+</div>
+</div>
+
+<div class="exercise-card">
+<div class="exercise-header">
+<span class="exercise-badge medium">Medio</span>
+<span class="exercise-title">Astronauti collegati da una fune</span>
+</div>
+<div class="exercise-problem">
+<p class="problem-text">Due astronauti si trovano in quiete nello spazio, collegati da una fune. L'astronauta A ($m_A = 80\,\text{kg}$) tira la fune con una forza $F = 60\,\text{N}$ verso di sé. (a) Con quale accelerazione si avvicina B ($m_B = 100\,\text{kg}$)? (b) Con quale accelerazione si avvicina A? (c) Dopo $t = 3\,\text{s}$ chi ha percorso più strada?</p>
+<div class="schema-wrap">
+<svg height="130" viewbox="0 0 360 130" width="360" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a5b" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a5a7a"></path></marker>
+<marker id="a5r" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#8b3a2a"></path></marker>
+<marker id="a5g" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a6a4a"></path></marker>
+<marker id="a5y" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#c9a84c"></path></marker>
+</defs>
+<rect fill="#0d1117" height="130" rx="6" width="360" x="0" y="0"></rect>
+<circle cx="30" cy="20" fill="white" opacity="0.7" r="1"></circle>
+<circle cx="80" cy="10" fill="white" opacity="0.5" r="1.2"></circle>
+<circle cx="200" cy="15" fill="white" opacity="0.8" r="1"></circle>
+<circle cx="310" cy="8" fill="white" opacity="0.4" r="1.5"></circle>
+<circle cx="340" cy="30" fill="white" opacity="0.6" r="1"></circle>
+<circle cx="50" cy="110" fill="white" opacity="0.5" r="1"></circle>
+<circle cx="290" cy="115" fill="white" opacity="0.7" r="1.2"></circle>
+<circle cx="75" cy="65" fill="#3a5a7a" r="22" stroke="#5580a0" stroke-width="1.5"></circle>
+<text fill="white" font-family="IBM Plex Sans" font-size="10" text-anchor="middle" x="75" y="60">A</text>
+<text fill="#dde8f0" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" x="75" y="74">80 kg</text>
+<circle cx="285" cy="65" fill="#8b3a2a" r="22" stroke="#c4614d" stroke-width="1.5"></circle>
+<text fill="white" font-family="IBM Plex Sans" font-size="10" text-anchor="middle" x="285" y="60">B</text>
+<text fill="#f5d0c8" font-family="IBM Plex Mono" font-size="9" text-anchor="middle" x="285" y="74">100 kg</text>
+<line stroke="#c9a84c" stroke-dasharray="8,4" stroke-width="2" x1="97" x2="263" y1="65" y2="65"></line>
+<line marker-end="url(#a5g)" stroke="#3a6a4a" stroke-width="2.5" x1="263" x2="185" y1="55" y2="55"></line>
+<text fill="#3a6a4a" font-family="IBM Plex Mono" font-size="9" x="195" y="46">T = 60 N</text>
+<line marker-end="url(#a5y)" stroke="#c9a84c" stroke-width="2.5" x1="97" x2="175" y1="75" y2="75"></line>
+<text fill="#c9a84c" font-family="IBM Plex Mono" font-size="9" x="105" y="88">T = 60 N</text>
+<line marker-end="url(#a5b)" stroke="#3a5a7a" stroke-dasharray="4,2" stroke-width="1.5" x1="57" x2="100" y1="40" y2="40"></line>
+<line marker-end="url(#a5r)" stroke="#8b3a2a" stroke-dasharray="4,2" stroke-width="1.5" x1="303" x2="260" y1="40" y2="40"></line>
+</svg>
+<p class="schema-caption">Spazio libero da gravità: la fune trasmette la stessa tensione $T$ a entrambi gli astronauti</p>
+</div>
+</div>
+<div class="solution-toggle" onclick="toggleSol(this)"><span class="sol-icon">▼</span> <span class="solution-label">Mostra soluzione</span></div>
+<div class="exercise-solution">
+<div class="solution-divider"><span>Soluzione</span></div>
+<div class="step">
+<p class="step-label">Terzo Principio e tensione nella fune</p>
+<p>A tira la fune con $F = 60\,\text{N}$: la fune (inestensibile e di massa nulla) trasmette la stessa tensione $T = 60\,\text{N}$ a entrambi. Per il Terzo Principio la forza che A esercita sulla fune è uguale e contraria a quella che la fune esercita su A. Su A agisce quindi $T = 60\,\text{N}$ verso B, e su B agisce $T = 60\,\text{N}$ verso A.</p>
+</div>
+<div class="step">
+<p class="step-label">(a) Accelerazione di B</p>
+<div class="math-block">$$a_B = \frac{T}{m_B} = \frac{60\,\text{N}}{100\,\text{kg}} = 0{,}60\,\text{m/s}^2 \quad\text{(verso A)}$$</div>
+</div>
+<div class="step">
+<p class="step-label">(b) Accelerazione di A</p>
+<div class="math-block">$$a_A = \frac{T}{m_A} = \frac{60\,\text{N}}{80\,\text{kg}} = 0{,}75\,\text{m/s}^2 \quad\text{(verso B)}$$</div>
+</div>
+<div class="step">
+<p class="step-label">(c) Spazio percorso in $t = 3\,\text{s}$</p>
+<p>Moto uniformemente accelerato da fermo: $s = \tfrac{1}{2}at^2$.</p>
+<div class="math-block">$$s_A = \tfrac{1}{2}\times 0{,}75\times 9 = 3{,}375\,\text{m}; \qquad s_B = \tfrac{1}{2}\times 0{,}60\times 9 = 2{,}70\,\text{m}$$</div>
+<p>A percorre più strada di B (massa minore, accelerazione maggiore).</p>
+</div>
+<div class="result-box">
+<span class="res-label">Risultato</span>
+<span class="res-value">$a_B = 0{,}60\,\text{m/s}^2$;   $a_A = 0{,}75\,\text{m/s}^2$;   A percorre $3{,}4\,\text{m}$, B percorre $2{,}7\,\text{m}$</span>
+</div>
+<div class="concept-note">
+<p class="cn-label">Nota concettuale</p>
+<p>Chi "tira" la fune non importa: la tensione è la stessa su entrambi i capi. L'astronauta più leggero acquista sempre l'accelerazione maggiore. Nello spazio non c'è peso né normale: la fune è l'unica forza in gioco, ed è lo stesso meccanismo dei pattinatori, ma in assenza di gravità.</p>
+</div>
+</div>
+</div>
+
+<div class="exercise-card">
+<div class="exercise-header" style="flex-direction:column;align-items:stretch;padding:0;gap:0;">
+<div class="warning-band">Sistema non inerziale</div>
+<div style="display:flex;align-items:center;gap:1rem;padding:0.8rem 1.4rem;">
+<span class="exercise-badge">Facile</span>
+<span class="exercise-title">Ascensore e peso apparente</span>
+</div>
+</div>
+<div class="exercise-problem">
+<p class="problem-text">Una persona di massa $m = 70\,\text{kg}$ si trova in un ascensore. Calcola la forza normale $N$ (il «peso apparente» avvertito sul pavimento) nei tre casi: (a) ascensore in salita con $a = 2\,\text{m/s}^2$; (b) ascensore in discesa con $a = 2\,\text{m/s}^2$; (c) ascensore in caduta libera ($a = g$). Si usi $g = 9{,}81\,\text{m/s}^2$.</p>
+<div class="schema-wrap">
+<svg height="200" viewbox="0 0 340 200" width="340" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a6g" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a6a4a"></path></marker>
+<marker id="a6d" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#1a1612"></path></marker>
+<marker id="a6r" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#8b3a2a"></path></marker>
+</defs>
+<rect fill="none" height="130" rx="4" stroke="#c8b89a" stroke-width="3" width="160" x="90" y="30"></rect>
+<rect fill="#c8b89a" height="8" width="160" x="90" y="155"></rect>
+<circle cx="170" cy="105" fill="#3a5a7a" r="15"></circle>
+<rect fill="#3a5a7a" height="32" rx="3" width="26" x="157" y="120"></rect>
+<text fill="white" font-family="IBM Plex Sans" font-size="9" text-anchor="middle" x="170" y="110">70 kg</text>
+<line marker-end="url(#a6g)" stroke="#3a6a4a" stroke-width="2.5" x1="170" x2="170" y1="152" y2="112"></line>
+<text fill="#3a6a4a" font-family="IBM Plex Mono" font-size="10" x="176" y="135">N</text>
+<line marker-end="url(#a6d)" stroke="#1a1612" stroke-width="2.5" x1="155" x2="155" y1="155" y2="188"></line>
+<text fill="#1a1612" font-family="IBM Plex Mono" font-size="10" x="132" y="184">mg</text>
+<line marker-end="url(#a6r)" stroke="#8b3a2a" stroke-width="2.5" x1="270" x2="270" y1="118" y2="60"></line>
+<text fill="#8b3a2a" font-family="IBM Plex Mono" font-size="10" x="276" y="96">a₀↑ caso (a)</text>
+</svg>
+<p class="schema-caption">Forze sulla persona nel sistema inerziale (Terra): peso $mg$ ↓, normale $N$ ↑</p>
+</div>
+</div>
+<div class="solution-toggle" onclick="toggleSol(this)"><span class="sol-icon">▼</span> <span class="solution-label">Mostra soluzione</span></div>
+<div class="exercise-solution">
+<div class="solution-divider"><span>Soluzione (sistema inerziale)</span></div>
+<div class="step">
+<p class="step-label">Formula generale</p>
+<p>Nel sistema inerziale (Terra), scelto positivo verso l'alto: $N - mg = ma_0 \implies N = m(g + a_0)$. Con $a_0 &gt; 0$ (salita) $N &gt; mg$; con $a_0 &lt; 0$ (discesa) $N &lt; mg$.</p>
+</div>
+<div class="step">
+<p class="step-label">Caso (a): $a_0 = +2\,\text{m/s}^2$</p>
+<div class="math-block">$$N = 70(9{,}81 + 2{,}00) = 70 \times 11{,}81 \approx 827\,\text{N}$$</div>
+<p>Peso reale $= 687\,\text{N}$: la persona si sente più pesante del 20%.</p>
+</div>
+<div class="step">
+<p class="step-label">Caso (b): $a_0 = -2\,\text{m/s}^2$</p>
+<div class="math-block">$$N = 70(9{,}81 - 2{,}00) = 70 \times 7{,}81 \approx 547\,\text{N}$$</div>
+<p>La persona si sente più leggera.</p>
+</div>
+<div class="step">
+<p class="step-label">Caso (c): caduta libera $a_0 = -g$</p>
+<div class="math-block">$$N = m(g - g) = 0$$</div>
+<p>Imponderabilità: stessa condizione degli astronauti in orbita (caduta libera continua verso la Terra).</p>
+</div>
+<div class="result-box">
+<span class="res-label">Risultati</span>
+<span class="res-value">(a) $N \approx 827\,\text{N}$;   (b) $N \approx 547\,\text{N}$;   (c) $N = 0$</span>
+</div>
+<div class="concept-note">
+<p class="cn-label">Interpretazione nel sistema non inerziale (ascensore)</p>
+<p>Nel sistema dell'ascensore si introduce la pseudoforza $F_\text{fitt} = -ma_0$. Nel caso (a), essa è diretta verso il basso (opposta ad $a_0$ verso l'alto) e si somma al peso reale: la persona «pesa di più». Nel caso (c), la forza fittizia vale $+mg$ verso l'alto e bilancia esattamente il peso: peso apparente zero.</p>
+</div>
+</div>
+</div>
+
+<div class="exercise-card">
+<div class="exercise-header" style="flex-direction:column;align-items:stretch;padding:0;gap:0;">
+<div class="warning-band">Sistema non inerziale</div>
+<div style="display:flex;align-items:center;gap:1rem;padding:0.8rem 1.4rem;">
+<span class="exercise-badge medium">Medio</span>
+<span class="exercise-title">Giostra e forza centrifuga</span>
+</div>
+</div>
+<div class="exercise-problem">
+<p class="problem-text">Un bambino di massa $m = 30\,\text{kg}$ siede su una giostra circolare a distanza $r = 2\,\text{m}$ dal centro. La giostra ruota con velocità angolare costante $\omega = 1{,}5\,\text{rad/s}$. (a) Nel sistema inerziale (Terra), qual è la forza centripeta necessaria e da dove proviene fisicamente? (b) Nel sistema rotante (non inerziale) solidale alla giostra, introduci la forza centrifuga fittizia e verifica l'equilibrio. (c) Calcola il modulo di tale forza.</p>
+<div class="schema-wrap">
+<svg height="230" viewbox="0 0 360 230" width="360" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a7b" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a5a7a"></path></marker>
+<marker id="a7r" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#8b3a2a"></path></marker>
+<marker id="a7go" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#c9a84c"></path></marker>
+</defs>
+<circle cx="180" cy="115" fill="#ede5d5" r="90" stroke="#c8b89a" stroke-width="2"></circle>
+<circle cx="180" cy="115" fill="#3d3530" r="6"></circle>
+<line stroke="#c8b89a" stroke-dasharray="6,3" stroke-width="1.5" x1="180" x2="260" y1="115" y2="115"></line>
+<circle cx="268" cy="115" fill="#3a5a7a" r="16"></circle>
+<text fill="white" font-family="IBM Plex Sans" font-size="9" text-anchor="middle" x="268" y="120">m</text>
+<text fill="#7a6f65" font-family="IBM Plex Mono" font-size="11" x="218" y="108">r = 2 m</text>
+<line marker-end="url(#a7b)" stroke="#3a5a7a" stroke-width="2.5" x1="252" x2="198" y1="107" y2="107"></line>
+<text fill="#3a5a7a" font-family="IBM Plex Mono" font-size="10" x="185" y="98">F_c (centripeta)</text>
+<line marker-end="url(#a7r)" stroke="#8b3a2a" stroke-dasharray="5,3" stroke-width="2.5" x1="284" x2="340" y1="122" y2="122"></line>
+<text fill="#8b3a2a" font-family="IBM Plex Mono" font-size="10" x="285" y="137">F_fitt (centrifuga)</text>
+<path d="M 180,25 A 90,90 0 0,1 260,88" fill="none" marker-end="url(#a7go)" stroke="#c9a84c" stroke-width="2"></path>
+<text fill="#c9a84c" font-family="IBM Plex Mono" font-size="10" x="224" y="45">ω</text>
+<text fill="#3a5a7a" font-family="IBM Plex Mono" font-size="9" x="10" y="195">─── forza reale (centripeta)</text>
+<text fill="#8b3a2a" font-family="IBM Plex Mono" font-size="9" x="10" y="212">- - - forza fittizia (centrifuga)</text>
+</svg>
+<p class="schema-caption">Vista dall'alto: nel sistema inerziale esiste solo la centripeta; nel sistema rotante appare la centrifuga fittizia</p>
+</div>
+</div>
+<div class="solution-toggle" onclick="toggleSol(this)"><span class="sol-icon">▼</span> <span class="solution-label">Mostra soluzione</span></div>
+<div class="exercise-solution">
+<div class="solution-divider"><span>Soluzione</span></div>
+<div class="step">
+<p class="step-label">(a) Sistema inerziale — forza centripeta</p>
+<p>Perché il bambino si muova di moto circolare uniforme, deve agire su di lui una forza risultante diretta verso il centro (accelerazione centripeta $a_c = \omega^2 r$):</p>
+<div class="math-block">$$F_c = m\omega^2 r = 30\,\text{kg} \times (1{,}5)^2\,\text{rad}^2/\text{s}^2 \times 2\,\text{m} = 30 \times 2{,}25 \times 2 = 135\,\text{N}$$</div>
+<p>Fisicamente questa forza è fornita dall'<strong>attrito statico</strong> del pavimento della giostra sul bambino (o dal sedile/cintura). È una forza reale con sorgente fisica precisa.</p>
+</div>
+<div class="step">
+<p class="step-label">(b) Sistema rotante (non inerziale) — forza centrifuga</p>
+<p>Nel sistema solidale alla giostra il bambino è in quiete: la risultante percepita deve essere zero. La forza centripeta reale (attrito, verso il centro) è presente. Per bilanciare questa forza, nel sistema rotante appare una <strong>pseudoforza centrifuga</strong> diretta verso l'esterno, di modulo uguale alla centripeta:</p>
+<div class="math-block">$$\vec{F}_{\text{centrifuga}} = -m\omega^2 r\,\hat{r} \quad\text{(diretta verso l'esterno)}$$</div>
+<p>Con essa il bambino risulta in equilibrio nel sistema rotante: attrito centripeto $+$ forza centrifuga $= 0$.</p>
+</div>
+<div class="step">
+<p class="step-label">(c) Modulo</p>
+<div class="math-block">$$|\vec{F}_{\text{centrifuga}}| = m\omega^2 r = 135\,\text{N}$$</div>
+</div>
+<div class="result-box">
+<span class="res-label">Risultato</span>
+<span class="res-value">$F_c = m\omega^2 r = 135\,\text{N}$;   la centrifuga fittizia ha lo stesso modulo, verso opposto</span>
+</div>
+<div class="concept-note">
+<p class="cn-label">Nota concettuale</p>
+<p>La forza centrifuga <em>non esiste</em> nel sistema inerziale: è un artefatto del sistema rotante. Nel sistema della Terra, se l'attrito scompare (pavimento scivoloso), il bambino non viene "spinto verso fuori": semplicemente prosegue in linea retta per inerzia (Primo Principio) e si allontana tangenzialmente. La sensazione di "essere spinti verso fuori" in curva o su una giostra è sempre interpretabile come inerzia nel sistema inerziale, e come forza fittizia centrifuga nel sistema rotante.</p>
+</div>
+</div>
+</div>
+</div>
+
+<footer>Dinamica · Esercizi svolti</footer>
+
+<script>
+function toggleSol(btn) {
+  const card = btn.closest('.exercise-card');
+  if (!card) return;
+  card.classList.toggle('open');
+  const icon = btn.querySelector('.sol-icon');
+  if (icon) icon.textContent = card.classList.contains('open') ? '▲' : '▼';
+  btn.innerHTML = `<span class="sol-icon">${card.classList.contains('open') ? '▲' : '▼'}</span>&nbsp;${card.classList.contains('open') ? 'Nascondi soluzione' : 'Mostra soluzione'}`;
+}
+</script>
+<script>
+function toggleSol(btn) {
+  const card = btn.closest('.exercise-card');
+  const isOpen = card.classList.toggle('open');
+  const icon = btn.querySelector('.sol-icon');
+  if (icon) icon.textContent = isOpen ? '▲' : '▼';
+  const label = btn.querySelector('.solution-label');
+  if (label) label.textContent = isOpen ? 'Nascondi soluzione' : 'Mostra soluzione';
+}
+
+/* ── Grafico s-t interattivo ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('graph-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const PAD = { l: 55, r: 20, t: 20, b: 45 };
+  const W = canvas.width, H = canvas.height;
+  const gW = W - PAD.l - PAD.r;
+  const gH = H - PAD.t - PAD.b;
+  const T_MAX = 8, X_MAX = 18;
+
+  const segments = [
+    { label: 'A', color: '#3a5a7a', t0: 0, t1: 2,  x: t => 4 * t },
+    { label: 'B', color: '#3a6a4a', t0: 2, t1: 4,  x: t => 8 },
+    { label: 'C', color: '#c9a84c', t0: 4, t1: 6,  x: t => 8 + 2.5 * (t - 4) * (t - 4) },
+    { label: 'D', color: '#8b3a2a', t0: 6, t1: 8,  x: t => 18 - 4 * (t - 6) }
+  ];
+
+  function toCanvas(t, x) {
+    return {
+      cx: PAD.l + (t / T_MAX) * gW,
+      cy: PAD.t + gH - (x / X_MAX) * gH
+    };
+  }
+
+  function draw(hoverT) {
+    ctx.clearRect(0, 0, W, H);
+
+    // Griglia
+    ctx.strokeStyle = '#ddd0bc'; ctx.lineWidth = 1;
+    for (let t = 0; t <= T_MAX; t++) {
+      const {cx} = toCanvas(t, 0);
+      ctx.beginPath(); ctx.moveTo(cx, PAD.t); ctx.lineTo(cx, PAD.t + gH); ctx.stroke();
     }
-    function norm(value) {
-      return String(value ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
-    }
-    function levelLabel(value) {
-      const n = norm(value);
-      if (n === 'base') return 'Base';
-      if (n === 'intermedio') return 'Intermedio';
-      if (n === 'avanzato') return 'Avanzato';
-      return value || '';
-    }
-    function renderMath() {
-      if (window.renderMathInElement) {
-        renderMathInElement(document.body, {
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false}
-          ],
-          throwOnError: false
-        });
-      }
-    }
-    function fillFilters() {
-      const levels = [...new Set(state.exercises.map(e => e.level).filter(Boolean))].sort();
-      for (const level of levels) {
-        const opt = document.createElement('option');
-        opt.value = level;
-        opt.textContent = levelLabel(level);
-        levelEl.appendChild(opt);
-      }
-    }
-    function applyFilters() {
-      const q = norm(searchEl.value);
-      const level = levelEl.value;
-      state.filtered = state.exercises.filter(e => {
-        const haystack = norm([e.title, e.description, e.category, e.topic, e.level, ...(e.tags || [])].join(' '));
-        return (!q || haystack.includes(q)) && (!level || e.level === level);
-      });
-      renderList();
-    }
-    function renderList() {
-      if (!state.filtered.length) {
-        listEl.innerHTML = '<div class="empty">Nessun esercizio trovato.</div>';
-        return;
-      }
-      listEl.innerHTML = state.filtered.map((e, i) => {
-        const tags = (e.tags || []).slice(0, 8).map(t => `<span class="pill">#${esc(t)}</span>`).join('');
-        const statement = e.statement ? `<div class="statement">${e.statement}</div>` : '';
-        const solutionButton = e.solution ? `<button type="button" data-toggle="${i}">Mostra soluzione</button>` : '';
-        const solution = e.solution ? `<div class="solution"><strong>Soluzione</strong><br>${e.solution}</div>` : '';
-        const openLink = e.file ? `<a class="open-link" href="${esc(e.file)}">Apri pagina esercizio →</a>` : '';
-        return `
-          <article class="card" data-index="${i}">
-            <div class="card-head">
-              <div>
-                <h2 class="card-title">${esc(e.icon || '')} ${esc(e.title || 'Esercizio senza titolo')}</h2>
-                <p class="desc">${esc(e.description || '')}</p>
-                <div class="meta">
-                  ${e.level ? `<span class="pill">${esc(levelLabel(e.level))}</span>` : ''}
-                  ${e.estimatedTime ? `<span class="pill">${esc(e.estimatedTime)}</span>` : ''}
-                  ${tags}
-                </div>
-              </div>
-            </div>
-            ${statement}
-            <div class="actions">${solutionButton}${openLink}</div>
-            ${solution}
-          </article>`;
-      }).join('');
-      renderMath();
+    for (let x = 0; x <= X_MAX; x += 2) {
+      const {cy} = toCanvas(0, x);
+      ctx.beginPath(); ctx.moveTo(PAD.l, cy); ctx.lineTo(PAD.l + gW, cy); ctx.stroke();
     }
 
-    listEl.addEventListener('click', event => {
-      const btn = event.target.closest('button[data-toggle]');
-      if (!btn) return;
-      const card = btn.closest('.card');
-      card.classList.toggle('open');
-      btn.textContent = card.classList.contains('open') ? 'Nascondi soluzione' : 'Mostra soluzione';
+    // Assi
+    ctx.strokeStyle = '#1a1612'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(PAD.l, PAD.t); ctx.lineTo(PAD.l, PAD.t + gH);
+    ctx.moveTo(PAD.l, PAD.t + gH); ctx.lineTo(PAD.l + gW, PAD.t + gH);
+    ctx.stroke();
+
+    // Etichette
+    ctx.fillStyle = '#1a1612'; ctx.font = '13px IBM Plex Mono'; ctx.textAlign = 'center';
+    for (let t = 0; t <= T_MAX; t += 2) {
+      const {cx} = toCanvas(t, 0); ctx.fillText(t, cx, PAD.t + gH + 18);
+    }
+    ctx.fillText('t (s)', PAD.l + gW / 2, H - 4);
+    ctx.textAlign = 'right';
+    for (let x = 0; x <= X_MAX; x += 4) {
+      const {cy} = toCanvas(0, x); ctx.fillText(x, PAD.l - 6, cy + 4);
+    }
+    ctx.save();
+    ctx.translate(14, PAD.t + gH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.fillText('x (m)', 0, 0);
+    ctx.restore();
+
+    // Curve
+    segments.forEach(seg => {
+      ctx.strokeStyle = seg.color; ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let i = 0; i <= 60; i++) {
+        const t = seg.t0 + (i / 60) * (seg.t1 - seg.t0);
+        const {cx, cy} = toCanvas(t, seg.x(t));
+        i === 0 ? ctx.moveTo(cx, cy) : ctx.lineTo(cx, cy);
+      }
+      ctx.stroke();
+      const tMid = (seg.t0 + seg.t1) / 2;
+      const {cx, cy} = toCanvas(tMid, seg.x(tMid));
+      ctx.fillStyle = seg.color; ctx.font = 'bold 13px IBM Plex Mono'; ctx.textAlign = 'center';
+      ctx.fillText(seg.label, cx, cy - 10);
     });
-    searchEl.addEventListener('input', applyFilters);
-    levelEl.addEventListener('change', applyFilters);
 
-    fetch(CATALOG_FILE, { cache: 'no-store' })
-      .then(r => { if (!r.ok) throw new Error('Errore nel caricamento'); return r.json(); })
-      .then(data => {
-        const collection = data.collection || {};
-        state.exercises = Array.isArray(data.exercises) ? data.exercises : [];
-        titleEl.textContent = collection.title ? `Esercizi di ${collection.title}` : 'Raccolta esercizi';
-        subtitleEl.textContent = `${collection.subject || ''}${collection.category ? ' · ' + collection.category : ''}${collection.topic ? ' · ' + collection.topic : ''} — ${state.exercises.length} esercizi`;
-        fillFilters();
-        applyFilters();
-      })
-      .catch(error => {
-        listEl.innerHTML = `<div class="error"><strong>Non è stato possibile caricare ${esc(CATALOG_FILE)}.</strong><br>Controlla che il JSON sia nella stessa cartella di questa pagina e che sia valido. Per testare in locale usa <code>python -m http.server</code>.</div>`;
-        console.error(error);
+    // Cursore
+    if (hoverT !== null) {
+      const {cx: hx} = toCanvas(hoverT, 0);
+      ctx.strokeStyle = 'rgba(26,22,18,0.3)'; ctx.lineWidth = 1;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(hx, PAD.t); ctx.lineTo(hx, PAD.t + gH); ctx.stroke();
+      ctx.setLineDash([]);
+      segments.forEach(seg => {
+        if (hoverT >= seg.t0 && hoverT <= seg.t1) {
+          const {cx, cy} = toCanvas(hoverT, seg.x(hoverT));
+          ctx.fillStyle = seg.color;
+          ctx.beginPath(); ctx.arc(cx, cy, 5, 0, Math.PI * 2); ctx.fill();
+        }
       });
-  </script>
+    }
+  }
+
+  draw(null);
+
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const tVal = ((mx - PAD.l) / gW) * T_MAX;
+    if (tVal < 0 || tVal > T_MAX) {
+      draw(null);
+      document.getElementById('graph-coords').textContent = 'Passa il cursore sul grafico';
+      return;
+    }
+    let xVal = null;
+    segments.forEach(seg => { if (tVal >= seg.t0 && tVal <= seg.t1) xVal = seg.x(tVal); });
+    draw(tVal);
+    if (xVal !== null)
+      document.getElementById('graph-coords').textContent =
+        `t = ${tVal.toFixed(2)} s   |   x = ${xVal.toFixed(2)} m`;
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    draw(null);
+    document.getElementById('graph-coords').textContent = 'Passa il cursore sul grafico';
+  });
+});
+</script>
 </body>
 </html>
