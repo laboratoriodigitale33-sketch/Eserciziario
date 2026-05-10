@@ -848,8 +848,6 @@ def generate_collection_index(collection_dir: Path, json_filename: str, root: Pa
     <section class=\"hero\">
       <div id=\"eyebrow\" class=\"eyebrow\">Esercizi svolti</div>
       <h1 id=\"title\">Raccolta esercizi</h1>
-      <p id=\"description\" class=\"description\"></p>
-      <div id=\"metaRow\" class=\"meta-row\"></div>
     </section>
   </header>
 
@@ -899,7 +897,6 @@ def generate_collection_index(collection_dir: Path, json_filename: str, root: Pa
       document.title = `${{collection.title || \"Raccolta esercizi\"}} | Esercizi svolti`;
       document.getElementById(\"eyebrow\").textContent = [collection.subject, collection.category, collection.topic].filter(Boolean).join(\" · \") || \"Esercizi svolti\";
       document.getElementById(\"title\").textContent = collection.title || \"Raccolta esercizi\";
-      document.getElementById(\"description\").textContent = collection.description || \"\";
       document.getElementById(\"metaRow\").innerHTML = [
         collection.count ? `${{collection.count}} esercizi` : \"\",
         collection.level || \"\",
@@ -948,7 +945,6 @@ def generate_collection_index(collection_dir: Path, json_filename: str, root: Pa
               <section class="box">
                 <h3>Soluzione</h3>
                 ${{exercise.solutionHtml || "<p>Soluzione non disponibile.</p>"}}
-                ${{exercise.file ? `<p class="result-label">File sorgente: <code>${{escapeHtml(exercise.file)}}</code></p>` : ""}}
               </section>
             </div>
           </details>
