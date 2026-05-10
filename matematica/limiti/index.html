@@ -113,6 +113,33 @@
       box-shadow: 0 12px 30px rgba(0,0,0,0.052);
       overflow: hidden;
     }
+    .exercise-visible {
+      border-top: 1px solid var(--border);
+      padding: 1.15rem;
+      background: rgba(255,255,255,0.34);
+    }
+    .solution-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid var(--border);
+      padding: 0.92rem 1.25rem;
+      color: var(--accent);
+      font-weight: 800;
+      background: rgba(255,255,255,0.56);
+    }
+    .solution-summary:hover {
+      background: white;
+    }
+    .solution-body {
+      border-top: 1px solid rgba(216,211,199,0.82);
+      padding: 1.15rem;
+      background: rgba(255,255,255,0.42);
+    }
+    .statement-box {
+      max-width: none;
+    }
     details summary { list-style: none; cursor: pointer; }
     details summary::-webkit-details-marker { display: none; }
     .summary-inner {
@@ -236,29 +263,32 @@
     function renderExercise(exercise, number) {
       return `
         <article class="exercise-card">
+          <div class="summary-inner">
+            <div class="number">${number}</div>
+            <div class="exercise-title">
+              <h2>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h2>
+              <p>${escapeHtml(exercise.description || "")}</p>
+            </div>
+          </div>
+
+          <div class="exercise-visible">
+            <section class="box statement-box">
+              <h3>Testo</h3>
+              ${exercise.statementHtml || "<p>Testo non disponibile.</p>"}
+            </section>
+          </div>
+
           <details class="exercise">
-            <summary>
-              <div class="summary-inner">
-                <div class="number">${number}</div>
-                <div class="exercise-title">
-                  <h2>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h2>
-                  <p>${escapeHtml(exercise.description || "")}</p>
-                </div>
-                <div class="chevron" aria-hidden="true">›</div>
-              </div>
+            <summary class="solution-summary">
+              <span>Mostra soluzione</span>
+              <span class="chevron" aria-hidden="true">›</span>
             </summary>
-            <div class="exercise-body">
-              <div class="grid">
-                <section class="box">
-                  <h3>Testo</h3>
-                  ${exercise.statementHtml || "<p>Testo non disponibile.</p>"}
-                </section>
-                <section class="box">
-                  <h3>Soluzione</h3>
-                  ${exercise.solutionHtml || "<p>Soluzione non disponibile.</p>"}
-                  ${exercise.file ? `<p class="result-label">File sorgente: <code>${escapeHtml(exercise.file)}</code></p>` : ""}
-                </section>
-              </div>
+            <div class="solution-body">
+              <section class="box">
+                <h3>Soluzione</h3>
+                ${exercise.solutionHtml || "<p>Soluzione non disponibile.</p>"}
+                ${exercise.file ? `<p class="result-label">File sorgente: <code>${escapeHtml(exercise.file)}</code></p>` : ""}
+              </section>
             </div>
           </details>
         </article>
