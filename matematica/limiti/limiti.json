@@ -1,72 +1,38 @@
 {
-  "generator": "collection-v2",
-  "title": "Limiti",
-  "subject": "Matematica",
   "category": "Limiti",
-  "topic": "Limiti",
-  "description": "Raccolta di esercizi svolti di limiti: 3 esercizi con testo, schema e soluzione commentata.",
+  "slug": "limiti",
+  "path": "C:/Users/rober/OneDrive/Desktop/Eserciziario/matematica/limiti",
   "count": 3,
   "exercises": [
     {
+      "id": "limite-01-polinomio",
       "title": "Limite di un polinomio",
-      "description": "Calcolo di un limite finito usando la continuità dei polinomi.",
-      "subject": "Matematica",
-      "category": "Limiti",
-      "topic": "Limiti",
-      "icon": "∞",
-      "order": 10,
-      "tags": [
-        "limiti",
-        "polinomi",
-        "continuità"
-      ],
-      "level": "base",
-      "schoolYear": "Quinta superiore",
-      "estimatedTime": "5 min",
-      "isWip": false,
-      "source": "limite-01-polinomio.html",
-      "sourceFormat": "template"
+      "topic": "",
+      "subtopic": "",
+      "difficulty": "",
+      "order": null,
+      "tags": [],
+      "file": "limite-01-polinomio.html"
     },
     {
-      "title": "Forma indeterminata 0/0",
-      "description": "Limite razionale risolto tramite differenza di quadrati.",
-      "subject": "Matematica",
-      "category": "Limiti",
-      "topic": "Limiti",
-      "icon": "∞",
-      "order": 20,
-      "tags": [
-        "limiti",
-        "zero su zero",
-        "scomposizione"
-      ],
-      "level": "base",
-      "schoolYear": "Quinta superiore",
-      "estimatedTime": "6 min",
-      "isWip": false,
-      "source": "limite-02-zero-su-zero.html",
-      "sourceFormat": "template"
+      "id": "limite-02-zero-su-zero",
+      "title": "Forma 0/0",
+      "topic": "",
+      "subtopic": "",
+      "difficulty": "",
+      "order": null,
+      "tags": [],
+      "file": "limite-02-zero-su-zero.html"
     },
     {
-      "title": "Forma indeterminata infinito su infinito",
-      "description": "Limite di una funzione razionale per x che tende a infinito, risolto confrontando i termini di grado massimo.",
-      "subject": "Matematica",
-      "category": "Limiti",
-      "topic": "Limiti",
-      "icon": "∞",
-      "order": 30,
-      "tags": [
-        "limiti",
-        "infinito su infinito",
-        "polinomi",
-        "funzioni razionali"
-      ],
-      "level": "base",
-      "schoolYear": "Quinta superiore",
-      "estimatedTime": "7 min",
-      "isWip": false,
-      "source": "limite-03-infinito-su-infinito.html",
-      "sourceFormat": "template"
+      "id": "limite-03-infinito-su-infinito",
+      "title": "Forma infinito su infinito",
+      "topic": "",
+      "subtopic": "",
+      "difficulty": "",
+      "order": null,
+      "tags": [],
+      "file": "limite-03-infinito-su-infinito.html"
     }
   ]
 }
