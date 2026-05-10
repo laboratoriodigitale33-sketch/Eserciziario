@@ -1,77 +1,65 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 generate_exercises.py
 
-Generatore per Eserciziario.
+Generatore unico per l'eserciziario.
 
-Uso consigliato dalla directory principale del progetto:
+Supporta due formati di esercizio:
+1) pagine HTML autonome con metadati:
+
+   <script>
+   window.EXERCISE_METADATA = {
+     title: "...",
+     description: "...",
+     subject: "Fisica",
+     category: "Meccanica",
+     topic: "Dinamica",
+     order: 10,
+     tags: ["dinamica"]
+   };
+   </script>
+
+2) file/template HTML che contengono almeno un elemento con:
+
+   data-exercise-statement
+
+   opzionalmente anche:
+
+   data-exercise-solution
+   data-exercise-title="..."
+   data-exercise-description="..."
+   data-exercise-level="base"
+   data-exercise-order="10"
+
+Uso tipico dalla root del progetto:
 
   python generate_exercises.py
-      Modalità globale: da eseguire dalla directory Eserciziario. Scansiona le
-      raccolte sotto fisica/ e matematica/, genera solo gli index locali e
-      aggiorna esercizi.json nella directory principale. Non modifica mai
-      l'index.html principale.
+      Aggiorna il catalogo globale esercizi.json.
 
-  python generate_exercises.py matematica/<cartella-raccolta>
-  python generate_exercises.py fisica/<cartella-raccolta>
-      Modalità locale: scansiona solo la cartella indicata, genera
-      <nome-cartella>.json e index.html dentro quella cartella, senza
-      modificare esercizi.json globale.
+  python generate_exercises.py fisica/meccanica/dinamica
+      Aggiorna la raccolta locale dentro quella cartella:
+      dinamica.json + index.html.
 
-Esempi:
-
-  python generate_exercises.py matematica/limiti
-  python generate_exercises.py matematica/geometria-analitica/circonferenza
-  python generate_exercises.py fisica/dinamica/secondo-principio
-
-Ogni file HTML-esercizio deve contenere:
-
-<script>
-window.EXERCISE_METADATA = {
-  title: "Forma indeterminata 0/0",
-  description: "Limite risolto tramite scomposizione.",
-  subject: "Matematica",
-  category: "Analisi",
-  topic: "Limiti",
-  collection: "Limiti",
-  collectionDescription: "Esercizi svolti sui limiti.",
-  icon: "∞",
-  order: 10,
-  tags: ["limiti", "zero su zero"],
-  level: "base",
-  schoolYear: "Quinta superiore",
-  estimatedTime: "6 min",
-  isWip: false
-};
-</script>
-
-<template data-exercise-statement>
-  ... testo dell'esercizio ...
-</template>
-
-<template data-exercise-solution>
-  ... soluzione dell'esercizio ...
-</template>
+  python generate_exercises.py fisica/meccanica/dinamica --mode both
+      Aggiorna sia la raccolta locale sia il catalogo globale.
 """
 
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import re
 import sys
-import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
 
-METADATA_REGEX = re.compile(
-    r"window\.(?:EXERCISE_METADATA|ESERCIZIO_METADATA)\s*=\s*\{(?P<body>.*?)\}\s*;",
-    re.DOTALL | re.IGNORECASE,
-)
-
-TEMPLATE_REGEX_TEMPLATE = r"<template\b(?=[^>]*\b{attr}\b)[^>]*>(?P<body>.*?)</template>"
+# -----------------------------------------------------------------------------
+# Configurazione di base
+# -----------------------------------------------------------------------------
 
 DEFAULT_EXCLUDED_DIRS = {
     ".git",
@@ -80,7 +68,9 @@ DEFAULT_EXCLUDED_DIRS = {
     "node_modules",
     "assets",
     "old",
-    "theory",
+    "archive",
+    "archivio",
+    "backup",
 }
 
 DEFAULT_SUBJECTS = [
@@ -98,190 +88,311 @@ DEFAULT_SUBJECTS = [
     },
 ]
 
-SUBJECT_ROOTS = {
-    "fisica": "Fisica",
-    "matematica": "Matematica",
-}
+DEFAULT_CATEGORIES = [
+    {
+        "name": "Fondamenti",
+        "subject": "Fisica",
+        "order": 1,
+        "color": "#8ab4f0",
+        "description": "Il linguaggio con cui la fisica descrive il mondo.",
+    },
+    {
+        "name": "Meccanica",
+        "subject": "Fisica",
+        "order": 10,
+        "color": "#5bd4c4",
+        "description": "Moto, forze, equilibrio, energia e leggi di Newton.",
+    },
+    {
+        "name": "Gravitazione",
+        "subject": "Fisica",
+        "order": 20,
+        "color": "#a78bfa",
+        "description": "La forza che domina su grandi scale: dalla caduta dei corpi alle orbite.",
+    },
+    {
+        "name": "Fluidodinamica",
+        "subject": "Fisica",
+        "order": 30,
+        "color": "#5bc8f0",
+        "description": "Il comportamento di liquidi, gas e fluidi in movimento.",
+    },
+    {
+        "name": "Termodinamica",
+        "subject": "Fisica",
+        "order": 40,
+        "color": "#f08c5b",
+        "description": "Calore, temperatura, energia interna, entropia e macchine termiche.",
+    },
+    {
+        "name": "Onde",
+        "subject": "Fisica",
+        "order": 50,
+        "color": "#f0c060",
+        "description": "Propagazione, interferenza, diffrazione e fenomeni ondulatori.",
+    },
+    {
+        "name": "Ottica",
+        "subject": "Fisica",
+        "order": 60,
+        "color": "#f0e060",
+        "description": "Riflessione, rifrazione, lenti, specchi e comportamento della luce.",
+    },
+    {
+        "name": "Elettromagnetismo",
+        "subject": "Fisica",
+        "order": 70,
+        "color": "#f07070",
+        "description": "Cariche, campi elettrici, magnetismo, circuiti e onde elettromagnetiche.",
+    },
+    {
+        "name": "Relatività",
+        "subject": "Fisica",
+        "order": 80,
+        "color": "#c084fc",
+        "description": "Spazio, tempo, simultaneità, gravità relativistica e struttura dello spaziotempo.",
+    },
+    {
+        "name": "Meccanica Quantistica",
+        "subject": "Fisica",
+        "order": 90,
+        "color": "#7dd3fc",
+        "description": "Fenomeni microscopici, stati quantistici, probabilità e misura.",
+    },
+    {
+        "name": "Astrofisica",
+        "subject": "Fisica",
+        "order": 100,
+        "color": "#e879f9",
+        "description": "Stelle, galassie, cosmologia e fenomeni fisici su scala astronomica.",
+    },
+    {
+        "name": "Fisica Nucleare",
+        "subject": "Fisica",
+        "order": 110,
+        "color": "#fb923c",
+        "description": "Nuclei, decadimenti, reazioni nucleari e applicazioni delle radiazioni.",
+    },
+    {
+        "name": "Fisica delle Particelle",
+        "subject": "Fisica",
+        "order": 120,
+        "color": "#fb923c",
+        "description": "Particelle elementari, interazioni fondamentali e modello standard.",
+    },
+    {
+        "name": "Algebra",
+        "subject": "Matematica",
+        "order": 10,
+        "color": "#8ab4f0",
+        "description": "Equazioni, disequazioni, polinomi e calcolo simbolico.",
+    },
+    {
+        "name": "Geometria Analitica",
+        "subject": "Matematica",
+        "order": 20,
+        "color": "#93c5fd",
+        "description": "Rette, circonferenze, coniche e coordinate cartesiane.",
+    },
+    {
+        "name": "Analisi",
+        "subject": "Matematica",
+        "order": 30,
+        "color": "#60a5fa",
+        "description": "Funzioni, limiti, derivate, integrali e studio di funzione.",
+    },
+]
 
-DEFAULT_CATEGORY_COLORS = {
-    "analisi": "#8f6f3d",
-    "algebra": "#6f8f3d",
-    "geometria": "#7c6fbd",
-    "geometria analitica": "#7c6fbd",
-    "trigonometria": "#bd7c6f",
-    "probabilita": "#3d8f75",
-    "probabilità": "#3d8f75",
-    "dinamica": "#5bd4c4",
-    "cinematica": "#5bc8f0",
-    "elettrostatica": "#f07070",
-}
+JS_METADATA_REGEX = re.compile(
+    r"window\.(?:EXERCISE_METADATA|ESERCIZIO_METADATA)\s*=\s*\{(?P<body>.*?)\}\s*;",
+    re.DOTALL | re.IGNORECASE,
+)
+
+TAG_WITH_ATTR_REGEX_TEMPLATE = r"<(?P<tag>[a-zA-Z][a-zA-Z0-9:-]*)(?P<attrs>[^>]*)\b{attr}\b(?P<attrs2>[^>]*)>(?P<body>.*?)</(?P=tag)>"
+
+SELF_CLOSING_ATTR_REGEX_TEMPLATE = r"<(?P<tag>[a-zA-Z][a-zA-Z0-9:-]*)(?P<attrs>[^>]*)\b{attr}\b(?P<attrs2>[^>]*)/?>"
+
+ATTR_REGEX = re.compile(
+    r"(?P<name>[a-zA-Z_:][-a-zA-Z0-9_:.]*)\s*=\s*(?P<quote>['\"])(?P<value>.*?)(?P=quote)",
+    re.DOTALL,
+)
 
 
 @dataclass
-class ExerciseSource:
-    path: Path
-    relative_to_collection: str
-    relative_to_root: str
+class ExtractedExercise:
     metadata: dict[str, Any]
-    statement_html: str
-    solution_html: str
+    statement_html: str = ""
+    solution_html: str = ""
+    source_format: str = "metadata"
+
+
+# -----------------------------------------------------------------------------
+# Argomenti CLI
+# -----------------------------------------------------------------------------
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Genera JSON e pagine index per le raccolte di esercizi.",
-        epilog=(
-            "Esempi: python generate_exercises.py | "
-            "python generate_exercises.py matematica/limiti | "
-            "python generate_exercises.py fisica/dinamica/piano-inclinato"
-        ),
+        description="Genera cataloghi globali e raccolte locali per l'eserciziario."
     )
-
     parser.add_argument(
-        "target",
+        "path",
         nargs="?",
-        default=None,
+        default=".",
         help=(
-            "Cartella da processare. Se omessa o uguale a '.', usa la modalità globale. "
-            "In modalità locale usa un percorso sotto matematica/ o fisica/, per esempio "
-            "matematica/limiti oppure fisica/dinamica/piano-inclinato."
+            "Cartella da usare. Senza argomenti aggiorna il catalogo globale. "
+            "Con una cartella specifica aggiorna la raccolta locale della cartella."
         ),
     )
     parser.add_argument(
         "--mode",
-        choices=["auto", "global", "local"],
+        choices=["auto", "global", "local", "both"],
         default="auto",
-        help="Forza la modalità di esecuzione. Default: auto.",
+        help=(
+            "auto: senza path specifico = globale, con path specifico = locale. "
+            "global: solo catalogo globale. local: solo raccolta locale. both: entrambi."
+        ),
     )
     parser.add_argument(
         "--root",
         default=".",
-        help="Radice del progetto. Default: cartella corrente.",
+        help="Root del progetto per calcolare i percorsi globali. Default: cartella corrente.",
     )
     parser.add_argument(
         "--global-json",
-        "--json",
-        dest="global_json",
         default="esercizi.json",
-        help="Nome del JSON principale. Default: esercizi.json.",
-    )
-    parser.add_argument(
-        "--input",
-        default=None,
-        help="Alias legacy per indicare la cartella di input.",
+        help="Nome/percorso del catalogo globale. Default: esercizi.json.",
     )
     parser.add_argument(
         "--local-json",
         default="",
-        help="Nome del JSON locale. Se omesso: <nome-cartella>.json.",
+        help="Nome del JSON locale. Default: <nome-cartella>.json, per esempio dinamica.json.",
     )
     parser.add_argument(
-        "--recursive",
-        action="store_true",
-        help="In modalità locale scansiona ricorsivamente anche le sottocartelle.",
+        "--local-index",
+        default="index.html",
+        help="Nome della pagina locale da generare. Default: index.html.",
     )
     parser.add_argument(
-        "--no-index",
-        action="store_true",
-        help="Genera solo il JSON locale, senza scrivere index.html.",
+        "--categories-source",
+        default="",
+        help="JSON da cui copiare subjects/categories, per esempio un vecchio esercizi.json.",
     )
     parser.add_argument(
-        "--strict",
-        action="store_true",
-        help="Interrompe l'esecuzione al primo errore sui metadati.",
+        "--taxonomy-source",
+        choices=["auto", "metadata", "path"],
+        default="auto",
+        help=(
+            "Da dove prendere subject/category/topic. "
+            "auto: se il file è in subject/category/topic usa il percorso, altrimenti usa i metadati. "
+            "metadata: preferisce i metadati. path: preferisce sempre il percorso."
+        ),
     )
     parser.add_argument(
         "--include-index",
         action="store_true",
-        help="Include index.html nella scansione. Sconsigliato: di default gli index generati sono esclusi.",
+        help="Include anche file chiamati index.html nella scansione. Di default sono esclusi.",
     )
-
-    # Argomenti mantenuti per compatibilità con la versione precedente.
-    parser.add_argument("--categories-source", default="", help=argparse.SUPPRESS)
     parser.add_argument(
-        "--category-source",
-        choices=["auto", "metadata", "folder"],
-        default="auto",
-        help=argparse.SUPPRESS,
+        "--strict",
+        action="store_true",
+        help="Interrompe al primo errore di parsing invece di stampare un avviso.",
     )
-
     return parser.parse_args()
 
 
-def normalize_key(value: Any) -> str:
+# -----------------------------------------------------------------------------
+# Utility testo/percorso
+# -----------------------------------------------------------------------------
+
+
+def norm(value: Any) -> str:
     return str(value or "").strip().casefold()
 
 
-def slug_path_component(value: Any) -> str:
-    """Restituisce uno slug minuscolo stabile per nomi di cartelle/file."""
-    text = str(value or "").strip()
-    text = unicodedata.normalize("NFKD", text)
-    text = "".join(ch for ch in text if not unicodedata.combining(ch))
-    text = text.casefold()
-    text = re.sub(r"[^a-z0-9]+", "-", text)
-    text = re.sub(r"-+", "-", text).strip("-")
-    return text or "raccolta"
-
-
-def canonical_relative_collection_path(rel: Path) -> Path:
-    """Percorso canonico URL: materia minuscola + sottocartelle in slug minuscolo."""
-    parts = rel.parts
-    if not parts:
-        return rel
-    first = slug_path_component(parts[0])
-    rest = [slug_path_component(part) for part in parts[1:]]
-    return Path(first, *rest)
-
-
 def title_case_from_slug(value: str) -> str:
-    text = value.replace("-", " ").replace("_", " ").strip()
+    text = str(value or "").replace("-", " ").replace("_", " ").strip()
     return " ".join(word[:1].upper() + word[1:] for word in text.split())
 
 
-def path_relative_to_root(path: Path, root: Path) -> Path | None:
+def slugify(value: str) -> str:
+    value = str(value or "").strip().lower()
+    value = value.replace("à", "a").replace("è", "e").replace("é", "e").replace("ì", "i").replace("ò", "o").replace("ù", "u")
+    value = re.sub(r"[^a-z0-9]+", "-", value)
+    value = re.sub(r"-+", "-", value).strip("-")
+    return value or "raccolta"
+
+
+def safe_relative_to(path: Path, root: Path) -> Path:
     try:
-        return path.relative_to(root)
+        return path.resolve().relative_to(root.resolve())
     except ValueError:
-        return None
+        return path.resolve()
 
 
-def subject_from_parts(parts: Iterable[str]) -> str:
-    parts = list(parts)
-    if not parts:
-        return ""
-    return SUBJECT_ROOTS.get(normalize_key(parts[0]), title_case_from_slug(parts[0]))
+def path_as_posix(path: Path) -> str:
+    return path.as_posix().replace("\\", "/")
 
 
-def is_subject_collection_target(target_dir: Path, root: Path) -> tuple[bool, str]:
-    rel = path_relative_to_root(target_dir, root)
-    if rel is None:
-        return False, "La cartella indicata deve stare dentro la radice del progetto."
+def strip_tags(value: str) -> str:
+    value = re.sub(r"<script\b.*?</script>", " ", value, flags=re.DOTALL | re.IGNORECASE)
+    value = re.sub(r"<style\b.*?</style>", " ", value, flags=re.DOTALL | re.IGNORECASE)
+    value = re.sub(r"<[^>]+>", " ", value)
+    value = html.unescape(value)
+    value = re.sub(r"\s+", " ", value).strip()
+    return value
 
-    parts = rel.parts
-    if len(parts) < 2:
-        return (
-            False,
-            "La modalità locale richiede una cartella-raccolta dentro 'matematica/' o 'fisica/'. "
-            "Esempi: matematica/limiti oppure fisica/dinamica."
-        )
 
-    if normalize_key(parts[0]) not in SUBJECT_ROOTS:
-        return (
-            False,
-            "La modalità locale accetta percorsi che iniziano con 'matematica/' oppure 'fisica/'. "
-            f"Percorso ricevuto: {rel.as_posix()}"
-        )
+def first_match(pattern: str, text: str, flags: int = re.DOTALL | re.IGNORECASE) -> str:
+    match = re.search(pattern, text, flags)
+    return html.unescape(match.group(1).strip()) if match else ""
 
-    canonical_rel = canonical_relative_collection_path(rel)
-    if rel.as_posix() != canonical_rel.as_posix():
-        return (
-            False,
-            "Percorso non canonico. Usa solo nomi di cartella minuscoli/slug nei link del progetto. "
-            f"Percorso ricevuto: {rel.as_posix()}. Percorso atteso: {canonical_rel.as_posix()}. "
-            "Rinomina la cartella e rilancia il generatore."
-        )
 
-    return True, ""
+def short_description_from_html(value: str, max_len: int = 180) -> str:
+    text = strip_tags(value)
+    if len(text) <= max_len:
+        return text
+    return text[: max_len - 1].rstrip() + "…"
+
+
+def normalize_order(value: Any, default: int = 999999) -> int | float:
+    try:
+        if isinstance(value, bool) or value is None or value == "":
+            return default
+        number = float(value)
+        return int(number) if number.is_integer() else number
+    except (TypeError, ValueError):
+        return default
+
+
+def normalize_tags(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return [str(tag).strip() for tag in value if str(tag).strip()]
+    if isinstance(value, str):
+        return [tag.strip() for tag in value.split(",") if tag.strip()]
+    return []
+
+
+def infer_from_path(relative_path: Path) -> dict[str, str]:
+    parts = [p for p in relative_path.parts if p and p != "."]
+    parts = [p for p in parts if not p.lower().endswith((".html", ".htm"))]
+
+    subject = title_case_from_slug(parts[0]) if len(parts) >= 1 else "Fisica"
+    category = title_case_from_slug(parts[1]) if len(parts) >= 2 else "Senza categoria"
+    topic = title_case_from_slug(parts[2]) if len(parts) >= 3 else ""
+
+    return {
+        "subject": subject or "Fisica",
+        "category": category or "Senza categoria",
+        "topic": topic,
+    }
+
+
+# -----------------------------------------------------------------------------
+# Parsing oggetti JS-like
+# -----------------------------------------------------------------------------
 
 
 def strip_js_comments(js_text: str) -> str:
@@ -376,9 +487,8 @@ def quote_unquoted_keys(js_text: str) -> str:
 
         if ch.isalpha() or ch == "_":
             j = i + 1
-            while j < n and (js_text[j].isalnum() or js_text[j] in "_-"):
+            while j < n and (js_text[j].isalnum() or js_text[j] in "_-."):
                 j += 1
-
             k = j
             while k < n and js_text[k].isspace():
                 k += 1
@@ -386,7 +496,6 @@ def quote_unquoted_keys(js_text: str) -> str:
             prev_nonspace_idx = len(out) - 1
             while prev_nonspace_idx >= 0 and out[prev_nonspace_idx].isspace():
                 prev_nonspace_idx -= 1
-
             prev_nonspace = out[prev_nonspace_idx] if prev_nonspace_idx >= 0 else ""
             token = js_text[i:j]
 
@@ -401,882 +510,743 @@ def quote_unquoted_keys(js_text: str) -> str:
     return "".join(out)
 
 
-def js_object_to_json(js_text: str) -> str:
-    js_text = strip_js_comments(js_text)
+def js_object_to_dict(body: str) -> dict[str, Any]:
+    candidate = "{" + body + "}"
+    candidate = strip_js_comments(candidate)
+    candidate = re.sub(r",(\s*[}\]])", r"\1", candidate).strip()
 
-    candidate = re.sub(r",(\s*[}\]])", r"\1", js_text).strip()
     try:
-        json.loads(candidate)
-        return candidate
+        data = json.loads(candidate)
+        return data if isinstance(data, dict) else {}
     except json.JSONDecodeError:
         pass
 
-    js_text = normalize_single_quoted_strings(js_text)
-    js_text = quote_unquoted_keys(js_text)
-    js_text = re.sub(r",(\s*[}\]])", r"\1", js_text)
-    return js_text.strip()
+    candidate = normalize_single_quoted_strings(candidate)
+    candidate = quote_unquoted_keys(candidate)
+    candidate = re.sub(r",(\s*[}\]])", r"\1", candidate).strip()
+    data = json.loads(candidate)
+    return data if isinstance(data, dict) else {}
 
 
-def extract_metadata(text: str, path: Path) -> dict[str, Any] | None:
-    match = METADATA_REGEX.search(text)
+def extract_js_metadata(text: str) -> dict[str, Any] | None:
+    match = JS_METADATA_REGEX.search(text)
     if not match:
         return None
-
-    block = "{" + match.group("body") + "}"
-    json_like = js_object_to_json(block)
-
-    try:
-        raw = json.loads(json_like)
-    except json.JSONDecodeError as exc:
-        raise ValueError(
-            f"Metadati non validi in '{path}': {exc}. "
-            "Usa chiavi/stringhe tra doppi apici o una sintassi JS semplice."
-        ) from exc
-
-    missing = [key for key in ("title", "description", "order") if key not in raw]
-    if missing:
-        raise ValueError(f"Metadati mancanti in '{path}': {', '.join(missing)}")
-
-    return raw
+    return js_object_to_dict(match.group("body"))
 
 
-def extract_template(text: str, attr: str) -> str:
-    pattern = TEMPLATE_REGEX_TEMPLATE.format(attr=re.escape(attr))
-    match = re.search(pattern, text, flags=re.DOTALL | re.IGNORECASE)
-    if not match:
-        return ""
-    return match.group("body").strip()
+# -----------------------------------------------------------------------------
+# Parsing data-exercise-statement
+# -----------------------------------------------------------------------------
 
 
-def normalize_order(value: Any, path: Path) -> int | float:
-    try:
-        if isinstance(value, bool):
-            raise TypeError
-        if isinstance(value, int):
-            return value
-        if isinstance(value, float):
-            return int(value) if value.is_integer() else value
-        if isinstance(value, str):
-            n = float(value)
-            return int(n) if n.is_integer() else n
-        raise TypeError
-    except (TypeError, ValueError) as exc:
-        raise ValueError(f"Il campo 'order' deve essere numerico in '{path}'.") from exc
+def parse_attrs(attrs_text: str) -> dict[str, str]:
+    attrs: dict[str, str] = {}
+    for match in ATTR_REGEX.finditer(attrs_text or ""):
+        attrs[match.group("name").strip().lower()] = html.unescape(match.group("value"))
+    return attrs
 
 
-def normalize_tags(value: Any) -> list[str]:
-    if value is None:
-        return []
-    if isinstance(value, list):
-        return [str(tag).strip() for tag in value if str(tag).strip()]
-    if isinstance(value, str):
-        return [tag.strip() for tag in value.split(",") if tag.strip()]
-    return []
+def find_elements_with_attr(text: str, attr: str) -> list[tuple[dict[str, str], str]]:
+    pattern = re.compile(
+        TAG_WITH_ATTR_REGEX_TEMPLATE.format(attr=re.escape(attr)),
+        re.DOTALL | re.IGNORECASE,
+    )
+    items: list[tuple[dict[str, str], str]] = []
+    for match in pattern.finditer(text):
+        attrs = parse_attrs((match.group("attrs") or "") + " " + (match.group("attrs2") or ""))
+        items.append((attrs, match.group("body").strip()))
+    return items
 
 
-def normalize_metadata(raw: dict[str, Any], path: Path, collection_dir: Path, root: Path) -> dict[str, Any]:
-    relative_to_collection = path.relative_to(collection_dir).as_posix()
-    try:
-        relative_to_root = path.relative_to(root).as_posix()
-    except ValueError:
-        relative_to_root = relative_to_collection
+def find_first_element_with_attr(text: str, attr: str) -> tuple[dict[str, str], str] | None:
+    items = find_elements_with_attr(text, attr)
+    return items[0] if items else None
 
-    rel = path_relative_to_root(path, root)
-    inferred_parts = list(rel.parts) if rel is not None else list(path.parts)
-    inferred_subject = subject_from_parts(inferred_parts)
-    inferred_topic = title_case_from_slug(collection_dir.name)
+
+def extract_data_template(text: str, path: Path) -> tuple[dict[str, Any], str, str] | None:
+    statement = find_first_element_with_attr(text, "data-exercise-statement")
+    if statement is None:
+        return None
+
+    attrs, statement_html = statement
+
+    solution = find_first_element_with_attr(text, "data-exercise-solution")
+    solution_attrs, solution_html = solution if solution else ({}, "")
+
+    title = (
+        attrs.get("data-exercise-title")
+        or solution_attrs.get("data-exercise-title")
+        or first_match(r"<h1[^>]*>(.*?)</h1>", text)
+        or first_match(r"<title[^>]*>(.*?)</title>", text)
+        or title_case_from_slug(path.stem)
+    )
+
+    description = (
+        attrs.get("data-exercise-description")
+        or solution_attrs.get("data-exercise-description")
+        or short_description_from_html(statement_html)
+    )
+
+    metadata = {
+        "title": strip_tags(title),
+        "description": description,
+        "icon": attrs.get("data-exercise-icon", "📄"),
+        "order": normalize_order(attrs.get("data-exercise-order"), 999999),
+        "tags": normalize_tags(attrs.get("data-exercise-tags", "")),
+        "level": attrs.get("data-exercise-level", ""),
+        "schoolYear": attrs.get("data-exercise-school-year", ""),
+        "estimatedTime": attrs.get("data-exercise-estimated-time", ""),
+        "isWip": attrs.get("data-exercise-wip", "").strip().lower() in {"1", "true", "sì", "si", "yes"},
+    }
+
+    return metadata, statement_html, solution_html
+
+
+# -----------------------------------------------------------------------------
+# Estrazione esercizio da HTML
+# -----------------------------------------------------------------------------
+
+
+def normalize_metadata(raw: dict[str, Any], path: Path, relative_path: Path, taxonomy_source: str = "auto") -> dict[str, Any]:
+    inferred = infer_from_path(relative_path)
+    dir_depth = max(0, len(relative_path.parts) - 1)
+
+    title = str(raw.get("title") or raw.get("titolo") or "").strip()
+    if not title:
+        title = title_case_from_slug(path.stem)
+
+    description = str(raw.get("description") or raw.get("descrizione") or "").strip()
+    if not description:
+        description = f"Esercizio svolto: {title}."
+
+    raw_subject = str(raw.get("subject") or raw.get("materia") or "").strip()
+    raw_category = str(raw.get("category") or raw.get("categoria") or "").strip()
+    raw_topic = str(raw.get("topic") or raw.get("argomento") or "").strip()
+
+    # In modalità auto, una struttura a tre livelli come
+    # fisica/meccanica/dinamica/file.html è considerata autorevole.
+    # Questo evita che vecchi metadati interni, per esempio category: "Dinamica",
+    # prevalgano su una cartella più ordinata: subject/category/topic.
+    prefer_path = taxonomy_source == "path" or (taxonomy_source == "auto" and dir_depth >= 3)
+
+    if prefer_path:
+        subject = inferred["subject"] or raw_subject or "Fisica"
+        category = inferred["category"] or raw_category or "Senza categoria"
+        topic = inferred["topic"] or raw_topic or ""
+    else:
+        subject = raw_subject or inferred["subject"] or "Fisica"
+        category = raw_category or inferred["category"] or "Senza categoria"
+        topic = raw_topic or inferred["topic"] or ""
 
     result = dict(raw)
-    result["title"] = str(raw["title"]).strip()
-    result["description"] = str(raw["description"]).strip()
-    result["subject"] = str(raw.get("subject") or inferred_subject or "Matematica").strip()
-    result["category"] = str(raw.get("category") or inferred_topic or "Senza categoria").strip()
-    result["topic"] = str(raw.get("topic") or inferred_topic or "").strip()
-    result["collection"] = str(raw.get("collection") or raw.get("collectionTitle") or inferred_topic).strip()
-    result["collectionDescription"] = str(raw.get("collectionDescription") or "").strip()
-    result["collectionOrder"] = normalize_order(raw.get("collectionOrder", raw.get("order", 999999)), path)
-    result["icon"] = str(raw.get("icon", "📄")).strip()
-    result["order"] = normalize_order(raw["order"], path)
-    result["tags"] = normalize_tags(raw.get("tags", []))
-    result["level"] = str(raw.get("level", "")).strip()
-    result["schoolYear"] = str(raw.get("schoolYear", "")).strip()
-    result["estimatedTime"] = str(raw.get("estimatedTime", "")).strip()
-    result["isWip"] = bool(raw.get("isWip", False))
-    result["file"] = relative_to_collection
-    result["sourceFile"] = relative_to_root
+    result.update(
+        {
+            "title": title,
+            "description": description,
+            "subject": subject,
+            "category": category,
+            "topic": topic,
+            "icon": str(raw.get("icon", raw.get("icona", "📄"))).strip() or "📄",
+            "order": normalize_order(raw.get("order", raw.get("ordine", 999999))),
+            "tags": normalize_tags(raw.get("tags", [])),
+            "level": str(raw.get("level", raw.get("livello", ""))).strip(),
+            "schoolYear": str(raw.get("schoolYear", raw.get("anno", ""))).strip(),
+            "estimatedTime": str(raw.get("estimatedTime", raw.get("tempo", ""))).strip(),
+            "isWip": bool(raw.get("isWip", raw.get("wip", False))),
+        }
+    )
     return result
 
 
-def should_skip_path(path: Path, root: Path, include_index: bool) -> bool:
-    if path.suffix.lower() not in {".html", ".htm"}:
-        return True
+def load_exercise_from_html(path: Path, global_root: Path, taxonomy_source: str = "auto") -> ExtractedExercise | None:
+    text = path.read_text(encoding="utf-8")
+    relative_path = safe_relative_to(path, global_root)
 
-    try:
-        relative_parts = path.relative_to(root).parts
-    except ValueError:
-        relative_parts = path.parts
+    raw_metadata = extract_js_metadata(text)
+    if raw_metadata is not None:
+        metadata = normalize_metadata(raw_metadata, path, relative_path, taxonomy_source)
+        metadata["file"] = path_as_posix(relative_path)
+        return ExtractedExercise(metadata=metadata, source_format="metadata")
 
-    if any(part in DEFAULT_EXCLUDED_DIRS for part in relative_parts[:-1]):
-        return True
+    template_data = extract_data_template(text, path)
+    if template_data is not None:
+        raw, statement_html, solution_html = template_data
+        metadata = normalize_metadata(raw, path, relative_path, taxonomy_source)
+        metadata["file"] = path_as_posix(relative_path)
+        return ExtractedExercise(
+            metadata=metadata,
+            statement_html=statement_html,
+            solution_html=solution_html,
+            source_format="data-template",
+        )
 
-    if not include_index and path.name.lower() == "index.html":
-        return True
-
-    return False
+    return None
 
 
-def find_html_files(directory: Path, recursive: bool, include_index: bool) -> list[Path]:
-    iterator = directory.rglob("*") if recursive else directory.iterdir()
+def find_html_files(root: Path, include_index: bool = False) -> list[Path]:
     files: list[Path] = []
-    for path in iterator:
+    for path in root.rglob("*"):
         if not path.is_file():
             continue
-        if should_skip_path(path, directory, include_index=include_index):
+        if path.suffix.lower() not in {".html", ".htm"}:
+            continue
+        parts = path.relative_to(root).parts
+        if any(part in DEFAULT_EXCLUDED_DIRS for part in parts[:-1]):
+            continue
+        if not include_index and path.name.lower() == "index.html":
             continue
         files.append(path)
     return sorted(files)
 
 
-def load_exercise_sources(
-    collection_dir: Path,
-    root: Path,
-    recursive: bool,
-    include_index: bool,
-    strict: bool,
-) -> tuple[list[ExerciseSource], list[str]]:
-    exercises: list[ExerciseSource] = []
+def extract_exercises(scan_dir: Path, global_root: Path, include_index: bool, strict: bool, taxonomy_source: str = "auto") -> tuple[list[ExtractedExercise], list[str]]:
+    exercises: list[ExtractedExercise] = []
     warnings: list[str] = []
 
-    for path in find_html_files(collection_dir, recursive=recursive, include_index=include_index):
+    for path in find_html_files(scan_dir, include_index=include_index):
         try:
-            text = path.read_text(encoding="utf-8")
-            raw = extract_metadata(text, path)
-            if raw is None:
-                continue
-
-            metadata = normalize_metadata(raw, path, collection_dir, root)
-            statement_html = extract_template(text, "data-exercise-statement")
-            solution_html = extract_template(text, "data-exercise-solution")
-
-            if not statement_html:
-                raise ValueError(f"Template data-exercise-statement mancante in '{path}'.")
-            if not solution_html:
-                raise ValueError(f"Template data-exercise-solution mancante in '{path}'.")
-
-            exercises.append(
-                ExerciseSource(
-                    path=path,
-                    relative_to_collection=path.relative_to(collection_dir).as_posix(),
-                    relative_to_root=path.relative_to(root).as_posix() if path.is_relative_to(root) else path.name,
-                    metadata=metadata,
-                    statement_html=statement_html,
-                    solution_html=solution_html,
+            item = load_exercise_from_html(path, global_root, taxonomy_source)
+            if item is None:
+                rel = path_as_posix(safe_relative_to(path, global_root))
+                warnings.append(
+                    f"Template/metadati mancanti in '{rel}'. "
+                    "Serve window.EXERCISE_METADATA oppure data-exercise-statement."
                 )
-            )
+                continue
+            exercises.append(item)
         except Exception as exc:
+            message = f"Errore in '{path}': {exc}"
             if strict:
-                raise
-            warnings.append(str(exc))
+                raise RuntimeError(message) from exc
+            warnings.append(message)
 
-    exercises.sort(key=lambda item: (float(item.metadata.get("order", 999999)), item.metadata.get("title", "")))
     return exercises, warnings
 
 
-def make_collection_metadata(collection_dir: Path, exercises: list[ExerciseSource], root: Path) -> dict[str, Any]:
-    if not exercises:
-        title = title_case_from_slug(collection_dir.name)
+# -----------------------------------------------------------------------------
+# JSON globale
+# -----------------------------------------------------------------------------
+
+
+def load_json_object(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {"subjects": DEFAULT_SUBJECTS, "categories": DEFAULT_CATEGORIES, "exercises": []}
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+
+    if isinstance(data, list):
+        return {"subjects": DEFAULT_SUBJECTS, "categories": DEFAULT_CATEGORIES, "exercises": data}
+
+    if isinstance(data, dict):
+        subjects = data.get("subjects", DEFAULT_SUBJECTS)
+        categories = data.get("categories", DEFAULT_CATEGORIES)
+        exercises = data.get("exercises", data.get("simulations", []))
         return {
-            "title": title,
-            "description": f"Raccolta di esercizi svolti: {title}.",
-            "subject": infer_subject_from_path(collection_dir, root),
-            "category": title,
-            "topic": title,
-            "icon": "📄",
-            "order": 999999,
-            "tags": [],
-            "level": "",
-            "schoolYear": "",
-            "estimatedTime": "",
-            "isWip": False,
-            "count": 0,
+            **data,
+            "subjects": subjects if isinstance(subjects, list) else DEFAULT_SUBJECTS,
+            "categories": categories if isinstance(categories, list) else DEFAULT_CATEGORIES,
+            "exercises": exercises if isinstance(exercises, list) else [],
         }
 
-    first = exercises[0].metadata
-    collection_title = str(first.get("collection") or first.get("topic") or title_case_from_slug(collection_dir.name)).strip()
-    collection_description = str(first.get("collectionDescription") or "").strip()
-    if not collection_description:
-        collection_description = f"Raccolta di esercizi svolti su {collection_title.lower()}."
-
-    all_tags: list[str] = []
-    for exercise in exercises:
-        for tag in exercise.metadata.get("tags", []):
-            if tag not in all_tags:
-                all_tags.append(tag)
-
-    levels = sorted({exercise.metadata.get("level", "") for exercise in exercises if exercise.metadata.get("level", "")})
-    school_years = sorted({exercise.metadata.get("schoolYear", "") for exercise in exercises if exercise.metadata.get("schoolYear", "")})
-
-    return {
-        "title": collection_title,
-        "description": collection_description,
-        "subject": str(first.get("subject", "")).strip(),
-        "category": str(first.get("category", "")).strip(),
-        "topic": str(first.get("topic", collection_title)).strip(),
-        "icon": str(first.get("icon", "📄")).strip(),
-        "order": min(float(ex.metadata.get("collectionOrder", ex.metadata.get("order", 999999))) for ex in exercises),
-        "tags": all_tags,
-        "level": levels[0] if len(levels) == 1 else "",
-        "schoolYear": school_years[0] if len(school_years) == 1 else "",
-        "estimatedTime": estimate_total_time(exercises),
-        "isWip": any(bool(ex.metadata.get("isWip", False)) for ex in exercises),
-        "count": len(exercises),
-    }
+    raise ValueError(f"Il file JSON '{path}' deve contenere un oggetto oppure una lista.")
 
 
-def estimate_total_time(exercises: list[ExerciseSource]) -> str:
-    total = 0
-    found = False
-    for exercise in exercises:
-        text = str(exercise.metadata.get("estimatedTime", ""))
-        match = re.search(r"(\d+(?:[\.,]\d+)?)", text)
-        if not match:
+def merge_by_name(existing: list[dict[str, Any]], defaults: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    by_name: dict[str, dict[str, Any]] = {}
+    for item in defaults + existing:
+        if not isinstance(item, dict):
             continue
-        found = True
-        total += int(round(float(match.group(1).replace(",", "."))))
-    return f"{total} min" if found and total > 0 else ""
+        name = str(item.get("name", "")).strip()
+        if not name:
+            continue
+        key = norm(name)
+        current = dict(by_name.get(key, {}))
+        current.update(item)
+        current["name"] = name
+        by_name[key] = current
+    return list(by_name.values())
 
 
-def infer_subject_from_path(path: Path, root: Path) -> str:
-    rel = path_relative_to_root(path, root)
-    if rel is not None and rel.parts:
-        return subject_from_parts(rel.parts)
-    return "Matematica"
+def ensure_subjects_and_categories(data: dict[str, Any], exercises: Iterable[dict[str, Any]]) -> None:
+    subjects = merge_by_name(data.get("subjects", []), DEFAULT_SUBJECTS)
+    categories = merge_by_name(data.get("categories", []), DEFAULT_CATEGORIES)
 
+    subject_keys = {norm(item.get("name")): item for item in subjects}
+    category_keys = {norm(item.get("name")): item for item in categories}
 
-def build_local_catalog(collection_dir: Path, root: Path, exercises: list[ExerciseSource]) -> dict[str, Any]:
-    collection = make_collection_metadata(collection_dir, exercises, root)
-    return {
-        "collection": collection,
-        "exercises": [
-            {
-                **exercise.metadata,
-                "statementHtml": exercise.statement_html,
-                "solutionHtml": exercise.solution_html,
+    for exercise in exercises:
+        subject_name = str(exercise.get("subject", "")).strip() or "Fisica"
+        category_name = str(exercise.get("category", "")).strip() or "Senza categoria"
+
+        if norm(subject_name) not in subject_keys:
+            item = {
+                "name": subject_name,
+                "order": 999999,
+                "color": "#365f85",
+                "description": "",
             }
-            for exercise in exercises
-        ],
-    }
+            subjects.append(item)
+            subject_keys[norm(subject_name)] = item
+
+        if norm(category_name) not in category_keys:
+            subject = subject_keys.get(norm(subject_name), {})
+            item = {
+                "name": category_name,
+                "subject": subject_name,
+                "order": 999999,
+                "color": subject.get("color", "#365f85"),
+                "description": "",
+            }
+            categories.append(item)
+            category_keys[norm(category_name)] = item
+
+    subjects.sort(key=lambda x: (normalize_order(x.get("order"), 999999), str(x.get("name", ""))))
+    categories.sort(key=lambda x: (normalize_order(x.get("order"), 999999), str(x.get("name", ""))))
+
+    data["subjects"] = subjects
+    data["categories"] = categories
 
 
-def json_filename_for_directory(directory: Path, explicit_name: str = "") -> str:
-    if explicit_name:
-        return explicit_name
-    return f"{slug_path_component(directory.name)}.json"
+def merge_exercises(existing: list[dict[str, Any]], extracted: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    by_file: dict[str, dict[str, Any]] = {}
+
+    for item in existing:
+        if not isinstance(item, dict):
+            continue
+        file_key = str(item.get("file", item.get("path", ""))).strip()
+        if not file_key:
+            continue
+        current = dict(item)
+        current["file"] = file_key
+        by_file[file_key] = current
+
+    for item in extracted:
+        file_key = str(item.get("file", "")).strip()
+        if not file_key:
+            continue
+        current = dict(by_file.get(file_key, {}))
+        current.update(item)
+        current["file"] = file_key
+        by_file[file_key] = current
+
+    # deduplica anche eventuali vecchie voci con stesso titolo ma file diverso non più valido
+    # senza cancellare esercizi di altre cartelle.
+    return list(by_file.values())
 
 
-def write_json(data: dict[str, Any], path: Path) -> None:
+def category_order_map(categories: list[dict[str, Any]]) -> dict[str, float]:
+    result: dict[str, float] = {}
+    for index, category in enumerate(categories):
+        if not isinstance(category, dict):
+            continue
+        name = str(category.get("name", "")).strip()
+        if not name:
+            continue
+        result[norm(name)] = float(normalize_order(category.get("order"), 100000 + index))
+    return result
+
+
+def subject_order_map(subjects: list[dict[str, Any]]) -> dict[str, float]:
+    result: dict[str, float] = {}
+    for index, subject in enumerate(subjects):
+        if not isinstance(subject, dict):
+            continue
+        name = str(subject.get("name", "")).strip()
+        if not name:
+            continue
+        result[norm(name)] = float(normalize_order(subject.get("order"), 100000 + index))
+    return result
+
+
+def sort_exercises(exercises: list[dict[str, Any]], data: dict[str, Any]) -> list[dict[str, Any]]:
+    subject_order = subject_order_map(data.get("subjects", []))
+    category_order = category_order_map(data.get("categories", []))
+
+    def key(item: dict[str, Any]) -> tuple[float, float, str, float, str]:
+        return (
+            subject_order.get(norm(item.get("subject")), 999999),
+            category_order.get(norm(item.get("category")), 999999),
+            norm(item.get("topic")),
+            float(normalize_order(item.get("order"), 999999)),
+            norm(item.get("title")),
+        )
+
+    return sorted(exercises, key=key)
+
+
+def write_json(data: Any, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 
-def generate_collection_index(collection_dir: Path, json_filename: str, root: Path) -> None:
-    ok, message = is_subject_collection_target(collection_dir, root)
-    if not ok:
-        rel = path_relative_to_root(collection_dir, root)
-        rel_text = rel.as_posix() if rel is not None else str(collection_dir)
-        raise ValueError(
-            "Protezione homepage: rifiuto di generare un index.html fuori da una "
-            f"cartella-raccolta sotto 'matematica/' o 'fisica/'. Percorso: {rel_text}. {message}"
-        )
+def update_global_catalog(scan_root: Path, args: argparse.Namespace) -> int:
+    global_json = Path(args.global_json)
+    if not global_json.is_absolute():
+        global_json = scan_root / global_json
 
-    back_href = Path(__import__("os").path.relpath(root / "index.html", collection_dir)).as_posix()
-    html = f"""<!DOCTYPE html>
+    data = load_json_object(global_json)
+
+    if args.categories_source:
+        source = Path(args.categories_source)
+        if not source.is_absolute():
+            source = scan_root / source
+        source_data = load_json_object(source)
+        data["subjects"] = source_data.get("subjects", data.get("subjects", DEFAULT_SUBJECTS))
+        data["categories"] = source_data.get("categories", data.get("categories", DEFAULT_CATEGORIES))
+
+    extracted, warnings = extract_exercises(scan_root, scan_root, args.include_index, args.strict, args.taxonomy_source)
+    extracted_metadata = [item.metadata for item in extracted]
+
+    ensure_subjects_and_categories(data, extracted_metadata)
+    existing = data.get("exercises", [])
+    if not isinstance(existing, list):
+        existing = []
+
+    data["exercises"] = sort_exercises(merge_exercises(existing, extracted_metadata), data)
+    data.pop("simulations", None)
+
+    write_json(data, global_json)
+
+    print(f"Catalogo globale aggiornato: {path_as_posix(global_json.relative_to(scan_root) if global_json.is_relative_to(scan_root) else global_json)}")
+    print(f" - Esercizi trovati nella scansione: {len(extracted_metadata)}")
+    print(f" - Esercizi totali nel catalogo: {len(data['exercises'])}")
+    for item in extracted_metadata:
+        print(f"   - {item.get('title', '<senza titolo>')} [{item.get('file', '')}]")
+
+    if warnings:
+        print("Avvisi durante la scansione:", file=sys.stderr)
+        for warning in warnings:
+            print(f" - {warning}", file=sys.stderr)
+
+    return len(extracted_metadata)
+
+
+# -----------------------------------------------------------------------------
+# Raccolta locale
+# -----------------------------------------------------------------------------
+
+
+def local_collection_title(local_dir: Path) -> str:
+    return title_case_from_slug(local_dir.name)
+
+
+def make_local_json_name(local_dir: Path, explicit_name: str = "") -> str:
+    if explicit_name:
+        return explicit_name
+    return f"{slugify(local_dir.name)}.json"
+
+
+def make_local_exercise_item(item: ExtractedExercise, local_dir: Path, global_root: Path) -> dict[str, Any]:
+    metadata = dict(item.metadata)
+    absolute_file = global_root / metadata.get("file", "")
+    if not absolute_file.exists():
+        # fallback: se metadata['file'] era già relativo a local_dir o assoluto
+        candidate = Path(str(metadata.get("file", "")))
+        absolute_file = candidate if candidate.is_absolute() else local_dir / candidate
+
+    local_file = safe_relative_to(absolute_file, local_dir)
+    metadata["file"] = path_as_posix(local_file)
+    metadata["sourceFormat"] = item.source_format
+
+    if item.statement_html:
+        metadata["statement"] = item.statement_html
+    if item.solution_html:
+        metadata["solution"] = item.solution_html
+
+    return metadata
+
+
+def make_local_catalog(local_dir: Path, global_root: Path, extracted: list[ExtractedExercise]) -> dict[str, Any]:
+    title = local_collection_title(local_dir)
+    rel = safe_relative_to(local_dir, global_root)
+    inferred = infer_from_path(rel)
+
+    exercises = [make_local_exercise_item(item, local_dir, global_root) for item in extracted]
+    exercises = sorted(
+        exercises,
+        key=lambda item: (
+            float(normalize_order(item.get("order"), 999999)),
+            norm(item.get("title")),
+        ),
+    )
+
+    return {
+        "collection": {
+            "title": title,
+            "subject": inferred.get("subject", ""),
+            "category": inferred.get("category", ""),
+            "topic": inferred.get("topic", title),
+            "path": path_as_posix(rel),
+            "count": len(exercises),
+        },
+        "exercises": exercises,
+    }
+
+
+def local_index_html(catalog_file: str) -> str:
+    safe_catalog = html.escape(catalog_file, quote=True)
+    return f"""<!DOCTYPE html>
 <html lang=\"it\">
 <head>
   <meta charset=\"UTF-8\" />
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
   <title>Raccolta esercizi</title>
-
-  <script>
-    window.MathJax = {{
-      tex: {{
-        inlineMath: [['\\\\(', '\\\\)']],
-        displayMath: [['\\\\[', '\\\\]']]
-      }},
-      svg: {{ fontCache: 'global' }}
-    }};
-  </script>
-  <script defer src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js\"></script>
-
+  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css\">
+  <script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js\"></script>
+  <script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js\"></script>
   <style>
     :root {{
       --bg: #f6f4ef;
-      --panel: rgba(255,255,255,0.88);
+      --panel: #ffffff;
       --text: #1f2933;
       --muted: #667085;
       --border: #d8d3c7;
       --accent: #365f85;
-      --accent-soft: rgba(54,95,133,0.12);
-      --shadow: 0 18px 45px rgba(0,0,0,0.075);
-      --radius-xl: 30px;
-      --radius-lg: 22px;
-      --radius-md: 15px;
+      --accent-soft: rgba(54,95,133,.12);
+      --shadow: 0 14px 34px rgba(0,0,0,.065);
+      --radius: 22px;
       --sans: system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;
     }}
-
     * {{ box-sizing: border-box; }}
-    html {{ scroll-behavior: smooth; }}
     body {{
       margin: 0;
       min-height: 100vh;
       font-family: var(--sans);
       color: var(--text);
-      background:
-        radial-gradient(circle at 8% 4%, rgba(54, 95, 133, 0.14), transparent 24rem),
-        radial-gradient(circle at 92% 10%, rgba(181, 141, 72, 0.09), transparent 22rem),
-        linear-gradient(180deg, #f8f6f0 0%, var(--bg) 100%);
+      background: radial-gradient(circle at 8% 4%, rgba(54,95,133,.13), transparent 22rem), var(--bg);
     }}
-
-    .shell {{ width: min(1040px, calc(100% - 2rem)); margin: 0 auto; }}
-    header {{ padding: 3.6rem 0 1.5rem; }}
-    .back {{
-      display: inline-flex;
-      margin-bottom: 1.1rem;
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 760;
-    }}
-    .hero {{
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      background: var(--panel);
-      box-shadow: var(--shadow);
-      padding: clamp(1.35rem, 3vw, 2.4rem);
-    }}
-    .eyebrow {{
-      margin-bottom: 0.75rem;
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }}
-    h1 {{
-      margin: 0;
-      font-family: Georgia, \"Times New Roman\", serif;
-      font-size: clamp(2.7rem, 6vw, 5.3rem);
-      line-height: 0.96;
-      letter-spacing: -0.055em;
-      font-weight: 500;
-    }}
-    .toolbar {{
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.7rem;
-      margin: 1.1rem 0;
-    }}
-    button {{
-      border: 1px solid var(--border);
-      background: white;
-      color: var(--accent);
-      border-radius: 999px;
-      padding: 0.62rem 0.88rem;
-      font-weight: 760;
-      cursor: pointer;
-    }}
-    button:hover {{ border-color: var(--accent); }}
-
-    .exercise-list {{ display: grid; gap: 0.9rem; padding-bottom: 3.5rem; }}
-    .exercise-card {{
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--panel);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.052);
-      overflow: hidden;
-    }}
-    .exercise-visible {{
-      border-top: 1px solid var(--border);
-      padding: 1.15rem;
-      background: rgba(255,255,255,0.34);
-    }}
-    .solution-summary {{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      border-top: 1px solid var(--border);
-      padding: 0.92rem 1.25rem;
-      color: var(--accent);
-      font-weight: 800;
-      background: rgba(255,255,255,0.56);
-    }}
-    .solution-summary:hover {{
-      background: white;
-    }}
-    .solution-body {{
-      border-top: 1px solid rgba(216,211,199,0.82);
-      padding: 1.15rem;
-      background: rgba(255,255,255,0.42);
-    }}
-    .statement-box {{
-      max-width: none;
-    }}
-    details summary {{ list-style: none; cursor: pointer; }}
-    details summary::-webkit-details-marker {{ display: none; }}
-    .summary-inner {{
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 1rem;
-      align-items: center;
-      padding: 1.15rem 1.25rem;
-    }}
-    .number {{
-      display: grid;
-      place-items: center;
-      width: 2.3rem;
-      height: 2.3rem;
-      border-radius: 0.8rem;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-weight: 850;
-    }}
-    .exercise-title h2 {{ margin: 0; font-size: 1.12rem; letter-spacing: -0.025em; }}
-    .exercise-title p {{ margin: 0.25rem 0 0; color: var(--muted); font-size: 0.92rem; }}
-    .chevron {{ color: var(--accent); font-size: 1.35rem; transition: transform 160ms ease; }}
-    details[open] .chevron {{ transform: rotate(90deg); }}
-    .exercise-body {{ border-top: 1px solid var(--border); padding: 1.15rem; }}
-    .grid {{ display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 1rem; align-items: start; }}
-    .box {{ background: white; border: 1px solid rgba(216,211,199,0.82); border-radius: var(--radius-md); padding: 1rem; }}
-    .box h3 {{ margin: 0 0 0.8rem; color: var(--accent); font-size: 0.84rem; text-transform: uppercase; letter-spacing: 0.09em; }}
-    .result-label {{ margin-top: 0.85rem; color: var(--muted); font-size: 0.86rem; }}
-    .empty, .error {{
-      margin: 1rem 0 3rem;
-      background: white;
-      border: 1px dashed var(--border);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      color: var(--muted);
-      text-align: center;
-    }}
-    @media (max-width: 820px) {{ .grid {{ grid-template-columns: 1fr; }} }}
-    @media (max-width: 620px) {{ .summary-inner {{ grid-template-columns: auto 1fr; }} .chevron {{ grid-column: 1 / -1; justify-self: end; }} }}
+    .shell {{ width: min(980px, calc(100% - 2rem)); margin: 0 auto; }}
+    header {{ padding: 3.2rem 0 1.7rem; }}
+    h1 {{ margin: 0; font-size: clamp(2.2rem, 6vw, 4.5rem); line-height: .95; letter-spacing: -.055em; }}
+    .subtitle {{ margin-top: .9rem; color: var(--muted); line-height: 1.55; }}
+    .toolbar {{ display: flex; gap: .7rem; margin: 1.5rem 0; flex-wrap: wrap; }}
+    input, select {{ border: 1px solid var(--border); border-radius: 999px; padding: .75rem .95rem; background: #fff; color: var(--text); font-size: .95rem; }}
+    input {{ flex: 1 1 260px; }}
+    .list {{ display: grid; gap: 1rem; padding-bottom: 4rem; }}
+    .card {{ background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }}
+    .card-head {{ padding: 1.1rem 1.25rem; display: flex; gap: .8rem; align-items: flex-start; justify-content: space-between; }}
+    .card-title {{ margin: 0; font-size: 1.15rem; line-height: 1.25; }}
+    .desc {{ margin: .45rem 0 0; color: var(--muted); line-height: 1.55; }}
+    .meta {{ display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }}
+    .pill {{ font-size: .75rem; padding: .24rem .52rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 700; }}
+    .statement {{ padding: 0 1.25rem 1.1rem; color: var(--text); line-height: 1.65; }}
+    .actions {{ padding: .85rem 1.25rem; border-top: 1px solid var(--border); display: flex; gap: .65rem; flex-wrap: wrap; }}
+    button, .open-link {{ border: 1px solid var(--border); background: #fff; color: var(--accent); border-radius: 999px; padding: .58rem .78rem; font-weight: 750; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }}
+    button:hover, .open-link:hover {{ border-color: var(--accent); }}
+    .solution {{ display: none; padding: 1.1rem 1.25rem 1.25rem; border-top: 1px dashed var(--border); line-height: 1.65; }}
+    .card.open .solution {{ display: block; }}
+    .empty, .error {{ background: #fff; border: 1px dashed var(--border); border-radius: var(--radius); padding: 2rem; color: var(--muted); line-height: 1.6; }}
+    svg, canvas, img {{ max-width: 100%; }}
+    @media (max-width: 680px) {{ .card-head {{ flex-direction: column; }} }}
   </style>
 </head>
 <body>
   <header class=\"shell\">
-    <a class=\"back\" href=\"{back_href}\">← Torna all'indice</a>
-    <section class=\"hero\">
-      <div id=\"eyebrow\" class=\"eyebrow\">Esercizi svolti</div>
-      <h1 id=\"title\">Raccolta esercizi</h1>
-    </section>
-  </header>
-
-  <main class=\"shell\">
+    <h1 id=\"title\">Raccolta esercizi</h1>
+    <p id=\"subtitle\" class=\"subtitle\">Caricamento...</p>
     <div class=\"toolbar\">
-      <button id=\"openAll\" type=\"button\">Mostra tutte le soluzioni</button>
-      <button id=\"closeAll\" type=\"button\">Nascondi tutte le soluzioni</button>
+      <input id=\"search\" type=\"search\" placeholder=\"Cerca esercizio...\" />
+      <select id=\"level\"><option value=\"\">Tutti i livelli</option></select>
     </div>
-    <section id=\"exerciseList\" class=\"exercise-list\" aria-label=\"Esercizi\">
-      <div class=\"empty\">Caricamento esercizi...</div>
-    </section>
+  </header>
+  <main class=\"shell\">
+    <section id=\"list\" class=\"list\"><div class=\"empty\">Caricamento raccolta...</div></section>
   </main>
 
   <script>
-    const LOCAL_CATALOG_FILE = \"{json_filename}\";
+    const CATALOG_FILE = \"{safe_catalog}\";
+    const state = {{ exercises: [], filtered: [] }};
+    const titleEl = document.getElementById('title');
+    const subtitleEl = document.getElementById('subtitle');
+    const listEl = document.getElementById('list');
+    const searchEl = document.getElementById('search');
+    const levelEl = document.getElementById('level');
 
-    const escapeHtml = (value) => String(value ?? \"\")
-      .replaceAll(\"&\", \"&amp;\")
-      .replaceAll(\"<\", \"&lt;\")
-      .replaceAll(\">\", \"&gt;\")
-      .replaceAll('\\\"', \"&quot;\")
-      .replaceAll(\"'\", \"&#039;\");
-
-    async function loadCollection() {{
-      const list = document.getElementById(\"exerciseList\");
-      try {{
-        const response = await fetch(LOCAL_CATALOG_FILE, {{ cache: \"no-store\" }});
-        if (!response.ok) throw new Error(`Impossibile caricare ${{LOCAL_CATALOG_FILE}}`);
-        const data = await response.json();
-        renderCollection(data);
-      }} catch (error) {{
-        list.innerHTML = `
-          <div class=\"error\">
-            <strong>Non è stato possibile caricare il JSON locale.</strong><br>
-            Controlla che <code>${{LOCAL_CATALOG_FILE}}</code> sia nella stessa cartella di <code>index.html</code>.<br><br>
-            Nota: in locale usa <code>python -m http.server</code>, non l'apertura diretta con <code>file://</code>.
-          </div>
-        `;
-        console.error(error);
+    function esc(value) {{
+      return String(value ?? '')
+        .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+        .replaceAll('\\"','&quot;').replaceAll("'",'&#039;');
+    }}
+    function norm(value) {{
+      return String(value ?? '').toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').trim();
+    }}
+    function levelLabel(value) {{
+      const n = norm(value);
+      if (n === 'base') return 'Base';
+      if (n === 'intermedio') return 'Intermedio';
+      if (n === 'avanzato') return 'Avanzato';
+      return value || '';
+    }}
+    function renderMath() {{
+      if (window.renderMathInElement) {{
+        renderMathInElement(document.body, {{
+          delimiters: [
+            {{left: '$$', right: '$$', display: true}},
+            {{left: '$', right: '$', display: false}}
+          ],
+          throwOnError: false
+        }});
       }}
     }}
-
-    function renderCollection(data) {{
-      const collection = data.collection || {{}};
-      const exercises = Array.isArray(data.exercises) ? data.exercises : [];
-
-      document.title = `${{collection.title || \"Raccolta esercizi\"}} | Esercizi svolti`;
-      document.getElementById(\"eyebrow\").textContent = [collection.subject, collection.category, collection.topic].filter(Boolean).join(\" · \") || \"Esercizi svolti\";
-      document.getElementById(\"title\").textContent = collection.title || \"Raccolta esercizi\";
-
-      const list = document.getElementById(\"exerciseList\");
-      if (exercises.length === 0) {{
-        list.innerHTML = `<div class=\"empty\">Questa raccolta non contiene ancora esercizi.</div>`;
+    function fillFilters() {{
+      const levels = [...new Set(state.exercises.map(e => e.level).filter(Boolean))].sort();
+      for (const level of levels) {{
+        const opt = document.createElement('option');
+        opt.value = level;
+        opt.textContent = levelLabel(level);
+        levelEl.appendChild(opt);
+      }}
+    }}
+    function applyFilters() {{
+      const q = norm(searchEl.value);
+      const level = levelEl.value;
+      state.filtered = state.exercises.filter(e => {{
+        const haystack = norm([e.title, e.description, e.category, e.topic, e.level, ...(e.tags || [])].join(' '));
+        return (!q || haystack.includes(q)) && (!level || e.level === level);
+      }});
+      renderList();
+    }}
+    function renderList() {{
+      if (!state.filtered.length) {{
+        listEl.innerHTML = '<div class=\"empty\">Nessun esercizio trovato.</div>';
         return;
       }}
-
-      list.innerHTML = exercises
-        .sort((a, b) => Number(a.order || 999999) - Number(b.order || 999999))
-        .map((exercise, index) => renderExercise(exercise, index + 1))
-        .join(\"\");
-
-      if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
+      listEl.innerHTML = state.filtered.map((e, i) => {{
+        const tags = (e.tags || []).slice(0, 8).map(t => `<span class=\"pill\">#${{esc(t)}}</span>`).join('');
+        const statement = e.statement ? `<div class=\"statement\">${{e.statement}}</div>` : '';
+        const solutionButton = e.solution ? `<button type=\"button\" data-toggle=\"${{i}}\">Mostra soluzione</button>` : '';
+        const solution = e.solution ? `<div class=\"solution\"><strong>Soluzione</strong><br>${{e.solution}}</div>` : '';
+        const openLink = e.file ? `<a class=\"open-link\" href=\"${{esc(e.file)}}\">Apri pagina esercizio →</a>` : '';
+        return `
+          <article class=\"card\" data-index=\"${{i}}\">
+            <div class=\"card-head\">
+              <div>
+                <h2 class=\"card-title\">${{esc(e.icon || '')}} ${{esc(e.title || 'Esercizio senza titolo')}}</h2>
+                <p class=\"desc\">${{esc(e.description || '')}}</p>
+                <div class=\"meta\">
+                  ${{e.level ? `<span class=\"pill\">${{esc(levelLabel(e.level))}}</span>` : ''}}
+                  ${{e.estimatedTime ? `<span class=\"pill\">${{esc(e.estimatedTime)}}</span>` : ''}}
+                  ${{tags}}
+                </div>
+              </div>
+            </div>
+            ${{statement}}
+            <div class=\"actions\">${{solutionButton}}${{openLink}}</div>
+            ${{solution}}
+          </article>`;
+      }}).join('');
+      renderMath();
     }}
 
-    function renderExercise(exercise, number) {{
-      return `
-        <article class="exercise-card">
-          <div class="summary-inner">
-            <div class="number">${{number}}</div>
-            <div class="exercise-title">
-              <h2>${{escapeHtml(exercise.title || "Esercizio senza titolo")}}</h2>
-              <p>${{escapeHtml(exercise.description || "")}}</p>
-            </div>
-          </div>
-
-          <div class="exercise-visible">
-            <section class="box statement-box">
-              <h3>Testo</h3>
-              ${{exercise.statementHtml || "<p>Testo non disponibile.</p>"}}
-            </section>
-          </div>
-
-          <details class="exercise">
-            <summary class="solution-summary">
-              <span>Mostra soluzione</span>
-              <span class="chevron" aria-hidden="true">›</span>
-            </summary>
-            <div class="solution-body">
-              <section class="box">
-                <h3>Soluzione</h3>
-                ${{exercise.solutionHtml || "<p>Soluzione non disponibile.</p>"}}
-              </section>
-            </div>
-          </details>
-        </article>
-      `;
-    }}
-
-    document.getElementById(\"openAll\").addEventListener(\"click\", () => {{
-      document.querySelectorAll(\"details.exercise\").forEach(item => item.open = true);
-      if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
+    listEl.addEventListener('click', event => {{
+      const btn = event.target.closest('button[data-toggle]');
+      if (!btn) return;
+      const card = btn.closest('.card');
+      card.classList.toggle('open');
+      btn.textContent = card.classList.contains('open') ? 'Nascondi soluzione' : 'Mostra soluzione';
     }});
+    searchEl.addEventListener('input', applyFilters);
+    levelEl.addEventListener('change', applyFilters);
 
-    document.getElementById(\"closeAll\").addEventListener(\"click\", () => {{
-      document.querySelectorAll(\"details.exercise\").forEach(item => item.open = false);
-    }});
-
-    loadCollection();
+    fetch(CATALOG_FILE, {{ cache: 'no-store' }})
+      .then(r => {{ if (!r.ok) throw new Error('Errore nel caricamento'); return r.json(); }})
+      .then(data => {{
+        const collection = data.collection || {{}};
+        state.exercises = Array.isArray(data.exercises) ? data.exercises : [];
+        titleEl.textContent = collection.title ? `Esercizi di ${{collection.title}}` : 'Raccolta esercizi';
+        subtitleEl.textContent = `${{collection.subject || ''}}${{collection.category ? ' · ' + collection.category : ''}}${{collection.topic ? ' · ' + collection.topic : ''}} — ${{state.exercises.length}} esercizi`;
+        fillFilters();
+        applyFilters();
+      }})
+      .catch(error => {{
+        listEl.innerHTML = `<div class=\"error\"><strong>Non è stato possibile caricare ${{esc(CATALOG_FILE)}}.</strong><br>Controlla che il JSON sia nella stessa cartella di questa pagina e che sia valido. Per testare in locale usa <code>python -m http.server</code>.</div>`;
+        console.error(error);
+      }});
   </script>
 </body>
 </html>
 """
-    (collection_dir / "index.html").write_text(html, encoding="utf-8", newline="\n")
 
 
-def load_json_object(path: Path) -> dict[str, Any]:
-    if not path.exists():
-        return {"subjects": DEFAULT_SUBJECTS, "categories": [], "exercises": []}
+def update_local_collection(local_dir: Path, global_root: Path, args: argparse.Namespace) -> int:
+    local_dir = local_dir.resolve()
+    if not local_dir.exists() or not local_dir.is_dir():
+        raise FileNotFoundError(f"La cartella locale non esiste: {local_dir}")
+
+    extracted, warnings = extract_exercises(local_dir, global_root, args.include_index, args.strict, args.taxonomy_source)
+    catalog = make_local_catalog(local_dir, global_root, extracted)
+
+    local_json_name = make_local_json_name(local_dir, args.local_json)
+    local_json_path = local_dir / local_json_name
+    local_index_path = local_dir / args.local_index
+
+    write_json(catalog, local_json_path)
+    local_index_path.write_text(local_index_html(local_json_name), encoding="utf-8", newline="\n")
+
+    print(f"Raccolta locale aggiornata: {path_as_posix(safe_relative_to(local_dir, global_root))}")
+    print(f" - JSON locale: {local_json_name}")
+    print(f" - Pagina locale: {args.local_index}")
+    print(f" - index.html carica: {local_json_name}")
+    print(f" - Esercizi trovati: {len(extracted)}")
+    for item in catalog["exercises"]:
+        print(f"   - {item.get('title', '<senza titolo>')} [{item.get('file', '')}]")
+
+    if warnings:
+        print("Avvisi durante la scansione:", file=sys.stderr)
+        for warning in warnings:
+            print(f" - {warning}", file=sys.stderr)
+
+    return len(extracted)
+
+
+# -----------------------------------------------------------------------------
+# Main
+# -----------------------------------------------------------------------------
+
+
+def resolve_mode(args: argparse.Namespace, root: Path, target: Path) -> str:
+    if args.mode != "auto":
+        return args.mode
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        raise ValueError(f"Il file JSON '{path}' non è valido: {exc}") from exc
-
-    if isinstance(data, list):
-        return {"subjects": DEFAULT_SUBJECTS, "categories": [], "exercises": data}
-    if not isinstance(data, dict):
-        raise ValueError(f"Il file JSON '{path}' deve contenere un oggetto o una lista.")
-
-    return {
-        **data,
-        "subjects": data.get("subjects") if isinstance(data.get("subjects"), list) else DEFAULT_SUBJECTS,
-        "categories": data.get("categories") if isinstance(data.get("categories"), list) else [],
-        "exercises": data.get("exercises") if isinstance(data.get("exercises"), list) else [],
-    }
-
-
-def subject_color(subject: str) -> str:
-    key = normalize_key(subject)
-    for item in DEFAULT_SUBJECTS:
-        if normalize_key(item["name"]) == key:
-            return item["color"]
-    return "#365f85"
-
-
-def ensure_category(categories: list[dict[str, Any]], subject: str, category: str, order_hint: int | float = 999999) -> None:
-    if not category:
-        return
-    for existing in categories:
-        if normalize_key(existing.get("subject", subject)) == normalize_key(subject) and normalize_key(existing.get("name")) == normalize_key(category):
-            if not existing.get("subject"):
-                existing["subject"] = subject
-            return
-
-    key = normalize_key(category)
-    categories.append(
-        {
-            "name": category,
-            "subject": subject,
-            "order": order_hint,
-            "color": DEFAULT_CATEGORY_COLORS.get(key, subject_color(subject)),
-            "description": f"Esercizi di {category.lower()}.",
-        }
-    )
-
-
-def sort_categories(categories: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    return sorted(
-        categories,
-        key=lambda item: (
-            normalize_key(item.get("subject", "")),
-            float(item.get("order", 999999)) if str(item.get("order", "")).replace(".", "", 1).isdigit() else 999999,
-            str(item.get("name", "")).casefold(),
-        ),
-    )
-
-
-def collection_catalog_entry(collection_dir: Path, root: Path, local_catalog: dict[str, Any]) -> dict[str, Any]:
-    collection = dict(local_catalog.get("collection", {}))
-    try:
-        rel_dir = collection_dir.relative_to(root)
-        rel_index = (canonical_relative_collection_path(rel_dir) / "index.html").as_posix()
-    except ValueError:
-        rel_index = "index.html"
-
-    return {
-        "title": collection.get("title", title_case_from_slug(collection_dir.name)),
-        "description": collection.get("description", ""),
-        "subject": collection.get("subject", infer_subject_from_path(collection_dir, root)),
-        "category": collection.get("category", title_case_from_slug(collection_dir.name)),
-        "topic": collection.get("topic", title_case_from_slug(collection_dir.name)),
-        "icon": collection.get("icon", "📄"),
-        "order": collection.get("order", 999999),
-        "tags": collection.get("tags", []),
-        "level": collection.get("level", ""),
-        "schoolYear": collection.get("schoolYear", ""),
-        "estimatedTime": collection.get("estimatedTime", ""),
-        "file": rel_index,
-        "isWip": collection.get("isWip", False),
-        "type": "collection",
-        "count": collection.get("count", 0),
-    }
-
-
-def write_local_collection(
-    collection_dir: Path,
-    root: Path,
-    local_json_name: str,
-    recursive: bool,
-    include_index: bool,
-    no_index: bool,
-    strict: bool,
-) -> tuple[dict[str, Any], list[str]]:
-    ok, message = is_subject_collection_target(collection_dir, root)
-    if not ok:
-        raise ValueError(message)
-
-    exercises, warnings = load_exercise_sources(
-        collection_dir=collection_dir,
-        root=root,
-        recursive=recursive,
-        include_index=include_index,
-        strict=strict,
-    )
-    catalog = build_local_catalog(collection_dir, root, exercises)
-    json_path = collection_dir / json_filename_for_directory(collection_dir, local_json_name)
-    # Il nome usato dall'index viene preso dal file JSON realmente scritto.
-    # Questo evita mismatch tipo limiti.json / Limiti.json / Limit.josn.
-    write_json(catalog, json_path)
-    if not no_index:
-        generate_collection_index(collection_dir, json_path.name, root)
-    return catalog, warnings
-
-
-def existing_subject_roots(root: Path) -> list[Path]:
-    roots = []
-    for dirname in SUBJECT_ROOTS:
-        candidate = root / dirname
-        if candidate.exists() and candidate.is_dir():
-            roots.append(candidate)
-    return roots
-
-
-def find_collection_dirs(root: Path, include_index: bool) -> list[Path]:
-    dirs: set[Path] = set()
-    scan_roots = existing_subject_roots(root)
-    if not scan_roots:
-        return []
-
-    for scan_root in scan_roots:
-        for path in scan_root.rglob("*"):
-            if not path.is_file():
-                continue
-            if should_skip_path(path, root, include_index=include_index):
-                continue
-            try:
-                text = path.read_text(encoding="utf-8")
-            except UnicodeDecodeError:
-                continue
-            if METADATA_REGEX.search(text):
-                dirs.add(path.parent)
-    return sorted(dirs, key=lambda item: item.relative_to(root).as_posix())
-
-
-def run_local(args: argparse.Namespace, root: Path, target_dir: Path) -> int:
-    if not target_dir.exists() or not target_dir.is_dir():
-        print(f"Errore: la cartella non esiste: {target_dir}", file=sys.stderr)
-        return 1
-
-    ok, message = is_subject_collection_target(target_dir, root)
-    if not ok:
-        print(f"Errore: {message}", file=sys.stderr)
-        return 1
-
-    try:
-        catalog, warnings = write_local_collection(
-            collection_dir=target_dir,
-            root=root,
-            local_json_name=args.local_json,
-            recursive=args.recursive,
-            include_index=args.include_index,
-            no_index=args.no_index,
-            strict=args.strict,
-        )
-    except Exception as exc:
-        print(f"Errore: {exc}", file=sys.stderr)
-        return 1
-
-    for warning in warnings:
-        print(f"Avviso: {warning}", file=sys.stderr)
-
-    json_name = json_filename_for_directory(target_dir, args.local_json)
-    count = catalog.get("collection", {}).get("count", 0)
-    print(f"Raccolta aggiornata: {target_dir}")
-    print(f" - JSON locale: {json_name}")
-    if not args.no_index:
-        print(" - Pagina locale: index.html")
-        print(f" - index.html carica: {json_name}")
-    print(f" - Esercizi trovati: {count}")
-    return 0
-
-
-def run_global(args: argparse.Namespace, root: Path) -> int:
-    global_json_path = root / args.global_json
-
-    subject_roots = existing_subject_roots(root)
-    if not subject_roots:
-        print(
-            "Errore: modalità globale eseguita fuori dalla radice del progetto. "
-            "La cartella corrente deve contenere almeno 'matematica/' o 'fisica/'. "
-            "Spostati nella directory Eserciziario oppure usa --root /percorso/Eserciziario.",
-            file=sys.stderr,
-        )
-        return 1
-
-    try:
-        global_catalog = load_json_object(global_json_path)
-    except Exception as exc:
-        print(f"Errore: {exc}", file=sys.stderr)
-        return 1
-
-    collection_dirs = find_collection_dirs(root, include_index=args.include_index)
-    collection_entries: list[dict[str, Any]] = []
-    all_warnings: list[str] = []
-
-    for collection_dir in collection_dirs:
-        try:
-            local_catalog, warnings = write_local_collection(
-                collection_dir=collection_dir,
-                root=root,
-                local_json_name="",
-                recursive=False,
-                include_index=args.include_index,
-                no_index=args.no_index,
-                strict=args.strict,
-            )
-            all_warnings.extend(warnings)
-            if local_catalog.get("collection", {}).get("count", 0) > 0:
-                collection_entries.append(collection_catalog_entry(collection_dir, root, local_catalog))
-        except Exception as exc:
-            if args.strict:
-                print(f"Errore: {exc}", file=sys.stderr)
-                return 1
-            all_warnings.append(str(exc))
-
-    # Mantiene eventuali voci non generate automaticamente, ma sostituisce le raccolte generate.
-    old_entries = [item for item in global_catalog.get("exercises", []) if not (isinstance(item, dict) and item.get("type") == "collection")]
-    by_file: dict[str, dict[str, Any]] = {}
-    for item in old_entries + collection_entries:
-        if not isinstance(item, dict):
-            continue
-        file_key = str(item.get("file", "")).strip()
-        if not file_key:
-            continue
-        by_file[file_key] = item
-
-    categories = global_catalog.get("categories", [])
-    if not isinstance(categories, list):
-        categories = []
-
-    for entry in collection_entries:
-        ensure_category(
-            categories,
-            subject=str(entry.get("subject", "")),
-            category=str(entry.get("category", "")),
-            order_hint=entry.get("order", 999999),
-        )
-
-    global_catalog["subjects"] = global_catalog.get("subjects") or DEFAULT_SUBJECTS
-    global_catalog["categories"] = sort_categories(categories)
-    global_catalog["exercises"] = sorted(
-        by_file.values(),
-        key=lambda item: (
-            normalize_key(item.get("subject", "")),
-            normalize_key(item.get("category", "")),
-            float(item.get("order", 999999)) if str(item.get("order", "")).replace(".", "", 1).isdigit() else 999999,
-            normalize_key(item.get("title", "")),
-        ),
-    )
-
-    write_json(global_catalog, global_json_path)
-
-    for warning in all_warnings:
-        print(f"Avviso: {warning}", file=sys.stderr)
-
-    print(f"Catalogo globale aggiornato: {global_json_path.name}")
-    print(f" - Raccolte trovate: {len(collection_entries)}")
-    for entry in collection_entries:
-        print(f" - {entry.get('title', '<senza titolo>')} [{entry.get('file', '')}] ({entry.get('count', 0)} esercizi)")
-    return 0
+        same = target.resolve() == root.resolve()
+    except FileNotFoundError:
+        same = False
+    return "global" if same else "local"
 
 
 def main() -> int:
     args = parse_args()
     root = Path(args.root).resolve()
+    target = Path(args.path)
+    if not target.is_absolute():
+        target = (Path.cwd() / target).resolve()
 
-    target_arg = args.target if args.target is not None else args.input
-    if target_arg is None:
-        target_arg = "."
-    target_dir = (root / target_arg).resolve() if not Path(target_arg).is_absolute() else Path(target_arg).resolve()
+    if not root.exists() or not root.is_dir():
+        print(f"Errore: root del progetto non valida: {root}", file=sys.stderr)
+        return 1
+    if not target.exists() or not target.is_dir():
+        print(f"Errore: cartella non valida: {target}", file=sys.stderr)
+        return 1
 
-    if args.mode == "global":
-        return run_global(args, root)
-    if args.mode == "local":
-        return run_local(args, root, target_dir)
+    mode = resolve_mode(args, root, target)
 
-    # Modalità auto: nessun target, '.', o root => globale; ogni altra cartella => locale.
-    if target_dir == root:
-        return run_global(args, root)
-    return run_local(args, root, target_dir)
+    try:
+        if mode == "global":
+            update_global_catalog(root, args)
+        elif mode == "local":
+            update_local_collection(target, root, args)
+        elif mode == "both":
+            update_local_collection(target, root, args)
+            print("")
+            update_global_catalog(root, args)
+        else:
+            raise ValueError(f"Modalità non riconosciuta: {mode}")
+    except Exception as exc:
+        print(f"Errore: {exc}", file=sys.stderr)
+        return 1
+
+    return 0
 
 
 if __name__ == "__main__":

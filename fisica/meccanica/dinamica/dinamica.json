@@ -1,0 +1,18 @@
+{
+  "collection": {
+    "title": "Dinamica",
+    "description": "Raccolta di esercizi svolti: Dinamica.",
+    "subject": "Fisica",
+    "category": "Dinamica",
+    "topic": "Dinamica",
+    "icon": "📄",
+    "order": 999999,
+    "tags": [],
+    "level": "",
+    "schoolYear": "",
+    "estimatedTime": "",
+    "isWip": false,
+    "count": 0
+  },
+  "exercises": []
+}

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Due blocchi a contatto su piano senza attrito | Esercizi svolti di dinamica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script>
+window.EXERCISE_METADATA = {
+  "title": "Due blocchi a contatto su piano senza attrito",
+  "description": "Esercizio svolto su un sistema di due blocchi a contatto, con calcolo dell’accelerazione comune e della forza di contatto.",
+  "category": "Dinamica",
+  "topic": "Secondo principio della dinamica",
+  "subject": "Fisica",
+  "icon": "▭",
+  "order": 220,
+  "tags": [
+    "dinamica",
+    "secondo principio",
+    "sistemi di corpi",
+    "forza di contatto",
+    "accelerazione"
+  ],
+  "level": "intermedio",
+  "schoolYear": "Seconda superiore",
+  "estimatedTime": "15 min",
+  "isWip": false
+};
+</script>
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --cream-dark: #ede5d5;
+    --ink: #1a1612;
+    --ink-light: #3d3530;
+    --ink-faint: #7a6f65;
+    --accent: #8b3a2a;
+    --accent-warm: #b5622a;
+    --gold: #c9a84c;
+    --border: #c8b89a;
+    --border-light: #ddd0bc;
+    --blue-muted: #3a5a7a;
+    --green-muted: #3a6a4a;
+    --shadow: rgba(26,22,18,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--cream); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  .site-header { background: var(--ink); color: var(--cream); padding: 3rem 2rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+  .site-header::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,0.015) 40px,rgba(255,255,255,0.015) 41px); }
+  .site-header h1 { font-family: 'EB Garamond', serif; font-size: 2.8rem; font-weight: 500; letter-spacing: 0.02em; position: relative; }
+  .site-header .subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--gold); margin-top: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; position: relative; }
+  .site-header .meta-row { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 1.2rem; font-size: 0.82rem; color: rgba(245,240,232,0.6); font-family: 'IBM Plex Sans', sans-serif; position: relative; }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+  .intro-box { background: var(--cream-dark); border-left: 4px solid var(--gold); padding: 1.4rem 1.6rem; margin: 2.5rem 0; font-family: 'EB Garamond', serif; font-size: 1.08rem; font-style: italic; color: var(--ink-light); border-radius: 0 4px 4px 0; }
+
+  .section-header { margin-top: 3.5rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--ink); display: flex; align-items: baseline; gap: 1rem; }
+  .section-number { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .section-title { font-family: 'EB Garamond', serif; font-size: 1.7rem; font-weight: 500; color: var(--ink); }
+  .section-desc { margin-top: 0.8rem; color: var(--ink-faint); font-size: 0.93rem; font-style: italic; }
+
+  .law-card { background: var(--ink); color: var(--cream); border-radius: 6px; padding: 1.2rem 1.6rem; margin: 1.8rem 0 0; display: flex; gap: 1.2rem; align-items: flex-start; }
+  .law-card .law-num { font-family: 'EB Garamond', serif; font-size: 2.8rem; font-weight: 600; color: var(--gold); line-height: 1; flex-shrink: 0; }
+  .law-card .law-content h3 { font-family: 'EB Garamond', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .law-card .law-content p { font-size: 0.88rem; color: rgba(245,240,232,0.7); line-height: 1.55; }
+  .law-card .law-formula { margin-top: 0.5rem; font-size: 0.95rem; }
+
+  .exercise-card { background: white; border: 1px solid var(--border); border-radius: 6px; margin-top: 2rem; overflow: hidden; box-shadow: 0 2px 8px var(--shadow); }
+  .exercise-header { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.4rem; background: var(--ink); color: var(--cream); }
+  .exercise-badge { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; background: var(--accent); color: white; padding: 0.2rem 0.6rem; border-radius: 3px; white-space: nowrap; letter-spacing: 0.05em; }
+  .exercise-badge.medium { background: var(--accent-warm); }
+  .exercise-badge.hard { background: var(--blue-muted); }
+  .exercise-title { font-family: 'EB Garamond', serif; font-size: 1.12rem; font-weight: 500; flex: 1; }
+
+  .exercise-problem { padding: 1.4rem 1.6rem 0; }
+  .problem-text { font-family: 'EB Garamond', serif; font-size: 1.05rem; color: var(--ink); line-height: 1.75; }
+
+  .schema-wrap { margin: 1.2rem 0 0; background: var(--cream-dark); border: 1px solid var(--border); border-radius: 4px; padding: 1rem; text-align: center; }
+  .schema-wrap .schema-caption { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--ink-faint); margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  svg { max-width: 100%; overflow: visible; }
+
+  .solution-toggle { display: flex; align-items: center; gap: 0.7rem; padding: 0.85rem 1.6rem; cursor: pointer; user-select: none; border-top: 1px solid var(--border-light); margin-top: 1.2rem; color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.15s; }
+  .solution-toggle:hover { background: var(--cream); }
+  .solution-toggle .sol-icon { display: inline-block; transition: transform 0.3s; font-size: 0.9rem; }
+  .exercise-card.open .solution-toggle .sol-icon { transform: rotate(180deg); }
+
+  .exercise-solution { display: none; padding: 0 1.6rem 1.4rem; border-top: 1px dashed var(--border-light); }
+  .exercise-card.open .exercise-solution { display: block; }
+
+  .solution-divider { display: flex; align-items: center; gap: 0.8rem; margin: 1.2rem 0 1rem; }
+  .solution-divider span { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; white-space: nowrap; }
+  .solution-divider::before, .solution-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .step { margin: 1rem 0; padding-left: 1rem; border-left: 3px solid var(--border-light); }
+  .step-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .step p { font-size: 0.95rem; color: var(--ink-light); line-height: 1.65; }
+  .step .math-block { margin: 0.6rem 0; }
+
+  .result-box { background: linear-gradient(135deg, var(--ink) 0%, #2d2420 100%); color: var(--cream); border-radius: 5px; padding: 1rem 1.4rem; margin-top: 1.4rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .result-box .res-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.12em; white-space: nowrap; }
+  .result-box .res-value { font-family: 'EB Garamond', serif; font-size: 1.1rem; }
+
+  .concept-note { background: #f0f5f0; border-left: 3px solid var(--green-muted); padding: 0.8rem 1.1rem; margin-top: 1.2rem; border-radius: 0 4px 4px 0; font-size: 0.9rem; color: var(--ink-light); }
+  .concept-note .cn-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--green-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+
+  .warning-band { background: var(--blue-muted); color: white; padding: 0.28rem 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .sni-header { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 1.4rem 0; }
+
+  #graph-canvas { cursor: crosshair; display: block; margin: 0 auto; }
+  .graph-info { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--ink-faint); text-align: center; margin-top: 0.4rem; }
+  .graph-legend { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 0.7rem; }
+  .graph-legend span { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; display: flex; align-items: center; gap: 0.4rem; }
+  .leg-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+  footer { text-align: center; padding: 2rem; font-family: 'EB Garamond', serif; font-size: 1rem; font-style: italic; color: var(--ink-faint); border-top: 1px solid var(--border-light); margin-top: 4rem; }
+  .katex-display { margin: 0.7rem 0 !important; }
+
+  @media (max-width: 600px) {
+    .site-header h1 { font-size: 2rem; }
+    .law-card { flex-direction: column; gap: 0.5rem; }
+    .law-card .law-num { font-size: 2rem; }
+  }
+</style>
+<style>
+  .site-header .meta-row { display: none; }
+  .site-header { padding: 2.4rem 2rem 2.1rem; }
+  .site-header h1 { font-size: clamp(2rem, 5vw, 3rem); }
+  .site-header .subtitle { max-width: 760px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+  .container { padding-top: 2rem; }
+  .intro-box { margin-top: 0; }
+  .back-link { display: inline-block; margin-bottom: 1.2rem; color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <h1>Due blocchi a contatto su piano senza attrito</h1>
+  <p class="subtitle">Esercizio svolto di dinamica con schema e soluzione passo per passo</p>
+</header>
+
+<div class="container">
+  <a class="back-link" href="../../index.html#Fisica">← Torna agli esercizi</a>
+  <div class="intro-box">Il testo dell’esercizio e lo schema restano visibili. Espandi la scheda per leggere solo la soluzione.</div>
+  
+<div class="section-header">
+  <span class="section-number">§ 02</span>
+  <span class="section-title">Secondo Principio della Dinamica — Legge Fondamentale</span>
+</div>
+<p class="section-desc">La forza risultante su un corpo è uguale al prodotto della sua massa per la sua accelerazione.</p>
+
+<div class="law-card">
+  <div class="law-num">II</div>
+  <div class="law-content">
+    <h3>Legge Fondamentale della Dinamica</h3>
+    <p>La risultante delle forze su un corpo di massa m è proporzionale all'accelerazione che essa produce.</p>
+    <div class="law-formula">$$\sum \vec{F} = m\vec{a}$$</div>
+  </div>
+</div>
+
+  <div class="exercise-card">
+<div class="exercise-header">
+<span class="exercise-badge medium">Medio</span>
+<span class="exercise-title">Due blocchi a contatto su piano senza attrito</span>
+</div>
+<div class="exercise-problem">
+<p class="problem-text">Due blocchi, $m_1 = 3\,\text{kg}$ e $m_2 = 7\,\text{kg}$, sono a contatto su un piano orizzontale privo di attrito. Una forza $F = 40\,\text{N}$ viene applicata orizzontalmente al blocco $m_1$, che spinge $m_2$. Calcola: (a) l'accelerazione del sistema; (b) la forza di contatto $F_c$ che $m_1$ esercita su $m_2$.</p>
+<div class="schema-wrap">
+<svg height="155" viewbox="0 0 380 155" width="380" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="a3b" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a5a7a"></path></marker>
+<marker id="a3g" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#3a6a4a"></path></marker>
+<marker id="a3o" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3"><path d="M0,0 L0,6 L8,3 z" fill="#c9a84c"></path></marker>
+</defs>
+<rect fill="#c8b89a" height="10" width="340" x="20" y="118"></rect>
+<rect fill="#3a5a7a" height="43" rx="3" width="65" x="105" y="75"></rect>
+<text fill="white" font-family="IBM Plex Sans" font-size="11" text-anchor="middle" x="137" y="101">m₁ = 3 kg</text>
+<rect fill="#8b3a2a" height="50" rx="3" width="90" x="170" y="68"></rect>
+<text fill="white" font-family="IBM Plex Sans" font-size="11" text-anchor="middle" x="215" y="98">m₂ = 7 kg</text>
+<line marker-end="url(#a3b)" stroke="#3a5a7a" stroke-width="3" x1="35" x2="103" y1="96" y2="96"></line>
+<text fill="#3a5a7a" font-family="IBM Plex Mono" font-size="11" x="35" y="86">F = 40 N</text>
+<line marker-end="url(#a3o)" stroke="#c9a84c" stroke-dasharray="5,3" stroke-width="2.5" x1="172" x2="228" y1="84" y2="84"></line>
+<text fill="#c9a84c" font-family="IBM Plex Mono" font-size="10" x="173" y="75">Fc (su m₂)</text>
+<line marker-end="url(#a3g)" stroke="#3a6a4a" stroke-dasharray="6,3" stroke-width="2.5" x1="262" x2="338" y1="90" y2="90"></line>
+<text fill="#3a6a4a" font-family="IBM Plex Mono" font-size="10" x="267" y="80">a</text>
+</svg>
+<p class="schema-caption">I due blocchi si muovono insieme; $F_c$ è la forza di contatto interna al sistema</p>
+</div>
+</div>
+<div class="solution-toggle" onclick="toggleSol(this)"><span class="sol-icon">▼</span> <span class="solution-label">Mostra soluzione</span></div>
+<div class="exercise-solution">
+<div class="solution-divider"><span>Soluzione</span></div>
+<div class="step">
+<p class="step-label">(a) Sistema complessivo</p>
+<p>I due blocchi si muovono insieme come un unico corpo di massa $M = m_1 + m_2 = 10\,\text{kg}$. La sola forza esterna orizzontale è $F$ (piano liscio; la forza di contatto è interna). Dal Secondo Principio:</p>
+<div class="math-block">$$a = \frac{F}{m_1 + m_2} = \frac{40\,\text{N}}{10\,\text{kg}} = 4{,}0\,\text{m/s}^2$$</div>
+</div>
+<div class="step">
+<p class="step-label">(b) Forza di contatto — analisi del solo blocco $m_2$</p>
+<p>Il blocco $m_2$ accelera con $a = 4\,\text{m/s}^2$. L'unica forza orizzontale su $m_2$ è la forza di contatto $F_c$:</p>
+<div class="math-block">$$F_c = m_2 \cdot a = 7\,\text{kg} \times 4{,}0\,\text{m/s}^2 = 28\,\text{N}$$</div>
+</div>
+<div class="step">
+<p class="step-label">Verifica con il blocco $m_1$</p>
+<p>Su $m_1$ agiscono $F = 40\,\text{N}$ in avanti e la reazione $-F_c = 28\,\text{N}$ indietro (Terzo Principio). Risultante: $40 - 28 = 12\,\text{N}$. Accelerazione: $12/3 = 4\,\text{m/s}^2$. ✓</p>
+</div>
+<div class="result-box">
+<span class="res-label">Risultato</span>
+<span class="res-value">$a = 4{,}0\,\text{m/s}^2$;   $F_c = 28\,\text{N}$</span>
+</div>
+<div class="concept-note">
+<p class="cn-label">Nota concettuale</p>
+<p>La forza di contatto $F_c$ è sempre minore di $F$: deve accelerare solo $m_2$, non il sistema intero. In generale $F_c = F \cdot m_2/(m_1+m_2)$. Se $m_2 \to 0$ non serve forza di contatto; se $m_1 \to 0$ allora $F_c \to F$.</p>
+</div>
+</div>
+</div>
+</div>
+
+<footer>Esercizi svolti di dinamica</footer>
+
+<script>
+
+function toggleSol(btn) {
+  const card = btn.closest('.exercise-card');
+  const isOpen = card.classList.toggle('open');
+  const icon = btn.querySelector('.sol-icon');
+  if (icon) icon.textContent = isOpen ? '▲' : '▼';
+  const label = btn.querySelector('.solution-label');
+  if (label) label.textContent = isOpen ? 'Nascondi soluzione' : 'Mostra soluzione';
+}
+
+/* ── Grafico s-t interattivo ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('graph-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const PAD = { l: 55, r: 20, t: 20, b: 45 };
+  const W = canvas.width, H = canvas.height;
+  const gW = W - PAD.l - PAD.r;
+  const gH = H - PAD.t - PAD.b;
+  const T_MAX = 8, X_MAX = 18;
+
+  const segments = [
+    { label: 'A', color: '#3a5a7a', t0: 0, t1: 2,  x: t => 4 * t },
+    { label: 'B', color: '#3a6a4a', t0: 2, t1: 4,  x: t => 8 },
+    { label: 'C', color: '#c9a84c', t0: 4, t1: 6,  x: t => 8 + 2.5 * (t - 4) * (t - 4) },
+    { label: 'D', color: '#8b3a2a', t0: 6, t1: 8,  x: t => 18 - 4 * (t - 6) }
+  ];
+
+  function toCanvas(t, x) {
+    return {
+      cx: PAD.l + (t / T_MAX) * gW,
+      cy: PAD.t + gH - (x / X_MAX) * gH
+    };
+  }
+
+  function draw(hoverT) {
+    ctx.clearRect(0, 0, W, H);
+
+    // Griglia
+    ctx.strokeStyle = '#ddd0bc'; ctx.lineWidth = 1;
+    for (let t = 0; t <= T_MAX; t++) {
+      const {cx} = toCanvas(t, 0);
+      ctx.beginPath(); ctx.moveTo(cx, PAD.t); ctx.lineTo(cx, PAD.t + gH); ctx.stroke();
+    }
+    for (let x = 0; x <= X_MAX; x += 2) {
+      const {cy} = toCanvas(0, x);
+      ctx.beginPath(); ctx.moveTo(PAD.l, cy); ctx.lineTo(PAD.l + gW, cy); ctx.stroke();
+    }
+
+    // Assi
+    ctx.strokeStyle = '#1a1612'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(PAD.l, PAD.t); ctx.lineTo(PAD.l, PAD.t + gH);
+    ctx.moveTo(PAD.l, PAD.t + gH); ctx.lineTo(PAD.l + gW, PAD.t + gH);
+    ctx.stroke();
+
+    // Etichette
+    ctx.fillStyle = '#1a1612'; ctx.font = '13px IBM Plex Mono'; ctx.textAlign = 'center';
+    for (let t = 0; t <= T_MAX; t += 2) {
+      const {cx} = toCanvas(t, 0); ctx.fillText(t, cx, PAD.t + gH + 18);
+    }
+    ctx.fillText('t (s)', PAD.l + gW / 2, H - 4);
+    ctx.textAlign = 'right';
+    for (let x = 0; x <= X_MAX; x += 4) {
+      const {cy} = toCanvas(0, x); ctx.fillText(x, PAD.l - 6, cy + 4);
+    }
+    ctx.save();
+    ctx.translate(14, PAD.t + gH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.fillText('x (m)', 0, 0);
+    ctx.restore();
+
+    // Curve
+    segments.forEach(seg => {
+      ctx.strokeStyle = seg.color; ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let i = 0; i <= 60; i++) {
+        const t = seg.t0 + (i / 60) * (seg.t1 - seg.t0);
+        const {cx, cy} = toCanvas(t, seg.x(t));
+        i === 0 ? ctx.moveTo(cx, cy) : ctx.lineTo(cx, cy);
+      }
+      ctx.stroke();
+      const tMid = (seg.t0 + seg.t1) / 2;
+      const {cx, cy} = toCanvas(tMid, seg.x(tMid));
+      ctx.fillStyle = seg.color; ctx.font = 'bold 13px IBM Plex Mono'; ctx.textAlign = 'center';
+      ctx.fillText(seg.label, cx, cy - 10);
+    });
+
+    // Cursore
+    if (hoverT !== null) {
+      const {cx: hx} = toCanvas(hoverT, 0);
+      ctx.strokeStyle = 'rgba(26,22,18,0.3)'; ctx.lineWidth = 1;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath(); ctx.moveTo(hx, PAD.t); ctx.lineTo(hx, PAD.t + gH); ctx.stroke();
+      ctx.setLineDash([]);
+      segments.forEach(seg => {
+        if (hoverT >= seg.t0 && hoverT <= seg.t1) {
+          const {cx, cy} = toCanvas(hoverT, seg.x(hoverT));
+          ctx.fillStyle = seg.color;
+          ctx.beginPath(); ctx.arc(cx, cy, 5, 0, Math.PI * 2); ctx.fill();
+        }
+      });
+    }
+  }
+
+  draw(null);
+
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const tVal = ((mx - PAD.l) / gW) * T_MAX;
+    if (tVal < 0 || tVal > T_MAX) {
+      draw(null);
+      document.getElementById('graph-coords').textContent = 'Passa il cursore sul grafico';
+      return;
+    }
+    let xVal = null;
+    segments.forEach(seg => { if (tVal >= seg.t0 && tVal <= seg.t1) xVal = seg.x(tVal); });
+    draw(tVal);
+    if (xVal !== null)
+      document.getElementById('graph-coords').textContent =
+        `t = ${tVal.toFixed(2)} s   |   x = ${xVal.toFixed(2)} m`;
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    draw(null);
+    document.getElementById('graph-coords').textContent = 'Passa il cursore sul grafico';
+  });
+});
+
+</script>
+</body>
+</html>
