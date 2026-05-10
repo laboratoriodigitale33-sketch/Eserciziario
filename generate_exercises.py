@@ -60,6 +60,7 @@ import argparse
 import json
 import re
 import sys
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
@@ -211,6 +212,27 @@ def normalize_key(value: Any) -> str:
     return str(value or "").strip().casefold()
 
 
+def slug_path_component(value: Any) -> str:
+    """Restituisce uno slug minuscolo stabile per nomi di cartelle/file."""
+    text = str(value or "").strip()
+    text = unicodedata.normalize("NFKD", text)
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    text = text.casefold()
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+    text = re.sub(r"-+", "-", text).strip("-")
+    return text or "raccolta"
+
+
+def canonical_relative_collection_path(rel: Path) -> Path:
+    """Percorso canonico URL: materia minuscola + sottocartelle in slug minuscolo."""
+    parts = rel.parts
+    if not parts:
+        return rel
+    first = slug_path_component(parts[0])
+    rest = [slug_path_component(part) for part in parts[1:]]
+    return Path(first, *rest)
+
+
 def title_case_from_slug(value: str) -> str:
     text = value.replace("-", " ").replace("_", " ").strip()
     return " ".join(word[:1].upper() + word[1:] for word in text.split())
@@ -248,6 +270,15 @@ def is_subject_collection_target(target_dir: Path, root: Path) -> tuple[bool, st
             False,
             "La modalità locale accetta percorsi che iniziano con 'matematica/' oppure 'fisica/'. "
             f"Percorso ricevuto: {rel.as_posix()}"
+        )
+
+    canonical_rel = canonical_relative_collection_path(rel)
+    if rel.as_posix() != canonical_rel.as_posix():
+        return (
+            False,
+            "Percorso non canonico. Usa solo nomi di cartella minuscoli/slug nei link del progetto. "
+            f"Percorso ricevuto: {rel.as_posix()}. Percorso atteso: {canonical_rel.as_posix()}. "
+            "Rinomina la cartella e rilancia il generatore."
         )
 
     return True, ""
@@ -640,7 +671,7 @@ def build_local_catalog(collection_dir: Path, root: Path, exercises: list[Exerci
 def json_filename_for_directory(directory: Path, explicit_name: str = "") -> str:
     if explicit_name:
         return explicit_name
-    return f"{directory.name}.json"
+    return f"{slug_path_component(directory.name)}.json"
 
 
 def write_json(data: dict[str, Any], path: Path) -> None:
@@ -738,17 +769,6 @@ def generate_collection_index(collection_dir: Path, json_filename: str, root: Pa
       letter-spacing: -0.055em;
       font-weight: 500;
     }}
-    .description {{ max-width: 72ch; margin: 1rem 0 0; color: var(--muted); line-height: 1.65; }}
-    .meta-row {{ display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.15rem; }}
-    .pill {{
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      padding: 0.34rem 0.62rem;
-      font-size: 0.78rem;
-      font-weight: 780;
-    }}
-
     .toolbar {{
       display: flex;
       justify-content: flex-end;
@@ -897,12 +917,6 @@ def generate_collection_index(collection_dir: Path, json_filename: str, root: Pa
       document.title = `${{collection.title || \"Raccolta esercizi\"}} | Esercizi svolti`;
       document.getElementById(\"eyebrow\").textContent = [collection.subject, collection.category, collection.topic].filter(Boolean).join(\" · \") || \"Esercizi svolti\";
       document.getElementById(\"title\").textContent = collection.title || \"Raccolta esercizi\";
-      document.getElementById(\"metaRow\").innerHTML = [
-        collection.count ? `${{collection.count}} esercizi` : \"\",
-        collection.level || \"\",
-        collection.schoolYear || \"\",
-        collection.estimatedTime || \"\"
-      ].filter(Boolean).map(item => `<span class=\"pill\">${{escapeHtml(item)}}</span>`).join(\"\");
 
       const list = document.getElementById(\"exerciseList\");
       if (exercises.length === 0) {{
@@ -1033,7 +1047,8 @@ def sort_categories(categories: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def collection_catalog_entry(collection_dir: Path, root: Path, local_catalog: dict[str, Any]) -> dict[str, Any]:
     collection = dict(local_catalog.get("collection", {}))
     try:
-        rel_index = (collection_dir / "index.html").relative_to(root).as_posix()
+        rel_dir = collection_dir.relative_to(root)
+        rel_index = (canonical_relative_collection_path(rel_dir) / "index.html").as_posix()
     except ValueError:
         rel_index = "index.html"
 
@@ -1065,6 +1080,10 @@ def write_local_collection(
     no_index: bool,
     strict: bool,
 ) -> tuple[dict[str, Any], list[str]]:
+    ok, message = is_subject_collection_target(collection_dir, root)
+    if not ok:
+        raise ValueError(message)
+
     exercises, warnings = load_exercise_sources(
         collection_dir=collection_dir,
         root=root,

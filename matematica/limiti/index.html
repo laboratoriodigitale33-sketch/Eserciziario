@@ -77,17 +77,6 @@
       letter-spacing: -0.055em;
       font-weight: 500;
     }
-    .description { max-width: 72ch; margin: 1rem 0 0; color: var(--muted); line-height: 1.65; }
-    .meta-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.15rem; }
-    .pill {
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      padding: 0.34rem 0.62rem;
-      font-size: 0.78rem;
-      font-weight: 780;
-    }
-
     .toolbar {
       display: flex;
       justify-content: flex-end;
@@ -236,12 +225,6 @@
       document.title = `${collection.title || "Raccolta esercizi"} | Esercizi svolti`;
       document.getElementById("eyebrow").textContent = [collection.subject, collection.category, collection.topic].filter(Boolean).join(" · ") || "Esercizi svolti";
       document.getElementById("title").textContent = collection.title || "Raccolta esercizi";
-      document.getElementById("metaRow").innerHTML = [
-        collection.count ? `${collection.count} esercizi` : "",
-        collection.level || "",
-        collection.schoolYear || "",
-        collection.estimatedTime || ""
-      ].filter(Boolean).map(item => `<span class="pill">${escapeHtml(item)}</span>`).join("");
 
       const list = document.getElementById("exerciseList");
       if (exercises.length === 0) {
