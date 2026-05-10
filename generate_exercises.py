@@ -1048,6 +1048,8 @@ def write_local_collection(
     )
     catalog = build_local_catalog(collection_dir, root, exercises)
     json_path = collection_dir / json_filename_for_directory(collection_dir, local_json_name)
+    # Il nome usato dall'index viene preso dal file JSON realmente scritto.
+    # Questo evita mismatch tipo limiti.json / Limiti.json / Limit.josn.
     write_json(catalog, json_path)
     if not no_index:
         generate_collection_index(collection_dir, json_path.name, root)
@@ -1117,6 +1119,7 @@ def run_local(args: argparse.Namespace, root: Path, target_dir: Path) -> int:
     print(f" - JSON locale: {json_name}")
     if not args.no_index:
         print(" - Pagina locale: index.html")
+        print(f" - index.html carica: {json_name}")
     print(f" - Esercizi trovati: {count}")
     return 0
 
