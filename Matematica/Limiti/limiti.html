@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Limiti e forme indeterminate | Esercizi svolti</title>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --panel: #fffdf8;
+      --panel-soft: #fbf7ee;
+      --text: #24211c;
+      --muted: #6f675c;
+      --line: rgba(36, 33, 28, 0.13);
+      --accent: #8f6f3d;
+      --accent-soft: rgba(143, 111, 61, 0.14);
+      --ok: #4f7d5a;
+      --shadow: 0 18px 50px rgba(43, 33, 17, 0.08);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(143, 111, 61, 0.14), transparent 32rem),
+        linear-gradient(135deg, #f8f5ed 0%, #f2eee5 100%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    .page {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 42px 0 56px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .hero,
+    .info-card,
+    .exercise-card {
+      background: rgba(255, 253, 248, 0.88);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero {
+      border-radius: var(--radius-lg);
+      padding: 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      color: var(--accent);
+      font-size: 0.83rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px var(--accent-soft);
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      font-weight: 760;
+    }
+
+    .subtitle {
+      max-width: 68ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.06rem;
+    }
+
+    .info-card {
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+    }
+
+    .info-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+      letter-spacing: -0.02em;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #5f4721;
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 18px;
+    }
+
+    .toolbar button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, 0.82);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+
+    .toolbar button:hover {
+      transform: translateY(-1px);
+      background: #fffdf8;
+      border-color: rgba(143, 111, 61, 0.35);
+    }
+
+    .exercise-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .exercise-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    details.exercise {
+      width: 100%;
+    }
+
+    details.exercise summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    details.exercise summary::-webkit-details-marker { display: none; }
+
+    .summary-inner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 22px 24px;
+    }
+
+    .number {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      background: var(--accent-soft);
+      color: #5f4721;
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .exercise-title h2 {
+      margin: 0 0 4px;
+      font-size: 1.18rem;
+      letter-spacing: -0.02em;
+    }
+
+    .exercise-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .chevron {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      transition: transform 0.22s ease, background 0.22s ease;
+      color: var(--accent);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    details[open] .chevron {
+      transform: rotate(90deg);
+      background: var(--accent-soft);
+    }
+
+    .exercise-body {
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(251, 247, 238, 0.8), rgba(255, 253, 248, 0.94));
+      padding: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, 0.85);
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+
+    .box h3 {
+      margin: 0 0 12px;
+      font-size: 0.98rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .box p,
+    .box li {
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+
+    .box p:first-of-type { margin-top: 0; }
+    .box p:last-child { margin-bottom: 0; }
+
+    .given-list {
+      margin: 0;
+      padding-left: 19px;
+    }
+
+    .solution-steps {
+      counter-reset: step;
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .step {
+      position: relative;
+      padding-left: 38px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--accent-soft);
+      color: #5f4721;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .result {
+      margin-top: 16px;
+      border-left: 4px solid var(--ok);
+      background: rgba(79, 125, 90, 0.1);
+      padding: 12px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-weight: 760;
+    }
+
+    .note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: right;
+    }
+
+    @media (max-width: 860px) {
+      header,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-inner {
+        grid-template-columns: auto 1fr;
+      }
+
+      .chevron {
+        grid-column: 1 / -1;
+        justify-self: end;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page { width: min(100% - 20px, 1100px); padding-top: 22px; }
+      .hero, .info-card { padding: 22px; }
+      .summary-inner { padding: 18px; gap: 12px; }
+      .exercise-body { padding: 18px; }
+      .number { width: 40px; height: 40px; border-radius: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <section class="hero">
+        <div class="eyebrow">Analisi matematica · Limiti</div>
+        <h1>Limiti e forme indeterminate</h1>
+        <p class="subtitle">
+          Raccolta guidata di esercizi svolti. Ogni scheda mostra prima il testo e la richiesta;
+          aprendo la freccia laterale compare la risoluzione completa, con il metodo usato e il risultato finale.
+        </p>
+      </section>
+
+      <aside class="info-card">
+        <div>
+          <h2>Obiettivo didattico</h2>
+          <p>
+            Riconoscere la forma del limite, scegliere una tecnica semplice e distinguere i casi in cui
+            la sostituzione diretta è sufficiente da quelli in cui serve una manipolazione algebrica.
+          </p>
+        </div>
+        <div class="legend">
+          <span class="pill">sostituzione diretta</span>
+          <span class="pill">∞/∞</span>
+          <span class="pill">0/0</span>
+          <span class="pill">−∞ + ∞</span>
+        </div>
+      </aside>
+    </header>
+
+    <div class="toolbar" aria-label="Comandi esercizi">
+      <button type="button" id="openAll">Mostra tutte le soluzioni</button>
+      <button type="button" id="closeAll">Nascondi tutte le soluzioni</button>
+    </div>
+
+    <section class="exercise-list" aria-label="Esercizi sui limiti">
+      <article class="exercise-card">
+        <details class="exercise">
+          <summary>
+            <div class="summary-inner">
+              <div class="number">1</div>
+              <div class="exercise-title">
+                <h2>Limite di un polinomio per sostituzione diretta</h2>
+                <p>Calcolare un limite finito in cui la funzione è continua nel punto considerato.</p>
+              </div>
+              <div class="chevron" aria-hidden="true">›</div>
+            </div>
+          </summary>
+
+          <div class="exercise-body">
+            <div class="grid">
+              <section class="box">
+                <h3>Testo</h3>
+                <p>Calcola il seguente limite:</p>
+                \[
+                  \lim_{x \to 2} \left(3x^2 - 5x + 1\right)
+                \]
+                <p><strong>Richiesta:</strong> stabilire se serve una trasformazione algebrica oppure se è sufficiente sostituire il valore di \(x\).</p>
+              </section>
+
+              <section class="box">
+                <h3>Risoluzione</h3>
+                <p>La funzione è un polinomio. Ogni polinomio è continuo per ogni valore reale di \(x\). Quindi si può sostituire direttamente \(x = 2\).</p>
+                <div class="solution-steps">
+                  <div class="step">
+                    \[
+                      3x^2 - 5x + 1 \quad \xrightarrow{x = 2} \quad 3 \cdot 2^2 - 5 \cdot 2 + 1
+                    \]
+                  </div>
+                  <div class="step">
+                    \[
+                      3 \cdot 4 - 10 + 1 = 12 - 10 + 1 = 3
+                    \]
+                  </div>
+                </div>
+                <div class="result">Risultato: \(\displaystyle \lim_{x \to 2} (3x^2 - 5x + 1) = 3\).</div>
+              </section>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise-card">
+        <details class="exercise">
+          <summary>
+            <div class="summary-inner">
+              <div class="number">2</div>
+              <div class="exercise-title">
+                <h2>Forma indeterminata \(\infty/\infty\)</h2>
+                <p>Rapporto tra polinomi: confronto tra i termini di grado massimo.</p>
+              </div>
+              <div class="chevron" aria-hidden="true">›</div>
+            </div>
+          </summary>
+
+          <div class="exercise-body">
+            <div class="grid">
+              <section class="box">
+                <h3>Testo</h3>
+                <p>Calcola il seguente limite:</p>
+                \[
+                  \lim_{x \to +\infty} \frac{4x^3 - 2x + 1}{2x^3 + 5x^2 - 7}
+                \]
+                <p><strong>Richiesta:</strong> individuare la forma indeterminata e calcolare il limite usando i termini dominanti.</p>
+              </section>
+
+              <section class="box">
+                <h3>Risoluzione</h3>
+                <p>Per \(x \to +\infty\), numeratore e denominatore tendono entrambi a infinito. Si ha quindi una forma indeterminata \(\infty/\infty\).</p>
+                <div class="solution-steps">
+                  <div class="step">
+                    Raccogliamo \(x^3\), cioè la potenza di grado massimo, sia al numeratore sia al denominatore:
+                    \[
+                      \frac{4x^3 - 2x + 1}{2x^3 + 5x^2 - 7}
+                      =
+                      \frac{x^3\left(4 - \frac{2}{x^2} + \frac{1}{x^3}\right)}
+                      {x^3\left(2 + \frac{5}{x} - \frac{7}{x^3}\right)}
+                    \]
+                  </div>
+                  <div class="step">
+                    Semplifichiamo \(x^3\):
+                    \[
+                      \frac{4 - \frac{2}{x^2} + \frac{1}{x^3}}
+                      {2 + \frac{5}{x} - \frac{7}{x^3}}
+                    \]
+                  </div>
+                  <div class="step">
+                    Per \(x \to +\infty\), i termini \(1/x\), \(1/x^2\), \(1/x^3\) tendono a zero:
+                    \[
+                      \frac{4 - 0 + 0}{2 + 0 - 0} = \frac{4}{2} = 2
+                    \]
+                  </div>
+                </div>
+                <div class="result">Risultato: \(\displaystyle \lim_{x \to +\infty} \frac{4x^3 - 2x + 1}{2x^3 + 5x^2 - 7} = 2\).</div>
+              </section>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise-card">
+        <details class="exercise">
+          <summary>
+            <div class="summary-inner">
+              <div class="number">3</div>
+              <div class="exercise-title">
+                <h2>Forma indeterminata \(-\infty + \infty\)</h2>
+                <p>Differenza tra polinomi con cancellazione dei termini principali.</p>
+              </div>
+              <div class="chevron" aria-hidden="true">›</div>
+            </div>
+          </summary>
+
+          <div class="exercise-body">
+            <div class="grid">
+              <section class="box">
+                <h3>Testo</h3>
+                <p>Calcola il seguente limite:</p>
+                \[
+                  \lim_{x \to +\infty} \left[(3x^2 - 5x + 1) - (3x^2 - 9x + 4)\right]
+                \]
+                <p><strong>Richiesta:</strong> non concludere osservando solo i due termini separati; prima semplificare l'espressione.</p>
+              </section>
+
+              <section class="box">
+                <h3>Risoluzione</h3>
+                <p>Separatamente, il primo polinomio tende a \(+\infty\) e il secondo polinomio, essendo sottratto, produce un contributo che tende a \(-\infty\). La forma apparente è quindi \(+\infty - \infty\), equivalente a una forma indeterminata.</p>
+                <div class="solution-steps">
+                  <div class="step">
+                    Eliminiamo le parentesi facendo attenzione ai segni:
+                    \[
+                      (3x^2 - 5x + 1) - (3x^2 - 9x + 4)
+                      = 3x^2 - 5x + 1 - 3x^2 + 9x - 4
+                    \]
+                  </div>
+                  <div class="step">
+                    Sommiamo i termini simili:
+                    \[
+                      3x^2 - 3x^2 - 5x + 9x + 1 - 4 = 4x - 3
+                    \]
+                  </div>
+                  <div class="step">
+                    Ora il limite è semplice:
+                    \[
+                      \lim_{x \to +\infty} (4x - 3) = +\infty
+                    \]
+                  </div>
+                </div>
+                <div class="result">Risultato: \(\displaystyle \lim_{x \to +\infty} \left[(3x^2 - 5x + 1) - (3x^2 - 9x + 4)\right] = +\infty\).</div>
+              </section>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise-card">
+        <details class="exercise">
+          <summary>
+            <div class="summary-inner">
+              <div class="number">4</div>
+              <div class="exercise-title">
+                <h2>Forma indeterminata \(0/0\)</h2>
+                <p>Scomposizione di una differenza di quadrati.</p>
+              </div>
+              <div class="chevron" aria-hidden="true">›</div>
+            </div>
+          </summary>
+
+          <div class="exercise-body">
+            <div class="grid">
+              <section class="box">
+                <h3>Testo</h3>
+                <p>Calcola il seguente limite:</p>
+                \[
+                  \lim_{x \to 3} \frac{x^2 - 9}{x - 3}
+                \]
+                <p><strong>Richiesta:</strong> riconoscere la forma indeterminata e rimuovere il fattore che genera l'annullamento.</p>
+              </section>
+
+              <section class="box">
+                <h3>Risoluzione</h3>
+                <p>Sostituendo \(x = 3\) si ottiene:</p>
+                \[
+                  \frac{3^2 - 9}{3 - 3} = \frac{0}{0}
+                \]
+                <p>La sostituzione diretta non basta. Bisogna scomporre il numeratore.</p>
+                <div class="solution-steps">
+                  <div class="step">
+                    Usiamo la formula della differenza di quadrati:
+                    \[
+                      x^2 - 9 = x^2 - 3^2 = (x - 3)(x + 3)
+                    \]
+                  </div>
+                  <div class="step">
+                    Quindi:
+                    \[
+                      \frac{x^2 - 9}{x - 3}
+                      =
+                      \frac{(x - 3)(x + 3)}{x - 3}
+                    \]
+                  </div>
+                  <div class="step">
+                    Per \(x \ne 3\), si può semplificare il fattore \(x - 3\):
+                    \[
+                      \frac{(x - 3)(x + 3)}{x - 3} = x + 3
+                    \]
+                  </div>
+                  <div class="step">
+                    Calcoliamo il limite della funzione semplificata:
+                    \[
+                      \lim_{x \to 3} (x + 3) = 6
+                    \]
+                  </div>
+                </div>
+                <div class="result">Risultato: \(\displaystyle \lim_{x \to 3} \frac{x^2 - 9}{x - 3} = 6\).</div>
+                <p class="note">Nota: non si sta ponendo \(x = 3\) prima della semplificazione. Nel limite si studiano valori di \(x\) arbitrariamente vicini a 3, ma non necessariamente uguali a 3.</p>
+              </section>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <article class="exercise-card">
+        <details class="exercise">
+          <summary>
+            <div class="summary-inner">
+              <div class="number">5</div>
+              <div class="exercise-title">
+                <h2>Forma \(0/0\) con trinomio di secondo grado</h2>
+                <p>Scomposizione di un polinomio e semplificazione del fattore comune.</p>
+              </div>
+              <div class="chevron" aria-hidden="true">›</div>
+            </div>
+          </summary>
+
+          <div class="exercise-body">
+            <div class="grid">
+              <section class="box">
+                <h3>Testo</h3>
+                <p>Calcola il seguente limite:</p>
+                \[
+                  \lim_{x \to -2} \frac{x^2 + 5x + 6}{x + 2}
+                \]
+                <p><strong>Richiesta:</strong> scomporre il numeratore cercando due numeri con somma \(5\) e prodotto \(6\).</p>
+              </section>
+
+              <section class="box">
+                <h3>Risoluzione</h3>
+                <p>Sostituendo \(x = -2\) si ottiene:</p>
+                \[
+                  \frac{(-2)^2 + 5(-2) + 6}{-2 + 2} = \frac{4 - 10 + 6}{0} = \frac{0}{0}
+                \]
+                <p>Siamo davanti a una forma indeterminata. Scomponiamo il trinomio.</p>
+                <div class="solution-steps">
+                  <div class="step">
+                    Cerchiamo due numeri con somma \(5\) e prodotto \(6\): sono \(2\) e \(3\). Quindi:
+                    \[
+                      x^2 + 5x + 6 = (x + 2)(x + 3)
+                    \]
+                  </div>
+                  <div class="step">
+                    Sostituiamo nella frazione:
+                    \[
+                      \frac{x^2 + 5x + 6}{x + 2}
+                      =
+                      \frac{(x + 2)(x + 3)}{x + 2}
+                    \]
+                  </div>
+                  <div class="step">
+                    Per \(x \ne -2\), semplifichiamo \(x + 2\):
+                    \[
+                      \frac{(x + 2)(x + 3)}{x + 2} = x + 3
+                    \]
+                  </div>
+                  <div class="step">
+                    Ora calcoliamo:
+                    \[
+                      \lim_{x \to -2} (x + 3) = 1
+                    \]
+                  </div>
+                </div>
+                <div class="result">Risultato: \(\displaystyle \lim_{x \to -2} \frac{x^2 + 5x + 6}{x + 2} = 1\).</div>
+              </section>
+            </div>
+          </div>
+        </details>
+      </article>
+    </section>
+
+    <footer>
+      Esercizi svolti · Limiti
+    </footer>
+  </main>
+
+  <script>
+    const exercises = [...document.querySelectorAll('details.exercise')];
+
+    document.getElementById('openAll').addEventListener('click', () => {
+      exercises.forEach((exercise) => exercise.open = true);
+      if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
+    });
+
+    document.getElementById('closeAll').addEventListener('click', () => {
+      exercises.forEach((exercise) => exercise.open = false);
+    });
+
+    exercises.forEach((exercise) => {
+      exercise.addEventListener('toggle', () => {
+        if (exercise.open && window.MathJax?.typesetPromise) {
+          window.MathJax.typesetPromise([exercise]);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
