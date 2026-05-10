@@ -75,10 +75,7 @@
     }
 
     .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.55fr);
-      gap: 2rem;
-      align-items: end;
+      max-width: 860px;
     }
 
     .eyebrow {
@@ -111,42 +108,6 @@
       color: var(--muted);
       font-size: 1.12rem;
       line-height: 1.65;
-    }
-
-    .stats-card {
-      background: var(--panel-soft);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.2rem;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.8rem;
-    }
-
-    .stat {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1rem;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.65rem;
-      line-height: 1;
-      color: var(--accent-dark);
-    }
-
-    .stat span {
-      display: block;
-      margin-top: 0.35rem;
-      color: var(--muted);
-      font-size: 0.82rem;
     }
 
     main {
@@ -374,10 +335,6 @@
     }
 
     @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
       .controls {
         position: static;
         grid-template-columns: 1fr 1fr;
@@ -436,26 +393,7 @@
         </p>
       </div>
 
-      <aside class="stats-card" aria-label="Statistiche archivio">
-        <div class="stats-grid">
-          <div class="stat">
-            <strong id="statExercises">0</strong>
-            <span>Esercizi</span>
-          </div>
-          <div class="stat">
-            <strong id="statSubjects">0</strong>
-            <span>Materie</span>
-          </div>
-          <div class="stat">
-            <strong id="statCategories">0</strong>
-            <span>Categorie</span>
-          </div>
-          <div class="stat">
-            <strong id="statTopics">0</strong>
-            <span>Argomenti</span>
-          </div>
-        </div>
-      </aside>
+
     </section>
   </header>
 
@@ -514,27 +452,21 @@
     const exerciseGrid = document.getElementById("exerciseGrid");
     const categoryStrip = document.getElementById("categoryStrip");
 
-    const statExercises = document.getElementById("statExercises");
-    const statSubjects = document.getElementById("statSubjects");
-    const statCategories = document.getElementById("statCategories");
-    const statTopics = document.getElementById("statTopics");
-
     async function loadExercises() {
       try {
-        const response = await fetch("esercizi.json", { cache: "no-store" });
+        const response = await fetch("configuration.json", { cache: "no-store" });
 
         if (!response.ok) {
-          throw new Error("Impossibile caricare esercizi.json");
+          throw new Error("Impossibile caricare configuration.json");
         }
 
         const exercises = await response.json();
 
         if (!Array.isArray(exercises)) {
-          throw new Error("Il file esercizi.json deve contenere un array di esercizi.");
+          throw new Error("Il file configuration.json deve contenere un array di esercizi.");
         }
 
         state.exercises = exercises;
-        updateStats(exercises);
         populateFilters(exercises);
         renderCategoryStrip(exercises);
         applyFilters();
@@ -543,7 +475,7 @@
         exerciseGrid.innerHTML = `
           <div class="error">
             <strong>Non è stato possibile caricare il catalogo degli esercizi.</strong><br>
-            Controlla che <code>esercizi.json</code> sia nella stessa cartella di <code>index.html</code>
+            Controlla che <code>configuration.json</code> sia nella stessa cartella di <code>index.html</code>
             e che il file JSON sia valido.<br><br>
             Nota: se apri il file direttamente con <code>file://</code>, alcuni browser bloccano
             <code>fetch()</code>. Per testare in locale usa un piccolo server, per esempio
@@ -552,13 +484,6 @@
         `;
         console.error(error);
       }
-    }
-
-    function updateStats(exercises) {
-      statExercises.textContent = exercises.length;
-      statSubjects.textContent = uniqueValues(exercises, "subject").length;
-      statCategories.textContent = uniqueValues(exercises, "category").length;
-      statTopics.textContent = uniqueValues(exercises, "topic").length;
     }
 
     function populateFilters(exercises) {
