@@ -7,8 +7,10 @@ Generatore per Eserciziario.
 Uso consigliato dalla directory principale del progetto:
 
   python generate_exercises.py
-      Modalità globale: scansiona le raccolte sotto fisica/ e matematica/,
-      genera gli index locali e aggiorna esercizi.json nella directory principale.
+      Modalità globale: da eseguire dalla directory Eserciziario. Scansiona le
+      raccolte sotto fisica/ e matematica/, genera solo gli index locali e
+      aggiorna esercizi.json nella directory principale. Non modifica mai
+      l'index.html principale.
 
   python generate_exercises.py matematica/<cartella-raccolta>
   python generate_exercises.py fisica/<cartella-raccolta>
@@ -647,6 +649,15 @@ def write_json(data: dict[str, Any], path: Path) -> None:
 
 
 def generate_collection_index(collection_dir: Path, json_filename: str, root: Path) -> None:
+    ok, message = is_subject_collection_target(collection_dir, root)
+    if not ok:
+        rel = path_relative_to_root(collection_dir, root)
+        rel_text = rel.as_posix() if rel is not None else str(collection_dir)
+        raise ValueError(
+            "Protezione homepage: rifiuto di generare un index.html fuori da una "
+            f"cartella-raccolta sotto 'matematica/' o 'fisica/'. Percorso: {rel_text}. {message}"
+        )
+
     back_href = Path(__import__("os").path.relpath(root / "index.html", collection_dir)).as_posix()
     html = f"""<!DOCTYPE html>
 <html lang=\"it\">
@@ -1054,7 +1065,10 @@ def existing_subject_roots(root: Path) -> list[Path]:
 
 def find_collection_dirs(root: Path, include_index: bool) -> list[Path]:
     dirs: set[Path] = set()
-    scan_roots = existing_subject_roots(root) or [root]
+    scan_roots = existing_subject_roots(root)
+    if not scan_roots:
+        return []
+
     for scan_root in scan_roots:
         for path in scan_root.rglob("*"):
             if not path.is_file():
@@ -1109,6 +1123,16 @@ def run_local(args: argparse.Namespace, root: Path, target_dir: Path) -> int:
 
 def run_global(args: argparse.Namespace, root: Path) -> int:
     global_json_path = root / args.global_json
+
+    subject_roots = existing_subject_roots(root)
+    if not subject_roots:
+        print(
+            "Errore: modalità globale eseguita fuori dalla radice del progetto. "
+            "La cartella corrente deve contenere almeno 'matematica/' o 'fisica/'. "
+            "Spostati nella directory Eserciziario oppure usa --root /percorso/Eserciziario.",
+            file=sys.stderr,
+        )
+        return 1
 
     try:
         global_catalog = load_json_object(global_json_path)
