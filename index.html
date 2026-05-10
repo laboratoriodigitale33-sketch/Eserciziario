@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Esercizi svolti | Matematica e Fisica</title>
+
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --panel: #ffffff;
+      --panel-soft: rgba(255, 255, 255, 0.78);
+      --text: #1f2933;
+      --muted: #667085;
+      --border: #d8d3c7;
+      --accent: #365f85;
+      --accent-dark: #24415d;
+      --accent-soft: rgba(54, 95, 133, 0.12);
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.075);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 4%, rgba(54, 95, 133, 0.16), transparent 24rem),
+        radial-gradient(circle at 92% 10%, rgba(181, 141, 72, 0.10), transparent 22rem),
+        linear-gradient(180deg, #f8f6f0 0%, var(--bg) 100%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-shell {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 4rem 0 2.25rem;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .brand {
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .mini-label {
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: right;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.55fr);
+      gap: 2rem;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid rgba(54, 95, 133, 0.16);
+      border-radius: 999px;
+      padding: 0.45rem 0.72rem;
+      font-size: 0.82rem;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      margin-bottom: 1.1rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.7rem, 6vw, 5.5rem);
+      line-height: 0.96;
+      letter-spacing: -0.065em;
+      max-width: 850px;
+    }
+
+    .subtitle {
+      margin: 1.35rem 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.12rem;
+      line-height: 1.65;
+    }
+
+    .stats-card {
+      background: var(--panel-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.65rem;
+      line-height: 1;
+      color: var(--accent-dark);
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 0.35rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    main {
+      padding-bottom: 4rem;
+    }
+
+    .controls {
+      position: sticky;
+      top: 0.75rem;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: 1.6fr repeat(4, minmax(120px, 0.55fr));
+      gap: 0.8rem;
+      margin: 1.2rem 0 1.1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.86rem 0.95rem;
+      font-size: 0.95rem;
+      background: #fff;
+      color: var(--text);
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0 1.35rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .reset-button {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--accent-dark);
+      border-radius: 999px;
+      padding: 0.55rem 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .reset-button:hover {
+      border-color: var(--accent);
+    }
+
+    .category-strip {
+      display: flex;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+
+    .category-button {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 0.55rem 0.85rem;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .category-button.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.052);
+      min-height: 285px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .pill {
+      font-size: 0.76rem;
+      padding: 0.29rem 0.55rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-weight: 760;
+    }
+
+    .pill.secondary {
+      background: #f3efe5;
+      color: #785d27;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      line-height: 1.27;
+      letter-spacing: -0.025em;
+    }
+
+    .description {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.36rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.24rem 0.52rem;
+      background: #fff;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-top: 0.2rem;
+    }
+
+    .open-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.75rem 0.95rem;
+      border-radius: 14px;
+      font-weight: 800;
+      min-width: 130px;
+    }
+
+    .open-link:hover {
+      background: var(--accent-dark);
+    }
+
+    .duration {
+      color: var(--muted);
+      font-size: 0.84rem;
+      white-space: nowrap;
+    }
+
+    .empty,
+    .error {
+      grid-column: 1 / -1;
+      background: #fff;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .error strong {
+      color: var(--text);
+    }
+
+    footer {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 0 0 2rem;
+      color: rgba(31, 41, 51, 0.58);
+      text-align: right;
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        position: static;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .controls input {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 620px) {
+      header {
+        padding-top: 2.4rem;
+      }
+
+      .top-row {
+        flex-direction: column;
+        margin-bottom: 2.2rem;
+      }
+
+      .mini-label {
+        text-align: left;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      footer {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-shell">
+    <div class="top-row">
+      <div class="brand">Esercizi svolti</div>
+      <div class="mini-label">Archivio HTML per studenti</div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Matematica · Fisica</div>
+        <h1>Archivio di esercizi svolti</h1>
+        <p class="subtitle">
+          Raccolta di esercizi organizzati per materia, categoria, argomento e livello.
+          Ogni scheda rimanda a una pagina HTML dedicata con testo, dati, svolgimento,
+          formule e risultato commentato.
+        </p>
+      </div>
+
+      <aside class="stats-card" aria-label="Statistiche archivio">
+        <div class="stats-grid">
+          <div class="stat">
+            <strong id="statExercises">0</strong>
+            <span>Esercizi</span>
+          </div>
+          <div class="stat">
+            <strong id="statSubjects">0</strong>
+            <span>Materie</span>
+          </div>
+          <div class="stat">
+            <strong id="statCategories">0</strong>
+            <span>Categorie</span>
+          </div>
+          <div class="stat">
+            <strong id="statTopics">0</strong>
+            <span>Argomenti</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </header>
+
+  <main class="site-shell">
+    <section class="controls" aria-label="Filtri esercizi">
+      <input id="searchInput" type="search" placeholder="Cerca per titolo, argomento, tag, formula..." />
+
+      <select id="subjectFilter">
+        <option value="">Tutte le materie</option>
+      </select>
+
+      <select id="categoryFilter">
+        <option value="">Tutte le categorie</option>
+      </select>
+
+      <select id="topicFilter">
+        <option value="">Tutti gli argomenti</option>
+      </select>
+
+      <select id="levelFilter">
+        <option value="">Tutti i livelli</option>
+      </select>
+    </section>
+
+    <div class="summary-row">
+      <p id="summary">Caricamento esercizi...</p>
+      <button id="resetButton" class="reset-button" type="button">Azzera filtri</button>
+    </div>
+
+    <section id="categoryStrip" class="category-strip" aria-label="Categorie principali"></section>
+
+    <section id="exerciseGrid" class="grid" aria-label="Elenco esercizi"></section>
+  </main>
+
+  <footer>
+    <a href="https://github.com/robertocurciorubertini-ctrl" target="_blank" rel="noopener noreferrer">
+      Roberto Curcio Rubertini
+    </a>
+  </footer>
+
+  <script>
+    const state = {
+      exercises: [],
+      filtered: [],
+      selectedCategory: ""
+    };
+
+    const searchInput = document.getElementById("searchInput");
+    const subjectFilter = document.getElementById("subjectFilter");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const topicFilter = document.getElementById("topicFilter");
+    const levelFilter = document.getElementById("levelFilter");
+    const resetButton = document.getElementById("resetButton");
+
+    const summary = document.getElementById("summary");
+    const exerciseGrid = document.getElementById("exerciseGrid");
+    const categoryStrip = document.getElementById("categoryStrip");
+
+    const statExercises = document.getElementById("statExercises");
+    const statSubjects = document.getElementById("statSubjects");
+    const statCategories = document.getElementById("statCategories");
+    const statTopics = document.getElementById("statTopics");
+
+    async function loadExercises() {
+      try {
+        const response = await fetch("esercizi.json", { cache: "no-store" });
+
+        if (!response.ok) {
+          throw new Error("Impossibile caricare esercizi.json");
+        }
+
+        const exercises = await response.json();
+
+        if (!Array.isArray(exercises)) {
+          throw new Error("Il file esercizi.json deve contenere un array di esercizi.");
+        }
+
+        state.exercises = exercises;
+        updateStats(exercises);
+        populateFilters(exercises);
+        renderCategoryStrip(exercises);
+        applyFilters();
+      } catch (error) {
+        summary.textContent = "Errore nel caricamento del catalogo.";
+        exerciseGrid.innerHTML = `
+          <div class="error">
+            <strong>Non è stato possibile caricare il catalogo degli esercizi.</strong><br>
+            Controlla che <code>esercizi.json</code> sia nella stessa cartella di <code>index.html</code>
+            e che il file JSON sia valido.<br><br>
+            Nota: se apri il file direttamente con <code>file://</code>, alcuni browser bloccano
+            <code>fetch()</code>. Per testare in locale usa un piccolo server, per esempio
+            <code>python -m http.server</code>.
+          </div>
+        `;
+        console.error(error);
+      }
+    }
+
+    function updateStats(exercises) {
+      statExercises.textContent = exercises.length;
+      statSubjects.textContent = uniqueValues(exercises, "subject").length;
+      statCategories.textContent = uniqueValues(exercises, "category").length;
+      statTopics.textContent = uniqueValues(exercises, "topic").length;
+    }
+
+    function populateFilters(exercises) {
+      fillSelect(subjectFilter, uniqueValues(exercises, "subject"));
+      fillSelect(categoryFilter, uniqueValues(exercises, "category"));
+      fillSelect(topicFilter, uniqueValues(exercises, "topic"));
+      fillSelect(levelFilter, uniqueValues(exercises, "level"));
+    }
+
+    function uniqueValues(items, key) {
+      return [...new Set(
+        items
+          .map(item => item[key])
+          .filter(Boolean)
+      )].sort((a, b) => a.localeCompare(b, "it"));
+    }
+
+    function fillSelect(select, values) {
+      const first = select.querySelector("option");
+      select.innerHTML = "";
+      select.appendChild(first);
+
+      values.forEach(value => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
+    }
+
+    function renderCategoryStrip(exercises) {
+      const categories = uniqueValues(exercises, "category");
+
+      categoryStrip.innerHTML = [
+        `<button class="category-button active" type="button" data-category="">Tutte</button>`,
+        ...categories.map(category => `
+          <button class="category-button" type="button" data-category="${escapeAttribute(category)}">
+            ${escapeHtml(category)}
+          </button>
+        `)
+      ].join("");
+
+      categoryStrip.querySelectorAll(".category-button").forEach(button => {
+        button.addEventListener("click", () => {
+          state.selectedCategory = button.dataset.category || "";
+          categoryFilter.value = state.selectedCategory;
+          updateActiveCategoryButton();
+          applyFilters();
+        });
+      });
+    }
+
+    function updateActiveCategoryButton() {
+      categoryStrip.querySelectorAll(".category-button").forEach(button => {
+        button.classList.toggle("active", (button.dataset.category || "") === state.selectedCategory);
+      });
+    }
+
+    function applyFilters() {
+      const query = normalize(searchInput.value);
+      const subject = subjectFilter.value;
+      const category = categoryFilter.value;
+      const topic = topicFilter.value;
+      const level = levelFilter.value;
+
+      state.selectedCategory = category;
+      updateActiveCategoryButton();
+
+      state.filtered = state.exercises.filter(exercise => {
+        const searchableText = normalize([
+          exercise.title,
+          exercise.subject,
+          exercise.category,
+          exercise.topic,
+          exercise.level,
+          exercise.schoolYear,
+          exercise.description,
+          exercise.formulas,
+          ...(exercise.tags || [])
+        ].join(" "));
+
+        return (
+          (!query || searchableText.includes(query)) &&
+          (!subject || exercise.subject === subject) &&
+          (!category || exercise.category === category) &&
+          (!topic || exercise.topic === topic) &&
+          (!level || exercise.level === level)
+        );
+      });
+
+      renderExercises();
+    }
+
+    function renderExercises() {
+      const count = state.filtered.length;
+      const total = state.exercises.length;
+
+      summary.textContent = `${count} esercizi mostrati su ${total}.`;
+
+      if (count === 0) {
+        exerciseGrid.innerHTML = `
+          <div class="empty">
+            Nessun esercizio corrisponde ai filtri selezionati.
+          </div>
+        `;
+        return;
+      }
+
+      exerciseGrid.innerHTML = state.filtered.map(exercise => {
+        const tags = (exercise.tags || [])
+          .map(tag => `<span class="tag">#${escapeHtml(tag)}</span>`)
+          .join("");
+
+        return `
+          <article class="card">
+            <div class="meta">
+              ${exercise.subject ? `<span class="pill">${escapeHtml(exercise.subject)}</span>` : ""}
+              ${exercise.category ? `<span class="pill">${escapeHtml(exercise.category)}</span>` : ""}
+              ${exercise.topic ? `<span class="pill secondary">${escapeHtml(exercise.topic)}</span>` : ""}
+              ${exercise.level ? `<span class="pill secondary">${escapeHtml(exercise.level)}</span>` : ""}
+            </div>
+
+            <h2>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h2>
+
+            <p class="description">
+              ${escapeHtml(exercise.description || "Nessuna descrizione disponibile.")}
+            </p>
+
+            <div class="tags">${tags}</div>
+
+            <div class="card-footer">
+              <a class="open-link" href="${escapeAttribute(exercise.path || "#")}">
+                Apri esercizio
+              </a>
+              ${exercise.estimatedTime ? `<span class="duration">${escapeHtml(exercise.estimatedTime)}</span>` : ""}
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function resetFilters() {
+      searchInput.value = "";
+      subjectFilter.value = "";
+      categoryFilter.value = "";
+      topicFilter.value = "";
+      levelFilter.value = "";
+      state.selectedCategory = "";
+      updateActiveCategoryButton();
+      applyFilters();
+    }
+
+    function normalize(value) {
+      return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttribute(value) {
+      return escapeHtml(value).replaceAll("`", "&#096;");
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    subjectFilter.addEventListener("change", applyFilters);
+    categoryFilter.addEventListener("change", applyFilters);
+    topicFilter.addEventListener("change", applyFilters);
+    levelFilter.addEventListener("change", applyFilters);
+    resetButton.addEventListener("click", resetFilters);
+
+    loadExercises();
+  </script>
+</body>
+</html>
