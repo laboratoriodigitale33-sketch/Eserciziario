@@ -10,16 +10,22 @@
     :root {
       --bg: #f6f4ef;
       --panel: #ffffff;
-      --panel-soft: rgba(255, 255, 255, 0.82);
+      --panel-soft: rgba(255, 255, 255, 0.84);
+      --panel-warm: #fbfaf6;
       --text: #1f2933;
       --muted: #667085;
+      --muted-soft: #8a94a3;
       --border: #d8d3c7;
+      --border-soft: rgba(216, 211, 199, 0.72);
       --accent: #365f85;
       --accent-dark: #24415d;
       --accent-soft: rgba(54, 95, 133, 0.12);
       --shadow: 0 18px 45px rgba(0, 0, 0, 0.075);
+      --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.045);
       --radius-lg: 24px;
       --radius-md: 16px;
+      --radius-sm: 12px;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     * {
@@ -33,11 +39,11 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--sans);
       color: var(--text);
       background:
-        radial-gradient(circle at 8% 4%, rgba(54, 95, 133, 0.16), transparent 24rem),
-        radial-gradient(circle at 92% 10%, rgba(181, 141, 72, 0.10), transparent 22rem),
+        radial-gradient(circle at 8% 4%, rgba(54, 95, 133, 0.14), transparent 24rem),
+        radial-gradient(circle at 92% 10%, rgba(181, 141, 72, 0.09), transparent 22rem),
         linear-gradient(180deg, #f8f6f0 0%, var(--bg) 100%);
     }
 
@@ -51,11 +57,34 @@
     }
 
     header {
-      padding: 1.5rem 0 0.5rem;
+      padding: 4rem 0 2.25rem;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 2.8rem;
+    }
+
+    .brand {
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: 0.02em;
     }
 
     .hero {
       max-width: 880px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 6vw, 5.3rem);
+      line-height: 0.96;
+      letter-spacing: -0.065em;
+      max-width: 850px;
+      font-weight: 780;
     }
 
     main {
@@ -67,11 +96,11 @@
       top: 0.75rem;
       z-index: 20;
       display: grid;
-      grid-template-columns: 1.6fr repeat(4, minmax(120px, 0.55fr));
+      grid-template-columns: 1.7fr repeat(3, minmax(130px, 0.55fr));
       gap: 0.8rem;
       margin: 1.2rem 0 1.1rem;
       padding: 1rem;
-      background: rgba(255, 255, 255, 0.86);
+      background: rgba(255, 255, 255, 0.88);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
@@ -96,17 +125,18 @@
       box-shadow: 0 0 0 3px var(--accent-soft);
     }
 
-    .summary-row {
+    .utility-row {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 1rem;
+      gap: 0.7rem;
       margin: 1rem 0 1.35rem;
       color: var(--muted);
       font-size: 0.95rem;
     }
 
-    .reset-button {
+    .reset-button,
+    .expand-button {
       border: 1px solid var(--border);
       background: #fff;
       color: var(--accent-dark);
@@ -116,72 +146,184 @@
       cursor: pointer;
     }
 
-    .reset-button:hover {
+    .reset-button:hover,
+    .expand-button:hover {
       border-color: var(--accent);
     }
 
-    .category-strip {
-      display: flex;
-      gap: 0.55rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.2rem;
+    .results {
+      display: grid;
+      gap: 1rem;
     }
 
-    .category-button {
+    .category-block {
+      --cat-color: var(--accent);
+      background: var(--panel-soft);
       border: 1px solid var(--border);
-      background: #fff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .category-block:hover {
+      border-color: color-mix(in srgb, var(--cat-color) 38%, var(--border));
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.065);
+    }
+
+    .category-toggle {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      border: 0;
+      background: transparent;
       color: var(--text);
-      border-radius: 999px;
-      padding: 0.55rem 0.85rem;
-      font-weight: 750;
+      text-align: left;
       cursor: pointer;
-      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
     }
 
-    .category-button:hover {
-      transform: translateY(-1px);
-      border-color: var(--cat-color, var(--accent));
+    .category-toggle:hover {
+      background: rgba(255, 255, 255, 0.42);
     }
 
-    .category-button.active {
-      background: var(--cat-color, var(--accent));
-      color: #fff;
-      border-color: var(--cat-color, var(--accent));
+    .category-toggle:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--cat-color) 24%, transparent);
+      outline-offset: -3px;
+    }
+
+    .category-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .category-dot {
+      width: 0.72rem;
+      height: 0.72rem;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      background: var(--cat-color);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--cat-color) 16%, transparent);
+      opacity: 0.88;
+    }
+
+    .category-text {
+      min-width: 0;
+    }
+
+    .category-title {
+      margin: 0;
+      font-size: 1.22rem;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .category-icon {
+      color: var(--cat-color);
+      opacity: 0.8;
+    }
+
+    .category-desc {
+      margin: 0.35rem 0 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.9rem;
+      max-width: 780px;
+    }
+
+    .category-right {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex: 0 0 auto;
+    }
+
+    .category-count {
+      color: var(--muted);
+      border: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.62);
+      border-radius: 999px;
+      padding: 0.32rem 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 720;
+      white-space: nowrap;
+    }
+
+    .category-chevron {
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: transform 180ms ease;
+    }
+
+    .category-toggle[aria-expanded="true"] .category-chevron {
+      transform: rotate(180deg);
+    }
+
+    .category-content {
+      border-top: 1px solid var(--border-soft);
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.48);
+    }
+
+    .category-content[hidden] {
+      display: none;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
       gap: 1rem;
     }
 
     .card {
       background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.25rem;
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.052);
-      min-height: 295px;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-md);
+      padding: 1.15rem;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+      min-height: 265px;
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
-      transition: transform 160ms ease, box-shadow 160ms ease;
+      gap: 0.78rem;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: var(--cat-color);
+      opacity: 0.55;
     }
 
     .card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+      border-color: color-mix(in srgb, var(--cat-color) 42%, var(--border));
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.072);
     }
 
     .meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.45rem;
+      gap: 0.42rem;
+      padding-left: 0.15rem;
     }
 
     .pill {
-      font-size: 0.76rem;
-      padding: 0.29rem 0.55rem;
+      font-size: 0.75rem;
+      padding: 0.28rem 0.52rem;
       border-radius: 999px;
       background: var(--accent-soft);
       color: var(--accent-dark);
@@ -189,8 +331,8 @@
     }
 
     .pill.category-pill {
-      background: color-mix(in srgb, var(--cat-color, var(--accent)) 16%, white);
-      color: color-mix(in srgb, var(--cat-color, var(--accent)) 70%, black);
+      background: color-mix(in srgb, var(--cat-color) 15%, white);
+      color: color-mix(in srgb, var(--cat-color) 68%, black);
     }
 
     .pill.secondary {
@@ -198,17 +340,18 @@
       color: #785d27;
     }
 
-    .title-row {
+    .card-header {
       display: flex;
       gap: 0.65rem;
       align-items: flex-start;
+      padding-left: 0.15rem;
     }
 
     .exercise-icon {
       flex: 0 0 auto;
       display: inline-flex;
-      width: 2rem;
-      height: 2rem;
+      width: 2.05rem;
+      height: 2.05rem;
       align-items: center;
       justify-content: center;
       border-radius: 0.75rem;
@@ -217,10 +360,10 @@
       font-size: 1.05rem;
     }
 
-    .card h2 {
+    .card h3 {
       margin: 0;
-      font-size: 1.2rem;
-      line-height: 1.27;
+      font-size: 1.12rem;
+      line-height: 1.28;
       letter-spacing: -0.025em;
     }
 
@@ -229,20 +372,22 @@
       color: var(--muted);
       line-height: 1.55;
       flex: 1;
+      padding-left: 0.15rem;
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.36rem;
+      gap: 0.34rem;
+      padding-left: 0.15rem;
     }
 
     .tag {
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       color: var(--muted);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-soft);
       border-radius: 999px;
-      padding: 0.24rem 0.52rem;
+      padding: 0.22rem 0.5rem;
       background: #fff;
     }
 
@@ -252,34 +397,35 @@
       justify-content: space-between;
       gap: 0.75rem;
       margin-top: 0.2rem;
+      padding-left: 0.15rem;
     }
 
-    .open-link {
+    .open-label {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      background: var(--accent);
-      color: #fff;
-      padding: 0.75rem 0.95rem;
-      border-radius: 14px;
-      font-weight: 800;
-      min-width: 130px;
+      color: var(--accent-dark);
+      font-weight: 820;
+      font-size: 0.9rem;
     }
 
-    .open-link:hover {
-      background: var(--accent-dark);
+    .open-label::after {
+      content: "→";
+      margin-left: 0.35rem;
+      transition: transform 160ms ease;
+    }
+
+    .card:hover .open-label::after {
+      transform: translateX(3px);
     }
 
     .duration {
-      color: var(--muted);
-      font-size: 0.84rem;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
       white-space: nowrap;
     }
 
     .empty,
     .error {
-      grid-column: 1 / -1;
       background: #fff;
       border: 1px dashed var(--border);
       border-radius: var(--radius-lg);
@@ -323,22 +469,54 @@
       }
     }
 
-    @media (max-width: 620px) {
+    @media (max-width: 700px) {
       header {
         padding-top: 2.4rem;
+      }
+
+      .top-row {
+        margin-bottom: 2.2rem;
+      }
+
+      h1 {
+        font-size: clamp(2.55rem, 12vw, 4rem);
       }
 
       .controls {
         grid-template-columns: 1fr;
       }
 
-      .summary-row {
-        flex-direction: column;
+      .utility-row {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .category-toggle {
         align-items: flex-start;
+      }
+
+      .category-right {
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .category-desc {
+        max-width: none;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
       }
 
       footer {
         text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
       }
     }
   </style>
@@ -346,6 +524,10 @@
 
 <body>
   <header class="site-shell">
+    <div class="top-row">
+      <div class="brand">Esercizi svolti</div>
+    </div>
+
     <section class="hero">
       <h1>Esercizi svolti</h1>
     </section>
@@ -354,10 +536,6 @@
   <main class="site-shell">
     <section class="controls" aria-label="Filtri esercizi">
       <input id="searchInput" type="search" placeholder="Cerca per titolo, argomento, tag, formula..." />
-
-      <select id="subjectFilter">
-        <option value="">Tutte le materie</option>
-      </select>
 
       <select id="categoryFilter">
         <option value="">Tutte le categorie</option>
@@ -372,13 +550,14 @@
       </select>
     </section>
 
-    <div class="summary-row">
+    <div class="utility-row">
+      <button id="expandAllButton" class="expand-button" type="button">Apri tutto</button>
       <button id="resetButton" class="reset-button" type="button">Azzera filtri</button>
     </div>
 
-    <section id="categoryStrip" class="category-strip" aria-label="Categorie principali"></section>
-
-    <section id="exerciseGrid" class="grid" aria-label="Elenco esercizi"></section>
+    <section id="results" class="results" aria-label="Categorie esercizi">
+      <div class="empty">Caricamento catalogo...</div>
+    </section>
   </main>
 
   <footer>
@@ -395,19 +574,17 @@
       categoryByName: new Map(),
       exercises: [],
       filtered: [],
-      selectedCategory: ""
+      expandedCategoryKey: null,
+      forceExpandAll: false
     };
 
     const searchInput = document.getElementById("searchInput");
-    const subjectFilter = document.getElementById("subjectFilter");
     const categoryFilter = document.getElementById("categoryFilter");
     const topicFilter = document.getElementById("topicFilter");
     const levelFilter = document.getElementById("levelFilter");
     const resetButton = document.getElementById("resetButton");
-
-    const summary = document.getElementById("summary");
-    const exerciseGrid = document.getElementById("exerciseGrid");
-    const categoryStrip = document.getElementById("categoryStrip");
+    const expandAllButton = document.getElementById("expandAllButton");
+    const results = document.getElementById("results");
 
     async function loadExercises() {
       try {
@@ -420,28 +597,25 @@
         const rawData = await response.json();
         const catalog = normalizeCatalog(rawData);
 
-        state.categories = catalog.categories;
+        state.categories = normalizeCategories(catalog.categories);
         state.categoryByName = new Map(
           state.categories
             .filter(category => category && category.name)
-            .map(category => [String(category.name).trim(), category])
+            .map(category => [normalize(category.name), category])
         );
 
-        state.exercises = catalog.exercises;
+        state.exercises = catalog.exercises.map(normalizeExercise).filter(Boolean);
         sortExercises();
         populateFilters();
-        renderCategoryStrip();
         applyFilters();
       } catch (error) {
-        if (summary) summary.textContent = "Errore nel caricamento del catalogo.";
-        exerciseGrid.innerHTML = `
+        results.innerHTML = `
           <div class="error">
             <strong>Non è stato possibile caricare il catalogo degli esercizi.</strong><br>
             Controlla che <code>${CATALOG_FILE}</code> sia nella stessa cartella di <code>index.html</code>
             e che il file JSON sia valido.<br><br>
             Nota: se apri il file direttamente con <code>file://</code>, alcuni browser bloccano
-            <code>fetch()</code>. Per testare in locale usa un piccolo server, per esempio
-            <code>python -m http.server</code>.
+            <code>fetch()</code>. Per testare in locale usa <code>python -m http.server</code>.
           </div>
         `;
         console.error(error);
@@ -470,34 +644,88 @@
       };
     }
 
+    function normalizeCategories(categories) {
+      return categories
+        .filter(category => category && typeof category === "object" && category.name)
+        .map((category, index) => ({
+          name: String(category.name || "").trim(),
+          description: String(category.description || "").trim(),
+          color: String(category.color || "#365f85").trim(),
+          icon: String(category.icon || "").trim(),
+          order: Number.isFinite(Number(category.order)) ? Number(category.order) : 100000 + index
+        }))
+        .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name, "it"));
+    }
+
+    function normalizeExercise(exercise) {
+      if (!exercise || typeof exercise !== "object") return null;
+
+      const file = String(exercise.file || exercise.path || "").trim();
+
+      return {
+        ...exercise,
+        title: String(exercise.title || "Esercizio senza titolo").trim(),
+        description: String(exercise.description || "Nessuna descrizione disponibile.").trim(),
+        category: String(exercise.category || inferCategoryFromPath(file) || "Senza categoria").trim(),
+        topic: String(exercise.topic || "").trim(),
+        subject: String(exercise.subject || "").trim(),
+        icon: String(exercise.icon || "📄").trim(),
+        order: Number.isFinite(Number(exercise.order)) ? Number(exercise.order) : 999999,
+        tags: Array.isArray(exercise.tags) ? exercise.tags.map(tag => String(tag).trim()).filter(Boolean) : [],
+        level: String(exercise.level || "").trim(),
+        schoolYear: String(exercise.schoolYear || "").trim(),
+        estimatedTime: String(exercise.estimatedTime || "").trim(),
+        file
+      };
+    }
+
     function sortExercises() {
       const categoryOrder = new Map(
         state.categories.map((category, index) => [
-          String(category.name || "").trim(),
+          normalize(category.name),
           Number.isFinite(Number(category.order)) ? Number(category.order) : 100000 + index
         ])
       );
 
       state.exercises.sort((a, b) => {
-        const categoryA = categoryOrder.get(a.category) ?? 999999;
-        const categoryB = categoryOrder.get(b.category) ?? 999999;
-        const orderA = Number.isFinite(Number(a.order)) ? Number(a.order) : 999999;
-        const orderB = Number.isFinite(Number(b.order)) ? Number(b.order) : 999999;
+        const categoryA = categoryOrder.get(normalize(a.category)) ?? 999999;
+        const categoryB = categoryOrder.get(normalize(b.category)) ?? 999999;
 
         return (
           categoryA - categoryB ||
           String(a.topic || "").localeCompare(String(b.topic || ""), "it") ||
-          orderA - orderB ||
+          a.order - b.order ||
           String(a.title || "").localeCompare(String(b.title || ""), "it")
         );
       });
     }
 
     function populateFilters() {
-      fillSelect(subjectFilter, uniqueExerciseValues("subject"));
       fillSelect(categoryFilter, categoriesForFilter());
       fillSelect(topicFilter, uniqueExerciseValues("topic"));
       fillSelect(levelFilter, uniqueExerciseValues("level"));
+    }
+
+    function categoriesForFilter() {
+      const exerciseCategoryNames = new Set(
+        state.exercises
+          .map(exercise => String(exercise.category || "").trim())
+          .filter(Boolean)
+      );
+
+      if (state.categories.length > 0) {
+        const fromKnownCategories = state.categories
+          .map(category => category.name)
+          .filter(name => exerciseCategoryNames.has(name));
+
+        const missing = [...exerciseCategoryNames]
+          .filter(name => !fromKnownCategories.includes(name))
+          .sort((a, b) => a.localeCompare(b, "it"));
+
+        return [...fromKnownCategories, ...missing];
+      }
+
+      return [...exerciseCategoryNames].sort((a, b) => a.localeCompare(b, "it"));
     }
 
     function uniqueExerciseValues(key) {
@@ -507,16 +735,6 @@
           .filter(Boolean)
           .map(value => String(value).trim())
       )].sort((a, b) => a.localeCompare(b, "it"));
-    }
-
-    function categoriesForFilter() {
-      if (state.categories.length > 0) {
-        return state.categories
-          .map(category => String(category.name || "").trim())
-          .filter(Boolean);
-      }
-
-      return uniqueExerciseValues("category");
     }
 
     function fillSelect(select, values) {
@@ -532,61 +750,11 @@
       });
     }
 
-    function renderCategoryStrip() {
-      const categoriesWithExercises = new Set(
-        state.exercises
-          .map(exercise => String(exercise.category || "").trim())
-          .filter(Boolean)
-      );
-
-      const categoriesToRender = state.categories.length > 0
-        ? state.categories.filter(category => categoriesWithExercises.has(String(category.name || "").trim()))
-        : [...categoriesWithExercises].map(name => ({ name }));
-
-      const buttons = [
-        `<button class="category-button active" type="button" data-category="">Tutte</button>`,
-        ...categoriesToRender.map(category => {
-          const name = String(category.name || "").trim();
-          const color = category.color || "#365f85";
-          const description = category.description || "";
-          return `
-            <button class="category-button" type="button"
-                    data-category="${escapeAttribute(name)}"
-                    title="${escapeAttribute(description)}"
-                    style="--cat-color: ${escapeAttribute(color)}">
-              ${escapeHtml(name)}
-            </button>
-          `;
-        })
-      ];
-
-      categoryStrip.innerHTML = buttons.join("");
-
-      categoryStrip.querySelectorAll(".category-button").forEach(button => {
-        button.addEventListener("click", () => {
-          state.selectedCategory = button.dataset.category || "";
-          categoryFilter.value = state.selectedCategory;
-          updateActiveCategoryButton();
-          applyFilters();
-        });
-      });
-    }
-
-    function updateActiveCategoryButton() {
-      categoryStrip.querySelectorAll(".category-button").forEach(button => {
-        button.classList.toggle("active", (button.dataset.category || "") === state.selectedCategory);
-      });
-    }
-
     function applyFilters() {
       const query = normalize(searchInput.value);
-      const subject = subjectFilter.value;
       const category = categoryFilter.value;
       const topic = topicFilter.value;
       const level = levelFilter.value;
-
-      state.selectedCategory = category;
-      updateActiveCategoryButton();
 
       state.filtered = state.exercises.filter(exercise => {
         const searchableText = normalize([
@@ -603,24 +771,27 @@
 
         return (
           (!query || searchableText.includes(query)) &&
-          (!subject || exercise.subject === subject) &&
           (!category || exercise.category === category) &&
           (!topic || exercise.topic === topic) &&
           (!level || exercise.level === level)
         );
       });
 
-      renderExercises();
+      renderResults();
     }
 
-    function renderExercises() {
-      const count = state.filtered.length;
-      const total = state.exercises.length;
+    function hasActiveFilters() {
+      return Boolean(
+        normalize(searchInput.value) ||
+        normalize(categoryFilter.value) ||
+        normalize(topicFilter.value) ||
+        normalize(levelFilter.value)
+      );
+    }
 
-      if (summary) summary.textContent = `${count} esercizi mostrati su ${total}.`;
-
-      if (count === 0) {
-        exerciseGrid.innerHTML = `
+    function renderResults() {
+      if (state.filtered.length === 0) {
+        results.innerHTML = `
           <div class="empty">
             Nessun esercizio corrisponde ai filtri selezionati.
           </div>
@@ -628,62 +799,204 @@
         return;
       }
 
-      exerciseGrid.innerHTML = state.filtered.map(exercise => {
-        const category = state.categoryByName.get(String(exercise.category || "").trim()) || {};
-        const categoryColor = category.color || "#365f85";
-        const tags = (exercise.tags || [])
-          .map(tag => `<span class="tag">#${escapeHtml(tag)}</span>`)
-          .join("");
+      const grouped = groupByCategory(state.filtered);
+      const autoExpand = hasActiveFilters() || state.forceExpandAll;
 
-        const target = exercise.file || exercise.path || "#";
+      const html = grouped.map((group, index) => {
+        const category = group.category;
+        const exercises = group.exercises;
+        const key = normalize(category.name);
+        const isExpanded = autoExpand || state.expandedCategoryKey === key;
+        const color = category.color || "#365f85";
 
         return `
-          <article class="card" style="--cat-color: ${escapeAttribute(categoryColor)}">
-            <div class="meta">
-              ${exercise.subject ? `<span class="pill">${escapeHtml(exercise.subject)}</span>` : ""}
-              ${exercise.category ? `<span class="pill category-pill">${escapeHtml(exercise.category)}</span>` : ""}
-              ${exercise.topic ? `<span class="pill secondary">${escapeHtml(exercise.topic)}</span>` : ""}
-              ${exercise.level ? `<span class="pill secondary">${escapeHtml(exercise.level)}</span>` : ""}
+          <section class="category-block" style="--cat-color: ${escapeAttribute(color)}">
+            <button class="category-toggle" type="button"
+                    data-category="${escapeAttribute(category.name)}"
+                    aria-expanded="${isExpanded ? "true" : "false"}">
+              <div class="category-left">
+                <div class="category-dot" aria-hidden="true"></div>
+                <div class="category-text">
+                  <h2 class="category-title">
+                    ${category.icon ? `<span class="category-icon" aria-hidden="true">${escapeHtml(category.icon)}</span>` : ""}
+                    ${escapeHtml(category.name)}
+                  </h2>
+                  ${category.description ? `<p class="category-desc">${escapeHtml(category.description)}</p>` : ""}
+                </div>
+              </div>
+              <div class="category-right">
+                <span class="category-count">${escapeHtml(exerciseCountLabel(exercises.length))}</span>
+                <span class="category-chevron" aria-hidden="true">▾</span>
+              </div>
+            </button>
+
+            <div class="category-content" ${isExpanded ? "" : "hidden"}>
+              <div class="grid">
+                ${exercises.map(exercise => renderExerciseCard(exercise, color)).join("")}
+              </div>
             </div>
-
-            <div class="title-row">
-              ${exercise.icon ? `<span class="exercise-icon" aria-hidden="true">${escapeHtml(exercise.icon)}</span>` : ""}
-              <h2>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h2>
-            </div>
-
-            <p class="description">
-              ${escapeHtml(exercise.description || "Nessuna descrizione disponibile.")}
-            </p>
-
-            <div class="tags">${tags}</div>
-
-            <div class="card-footer">
-              <a class="open-link" href="${escapeAttribute(target)}">
-                Apri esercizio
-              </a>
-              ${exercise.estimatedTime ? `<span class="duration">${escapeHtml(exercise.estimatedTime)}</span>` : ""}
-            </div>
-          </article>
+          </section>
         `;
       }).join("");
+
+      results.innerHTML = html;
+      updateExpandButtonLabel();
+    }
+
+    function groupByCategory(exercises) {
+      const groupedMap = new Map();
+
+      for (const exercise of exercises) {
+        const key = normalize(exercise.category || "Senza categoria");
+
+        if (!groupedMap.has(key)) {
+          const known = state.categoryByName.get(key);
+          groupedMap.set(key, {
+            category: known || {
+              name: exercise.category || "Senza categoria",
+              description: "",
+              color: "#365f85",
+              icon: "",
+              order: 999999
+            },
+            exercises: []
+          });
+        }
+
+        groupedMap.get(key).exercises.push(exercise);
+      }
+
+      return [...groupedMap.values()]
+        .map(group => ({
+          ...group,
+          exercises: group.exercises.sort((a, b) => {
+            return (
+              String(a.topic || "").localeCompare(String(b.topic || ""), "it") ||
+              a.order - b.order ||
+              String(a.title || "").localeCompare(String(b.title || ""), "it")
+            );
+          })
+        }))
+        .sort((a, b) => {
+          return (
+            a.category.order - b.category.order ||
+            a.category.name.localeCompare(b.category.name, "it")
+          );
+        });
+    }
+
+    function renderExerciseCard(exercise, color) {
+      const tags = (exercise.tags || [])
+        .slice(0, 7)
+        .map(tag => `<span class="tag">#${escapeHtml(tag)}</span>`)
+        .join("");
+
+      const target = exercise.file || exercise.path || "#";
+
+      return `
+        <a class="card" href="${escapeAttribute(target)}" style="--cat-color: ${escapeAttribute(color)}"
+           aria-label="Apri esercizio: ${escapeAttribute(exercise.title)}">
+          <div class="meta">
+            ${exercise.subject ? `<span class="pill">${escapeHtml(exercise.subject)}</span>` : ""}
+            ${exercise.category ? `<span class="pill category-pill">${escapeHtml(exercise.category)}</span>` : ""}
+            ${exercise.topic ? `<span class="pill secondary">${escapeHtml(exercise.topic)}</span>` : ""}
+            ${exercise.level ? `<span class="pill secondary">${escapeHtml(levelLabel(exercise.level))}</span>` : ""}
+          </div>
+
+          <div class="card-header">
+            ${exercise.icon ? `<span class="exercise-icon" aria-hidden="true">${escapeHtml(exercise.icon)}</span>` : ""}
+            <h3>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h3>
+          </div>
+
+          <p class="description">
+            ${escapeHtml(exercise.description || "Nessuna descrizione disponibile.")}
+          </p>
+
+          <div class="tags">${tags}</div>
+
+          <div class="card-footer">
+            <span class="open-label">Apri esercizio</span>
+            ${exercise.estimatedTime ? `<span class="duration">${escapeHtml(exercise.estimatedTime)}</span>` : ""}
+          </div>
+        </a>
+      `;
+    }
+
+    function toggleCategory(toggle) {
+      if (!toggle || hasActiveFilters() || state.forceExpandAll) return;
+
+      const block = toggle.closest(".category-block");
+      const content = block?.querySelector(".category-content");
+      if (!block || !content) return;
+
+      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+
+      results.querySelectorAll(".category-toggle[aria-expanded='true']").forEach(button => {
+        if (button === toggle) return;
+        button.setAttribute("aria-expanded", "false");
+        const otherContent = button.closest(".category-block")?.querySelector(".category-content");
+        if (otherContent) otherContent.hidden = true;
+      });
+
+      const nextExpanded = !isExpanded;
+      toggle.setAttribute("aria-expanded", nextExpanded ? "true" : "false");
+      content.hidden = !nextExpanded;
+
+      state.expandedCategoryKey = nextExpanded ? normalize(toggle.dataset.category || "") : null;
     }
 
     function resetFilters() {
       searchInput.value = "";
-      subjectFilter.value = "";
       categoryFilter.value = "";
       topicFilter.value = "";
       levelFilter.value = "";
-      state.selectedCategory = "";
-      updateActiveCategoryButton();
+      state.expandedCategoryKey = null;
+      state.forceExpandAll = false;
       applyFilters();
+    }
+
+    function toggleExpandAll() {
+      state.forceExpandAll = !state.forceExpandAll;
+      if (state.forceExpandAll) {
+        state.expandedCategoryKey = null;
+      }
+      renderResults();
+    }
+
+    function updateExpandButtonLabel() {
+      expandAllButton.textContent = state.forceExpandAll ? "Chiudi tutto" : "Apri tutto";
+    }
+
+    function exerciseCountLabel(count) {
+      return count === 1 ? "1 esercizio" : `${count} esercizi`;
+    }
+
+    function levelLabel(value) {
+      const n = normalize(value);
+      if (n === "base") return "Base";
+      if (n === "intermedio") return "Intermedio";
+      if (n === "avanzato") return "Avanzato";
+      return value || "";
+    }
+
+    function inferCategoryFromPath(filePath) {
+      const parts = String(filePath || "").split("/").filter(Boolean);
+      if (parts.length <= 1) return "";
+      return titleCaseFromSlug(parts[0]);
+    }
+
+    function titleCaseFromSlug(value) {
+      return String(value || "")
+        .replace(/[-_]+/g, " ")
+        .replace(/\b\w/g, character => character.toUpperCase());
     }
 
     function normalize(value) {
       return String(value || "")
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
     }
 
     function escapeHtml(value) {
@@ -700,11 +1013,18 @@
     }
 
     searchInput.addEventListener("input", applyFilters);
-    subjectFilter.addEventListener("change", applyFilters);
     categoryFilter.addEventListener("change", applyFilters);
     topicFilter.addEventListener("change", applyFilters);
     levelFilter.addEventListener("change", applyFilters);
     resetButton.addEventListener("click", resetFilters);
+    expandAllButton.addEventListener("click", toggleExpandAll);
+
+    results.addEventListener("click", event => {
+      const toggle = event.target.closest(".category-toggle");
+      if (toggle) {
+        toggleCategory(toggle);
+      }
+    });
 
     loadExercises();
   </script>
