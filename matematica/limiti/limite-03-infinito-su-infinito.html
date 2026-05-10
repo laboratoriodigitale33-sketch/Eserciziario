@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Forma infinito su infinito</title>
+  <script>
+    window.EXERCISE_METADATA = {
+      title: "Forma indeterminata infinito su infinito",
+      description: "Limite di una funzione razionale per x che tende a infinito, risolto confrontando i termini di grado massimo.",
+      subject: "Matematica",
+      category: "Analisi",
+      topic: "Limiti",
+      collection: "Limiti",
+      collectionDescription: "Esercizi svolti sui limiti con soluzioni espandibili.",
+      icon: "∞",
+      order: 30,
+      tags: ["limiti", "infinito su infinito", "polinomi", "funzioni razionali"],
+      level: "base",
+      schoolYear: "Quinta superiore",
+      estimatedTime: "7 min",
+      isWip: false
+    };
+  </script>
+</head>
+<body>
+<template data-exercise-statement>
+  <p>Calcola il seguente limite:</p>
+
+  \[
+    \lim_{x \to +\infty}
+    \frac{6x^2 - 5x + 1}{3x^2 + 4x - 2}
+  \]
+
+  <p><strong>Richiesta:</strong> riconoscere la forma indeterminata e risolvere il limite confrontando i termini di grado massimo.</p>
+</template>
+
+<template data-exercise-solution>
+  <p>Per \(x \to +\infty\), il numeratore e il denominatore tendono entrambi a \(+\infty\). La forma iniziale è quindi:</p>
+
+  \[
+    \frac{+\infty}{+\infty}
+  \]
+
+  <p>Questa è una forma indeterminata. Poiché numeratore e denominatore sono polinomi dello stesso grado, conviene raccogliere la potenza più alta, cioè \(x^2\).</p>
+
+  \[
+    \frac{6x^2 - 5x + 1}{3x^2 + 4x - 2}
+    =
+    \frac{x^2\left(6 - \frac{5}{x} + \frac{1}{x^2}\right)}
+         {x^2\left(3 + \frac{4}{x} - \frac{2}{x^2}\right)}
+  \]
+
+  <p>Per \(x \neq 0\), possiamo semplificare il fattore comune \(x^2\):</p>
+
+  \[
+    \frac{x^2\left(6 - \frac{5}{x} + \frac{1}{x^2}\right)}
+         {x^2\left(3 + \frac{4}{x} - \frac{2}{x^2}\right)}
+    =
+    \frac{6 - \frac{5}{x} + \frac{1}{x^2}}
+         {3 + \frac{4}{x} - \frac{2}{x^2}}
+  \]
+
+  <p>Ora usiamo il fatto che, per \(x \to +\infty\), valgono:</p>
+
+  \[
+    \frac{1}{x} \to 0,
+    \qquad
+    \frac{1}{x^2} \to 0
+  \]
+
+  <p>Quindi:</p>
+
+  \[
+    \lim_{x \to +\infty}
+    \frac{6 - \frac{5}{x} + \frac{1}{x^2}}
+         {3 + \frac{4}{x} - \frac{2}{x^2}}
+    =
+    \frac{6 - 0 + 0}{3 + 0 - 0}
+    =
+    \frac{6}{3}
+    =
+    2
+  \]
+
+  <p><strong>Risultato:</strong> \(2\).</p>
+</template>
+</body>
+</html>
