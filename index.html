@@ -21,7 +21,7 @@
       --accent-soft: rgba(54, 95, 133, 0.12);
       --shadow: 0 18px 45px rgba(0, 0, 0, 0.075);
       --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.045);
-      --radius-xl: 28px;
+      --radius-xl: 30px;
       --radius-lg: 24px;
       --radius-md: 16px;
       --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -76,6 +76,163 @@
     }
 
     main { padding-bottom: 4rem; }
+
+    .subject-home {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.15rem;
+      min-height: min(460px, 58vh);
+      margin-top: 0.5rem;
+    }
+
+    .home-card {
+      --subject-color: var(--accent);
+      min-height: 380px;
+      padding: clamp(1.35rem, 3vw, 2.4rem);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.92), rgba(255,255,255,0.66)),
+        radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--subject-color) 20%, transparent), transparent 22rem);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      text-align: left;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      position: relative;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .home-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: var(--subject-color);
+      opacity: 0.7;
+    }
+
+    .home-card::after {
+      content: "";
+      position: absolute;
+      width: 13rem;
+      height: 13rem;
+      right: -5rem;
+      top: -5rem;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--subject-color) 14%, transparent);
+      pointer-events: none;
+    }
+
+    .home-card:hover {
+      transform: translateY(-4px);
+      border-color: color-mix(in srgb, var(--subject-color) 42%, var(--border));
+      box-shadow: 0 22px 52px rgba(0,0,0,0.095);
+    }
+
+    .home-card:focus-visible {
+      outline: 4px solid color-mix(in srgb, var(--subject-color) 25%, transparent);
+      outline-offset: 4px;
+    }
+
+    .home-card-kicker {
+      color: color-mix(in srgb, var(--subject-color) 68%, black);
+      font-weight: 800;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 1rem;
+    }
+
+    .home-card h2 {
+      margin: 0;
+      font-size: clamp(2.35rem, 5vw, 4.7rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+      font-weight: 800;
+    }
+
+    .home-card p {
+      max-width: 34rem;
+      margin: 1.2rem 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .home-card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-top: 2rem;
+      color: var(--muted);
+      font-weight: 720;
+    }
+
+    .home-card-open {
+      display: inline-flex;
+      align-items: center;
+      color: var(--accent-dark);
+      font-size: 1rem;
+    }
+
+    .home-card-open::after {
+      content: "→";
+      margin-left: 0.45rem;
+      transition: transform 160ms ease;
+    }
+
+    .home-card:hover .home-card-open::after {
+      transform: translateX(4px);
+    }
+
+    .home-card-count {
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+    }
+
+    .workspace {
+      display: none;
+    }
+
+    .workspace.active {
+      display: block;
+    }
+
+    .workspace-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .workspace-title {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      line-height: 1;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+    }
+
+    .back-button {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--accent-dark);
+      border-radius: 999px;
+      padding: 0.62rem 0.92rem;
+      font-weight: 760;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .back-button:hover {
+      border-color: var(--accent);
+    }
 
     .controls {
       position: sticky;
@@ -139,31 +296,31 @@
 
     .results {
       display: grid;
-      gap: 1.15rem;
+      gap: 0.95rem;
     }
 
-    .subject-block {
-      --subject-color: var(--accent);
-      background: rgba(255, 255, 255, 0.82);
+    .category-block {
+      --cat-color: var(--accent);
       border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.82);
       box-shadow: var(--shadow-soft);
       overflow: hidden;
       transition: border-color 160ms ease, box-shadow 160ms ease;
     }
 
-    .subject-block:hover {
-      border-color: color-mix(in srgb, var(--subject-color) 35%, var(--border));
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.065);
+    .category-block:hover {
+      border-color: color-mix(in srgb, var(--cat-color) 35%, var(--border));
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
     }
 
-    .subject-toggle,
     .category-toggle {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
+      padding: 1.08rem 1.2rem;
       border: 0;
       background: transparent;
       color: var(--text);
@@ -171,26 +328,15 @@
       cursor: pointer;
     }
 
-    .subject-toggle {
-      padding: 1.28rem 1.35rem;
-    }
-
-    .category-toggle {
-      padding: 1rem 1.08rem;
-    }
-
-    .subject-toggle:hover,
     .category-toggle:hover {
       background: rgba(255, 255, 255, 0.42);
     }
 
-    .subject-toggle:focus-visible,
     .category-toggle:focus-visible {
-      outline: 3px solid color-mix(in srgb, var(--subject-color, var(--cat-color)) 24%, transparent);
+      outline: 3px solid color-mix(in srgb, var(--cat-color) 24%, transparent);
       outline-offset: -3px;
     }
 
-    .subject-left,
     .category-left {
       display: flex;
       align-items: center;
@@ -198,30 +344,19 @@
       min-width: 0;
     }
 
-    .subject-dot,
     .category-dot {
+      width: 0.7rem;
+      height: 0.7rem;
       border-radius: 50%;
       flex: 0 0 auto;
+      background: var(--cat-color);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--cat-color) 14%, transparent);
       opacity: 0.9;
     }
 
-    .subject-dot {
-      width: 0.88rem;
-      height: 0.88rem;
-      background: var(--subject-color);
-      box-shadow: 0 0 0 5px color-mix(in srgb, var(--subject-color) 14%, transparent);
-    }
-
-    .category-dot {
-      width: 0.66rem;
-      height: 0.66rem;
-      background: var(--cat-color);
-      box-shadow: 0 0 0 4px color-mix(in srgb, var(--cat-color) 14%, transparent);
-    }
-
-    .subject-title,
     .category-title {
       margin: 0;
+      font-size: 1.2rem;
       line-height: 1.2;
       letter-spacing: -0.025em;
       display: flex;
@@ -229,31 +364,14 @@
       gap: 0.45rem;
     }
 
-    .subject-title {
-      font-size: 1.55rem;
-    }
-
-    .category-title {
-      font-size: 1.14rem;
-    }
-
-    .subject-desc,
     .category-desc {
       margin: 0.35rem 0 0;
       color: var(--muted);
       line-height: 1.5;
       max-width: 820px;
+      font-size: 0.9rem;
     }
 
-    .subject-desc {
-      font-size: 0.94rem;
-    }
-
-    .category-desc {
-      font-size: 0.88rem;
-    }
-
-    .subject-right,
     .category-right {
       display: flex;
       align-items: center;
@@ -261,7 +379,6 @@
       flex: 0 0 auto;
     }
 
-    .subject-count,
     .category-count {
       color: var(--muted);
       border: 1px solid var(--border-soft);
@@ -273,46 +390,24 @@
       white-space: nowrap;
     }
 
-    .subject-chevron,
     .category-chevron {
       color: var(--muted);
       font-size: 0.9rem;
       transition: transform 180ms ease;
     }
 
-    .subject-toggle[aria-expanded="true"] .subject-chevron,
     .category-toggle[aria-expanded="true"] .category-chevron {
       transform: rotate(180deg);
-    }
-
-    .subject-content {
-      border-top: 1px solid var(--border-soft);
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.42);
-    }
-
-    .subject-content[hidden],
-    .category-content[hidden] {
-      display: none;
-    }
-
-    .category-list {
-      display: grid;
-      gap: 0.85rem;
-    }
-
-    .category-block {
-      --cat-color: var(--subject-color);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius-lg);
-      background: rgba(255, 255, 255, 0.76);
-      overflow: hidden;
     }
 
     .category-content {
       border-top: 1px solid var(--border-soft);
       padding: 1rem;
       background: rgba(255, 255, 255, 0.5);
+    }
+
+    .category-content[hidden] {
+      display: none;
     }
 
     .grid {
@@ -399,7 +494,7 @@
       font-size: 1.05rem;
     }
 
-    .card h4 {
+    .card h3 {
       margin: 0;
       font-size: 1.12rem;
       line-height: 1.28;
@@ -494,6 +589,15 @@
     footer a:hover { color: var(--accent); }
 
     @media (max-width: 900px) {
+      .subject-home {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .home-card {
+        min-height: 300px;
+      }
+
       .controls {
         position: static;
         grid-template-columns: 1fr;
@@ -507,17 +611,20 @@
 
       h1 { font-size: clamp(2.55rem, 12vw, 4rem); }
 
+      .workspace-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       .utility-row {
         justify-content: flex-start;
         flex-wrap: wrap;
       }
 
-      .subject-toggle,
       .category-toggle {
         align-items: flex-start;
       }
 
-      .subject-right,
       .category-right {
         flex-direction: column;
         align-items: flex-end;
@@ -549,25 +656,36 @@
   </header>
 
   <main class="site-shell">
-    <section class="controls" aria-label="Filtri esercizi">
-      <input id="searchInput" type="search" placeholder="Cerca per titolo, argomento, tag, formula..." />
-
-      <select id="topicFilter">
-        <option value="">Tutti gli argomenti</option>
-      </select>
-
-      <select id="levelFilter">
-        <option value="">Tutti i livelli</option>
-      </select>
+    <section id="subjectHome" class="subject-home" aria-label="Scegli una materia">
+      <div class="empty">Caricamento catalogo...</div>
     </section>
 
-    <div class="utility-row">
-      <button id="expandAllButton" class="expand-button" type="button">Apri tutto</button>
-      <button id="resetButton" class="reset-button" type="button">Azzera filtri</button>
-    </div>
+    <section id="workspace" class="workspace" aria-label="Archivio della materia selezionata">
+      <div class="workspace-head">
+        <h2 id="workspaceTitle" class="workspace-title">Materia</h2>
+        <button id="backButton" class="back-button" type="button">← Torna alle materie</button>
+      </div>
 
-    <section id="results" class="results" aria-label="Materie e categorie esercizi">
-      <div class="empty">Caricamento catalogo...</div>
+      <section class="controls" aria-label="Filtri esercizi">
+        <input id="searchInput" type="search" placeholder="Cerca per titolo, argomento, tag, formula..." />
+
+        <select id="topicFilter">
+          <option value="">Tutti gli argomenti</option>
+        </select>
+
+        <select id="levelFilter">
+          <option value="">Tutti i livelli</option>
+        </select>
+      </section>
+
+      <div class="utility-row">
+        <button id="expandAllButton" class="expand-button" type="button">Apri tutto</button>
+        <button id="resetButton" class="reset-button" type="button">Azzera filtri</button>
+      </div>
+
+      <section id="results" class="results" aria-label="Categorie esercizi">
+        <div class="empty">Seleziona una materia.</div>
+      </section>
     </section>
   </main>
 
@@ -602,11 +720,15 @@
       categoryByKey: new Map(),
       exercises: [],
       filtered: [],
-      expandedSubjectKey: null,
+      activeSubject: "",
       expandedCategoryKey: null,
       forceExpandAll: false
     };
 
+    const subjectHome = document.getElementById("subjectHome");
+    const workspace = document.getElementById("workspace");
+    const workspaceTitle = document.getElementById("workspaceTitle");
+    const backButton = document.getElementById("backButton");
     const searchInput = document.getElementById("searchInput");
     const topicFilter = document.getElementById("topicFilter");
     const levelFilter = document.getElementById("levelFilter");
@@ -636,12 +758,17 @@
         );
 
         state.exercises = catalog.exercises.map(normalizeExercise).filter(Boolean);
+        ensureSubjectsFromExercises();
         ensureCategoriesFromExercises();
         sortExercises();
-        populateFilters();
-        applyFilters();
+        renderSubjectHome();
+
+        const hashSubject = decodeURIComponent(location.hash.replace("#", "")).trim();
+        if (hashSubject && state.subjectByName.has(normalize(hashSubject))) {
+          openSubject(hashSubject, { preserveHash: true });
+        }
       } catch (error) {
-        results.innerHTML = `
+        subjectHome.innerHTML = `
           <div class="error">
             <strong>Non è stato possibile caricare il catalogo degli esercizi.</strong><br>
             Controlla che <code>${CATALOG_FILE}</code> sia nella stessa cartella di <code>index.html</code>
@@ -734,6 +861,28 @@
       };
     }
 
+    function ensureSubjectsFromExercises() {
+      const existing = new Set(state.subjects.map(subject => normalize(subject.name)));
+
+      state.exercises.forEach(exercise => {
+        const key = normalize(exercise.subject);
+        if (!key || existing.has(key)) return;
+
+        const subject = {
+          name: exercise.subject,
+          description: "",
+          color: "#365f85",
+          order: 999999
+        };
+
+        state.subjects.push(subject);
+        state.subjectByName.set(key, subject);
+        existing.add(key);
+      });
+
+      state.subjects.sort((a, b) => a.order - b.order || a.name.localeCompare(b.name, "it"));
+    }
+
     function ensureCategoriesFromExercises() {
       const existing = new Set(state.categories.map(category => categoryKey(category.subject, category.name)));
 
@@ -742,7 +891,7 @@
         if (existing.has(key)) return;
 
         const subject = state.subjectByName.get(normalize(exercise.subject));
-        const newCategory = {
+        const category = {
           name: exercise.category || "Senza categoria",
           subject: exercise.subject || "Fisica",
           description: "",
@@ -751,8 +900,8 @@
           order: 999999
         };
 
-        state.categories.push(newCategory);
-        state.categoryByKey.set(key, newCategory);
+        state.categories.push(category);
+        state.categoryByKey.set(key, category);
         existing.add(key);
       });
     }
@@ -774,19 +923,92 @@
       });
     }
 
-    function populateFilters() {
-      fillSelect(topicFilter, uniqueExerciseValues("topic"));
-      fillSelect(levelFilter, uniqueExerciseValues("level").map(levelLabel));
-      const rawLevels = uniqueExerciseValues("level");
+    function renderSubjectHome() {
+      subjectHome.innerHTML = state.subjects.map(subject => {
+        const exercises = state.exercises.filter(exercise => normalize(exercise.subject) === normalize(subject.name));
+        const color = subject.color || "#365f85";
+
+        return `
+          <button class="home-card" type="button"
+                  data-subject="${escapeAttribute(subject.name)}"
+                  style="--subject-color: ${escapeAttribute(color)}"
+                  aria-label="Apri ${escapeAttribute(subject.name)}">
+            <div>
+              <div class="home-card-kicker">Materia</div>
+              <h2>${escapeHtml(subject.name)}</h2>
+              ${subject.description ? `<p>${escapeHtml(subject.description)}</p>` : ""}
+            </div>
+            <div class="home-card-bottom">
+              <span class="home-card-open">Apri sezione</span>
+              <span class="home-card-count">${escapeHtml(exerciseCountLabel(exercises.length))}</span>
+            </div>
+          </button>
+        `;
+      }).join("");
+
+      subjectHome.querySelectorAll(".home-card").forEach(card => {
+        card.addEventListener("click", () => {
+          openSubject(card.dataset.subject || "");
+        });
+      });
+    }
+
+    function openSubject(subjectName, options = {}) {
+      const subject = state.subjectByName.get(normalize(subjectName));
+      if (!subject) return;
+
+      state.activeSubject = subject.name;
+      state.expandedCategoryKey = null;
+      state.forceExpandAll = false;
+
+      searchInput.value = "";
+      topicFilter.value = "";
+      levelFilter.value = "";
+
+      workspaceTitle.textContent = subject.name;
+      subjectHome.style.display = "none";
+      workspace.classList.add("active");
+
+      populateFiltersForActiveSubject();
+      applyFilters();
+
+      if (!options.preserveHash) {
+        history.replaceState(null, "", `#${encodeURIComponent(subject.name)}`);
+      }
+    }
+
+    function closeSubject() {
+      state.activeSubject = "";
+      state.filtered = [];
+      state.expandedCategoryKey = null;
+      state.forceExpandAll = false;
+
+      searchInput.value = "";
+      topicFilter.value = "";
+      levelFilter.value = "";
+
+      workspace.classList.remove("active");
+      subjectHome.style.display = "grid";
+      results.innerHTML = `<div class="empty">Seleziona una materia.</div>`;
+
+      history.replaceState(null, "", location.pathname + location.search);
+    }
+
+    function populateFiltersForActiveSubject() {
+      const subjectExercises = getActiveSubjectExercises();
+      fillSelect(topicFilter, uniqueValues(subjectExercises, "topic"));
+
+      const rawLevels = uniqueValues(subjectExercises, "level");
+      fillSelect(levelFilter, rawLevels.map(levelLabel));
       [...levelFilter.options].forEach((option, index) => {
         if (index === 0) return;
         option.value = rawLevels[index - 1];
       });
     }
 
-    function uniqueExerciseValues(key) {
+    function uniqueValues(items, key) {
       return [...new Set(
-        state.exercises
+        items
           .map(item => item[key])
           .filter(Boolean)
           .map(value => String(value).trim())
@@ -807,11 +1029,13 @@
     }
 
     function applyFilters() {
+      if (!state.activeSubject) return;
+
       const query = normalize(searchInput.value);
       const topic = topicFilter.value;
       const level = levelFilter.value;
 
-      state.filtered = state.exercises.filter(exercise => {
+      state.filtered = getActiveSubjectExercises().filter(exercise => {
         const searchableText = normalize([
           exercise.title,
           exercise.subject,
@@ -834,6 +1058,10 @@
       renderResults();
     }
 
+    function getActiveSubjectExercises() {
+      return state.exercises.filter(exercise => normalize(exercise.subject) === normalize(state.activeSubject));
+    }
+
     function hasActiveFilters() {
       return Boolean(
         normalize(searchInput.value) ||
@@ -843,156 +1071,101 @@
     }
 
     function renderResults() {
-      const grouped = groupBySubjectAndCategory(state.filtered);
+      if (state.filtered.length === 0) {
+        results.innerHTML = `
+          <div class="empty">
+            Nessun esercizio corrisponde ai filtri selezionati oppure questa materia non contiene ancora esercizi.
+          </div>
+        `;
+        updateExpandButtonLabel();
+        return;
+      }
+
+      const grouped = groupByCategory(state.filtered);
       const autoExpand = hasActiveFilters() || state.forceExpandAll;
 
-      const html = state.subjects.map(subject => {
-        const key = normalize(subject.name);
-        const subjectGroup = grouped.get(key);
-        const subjectExercisesCount = subjectGroup ? countExercisesInSubject(subjectGroup) : 0;
-        const isExpanded = autoExpand || state.expandedSubjectKey === key;
-        const subjectColor = subject.color || "#365f85";
+      results.innerHTML = grouped.map(categoryGroup => {
+        const category = categoryGroup.category;
+        const exercises = categoryGroup.exercises;
+        const key = categoryKey(state.activeSubject, category.name);
+        const isExpanded = autoExpand || state.expandedCategoryKey === key;
+        const color = category.color || state.subjectByName.get(normalize(state.activeSubject))?.color || "#365f85";
 
         return `
-          <section class="subject-block" style="--subject-color: ${escapeAttribute(subjectColor)}">
-            <button class="subject-toggle" type="button"
-                    data-subject="${escapeAttribute(subject.name)}"
+          <section class="category-block" style="--cat-color: ${escapeAttribute(color)}">
+            <button class="category-toggle" type="button"
+                    data-category="${escapeAttribute(category.name)}"
                     aria-expanded="${isExpanded ? "true" : "false"}">
-              <div class="subject-left">
-                <div class="subject-dot" aria-hidden="true"></div>
+              <div class="category-left">
+                <div class="category-dot" aria-hidden="true"></div>
                 <div>
-                  <h2 class="subject-title">${escapeHtml(subject.name)}</h2>
-                  ${subject.description ? `<p class="subject-desc">${escapeHtml(subject.description)}</p>` : ""}
+                  <h2 class="category-title">
+                    ${category.icon ? `<span aria-hidden="true">${escapeHtml(category.icon)}</span>` : ""}
+                    ${escapeHtml(category.name)}
+                  </h2>
+                  ${category.description ? `<p class="category-desc">${escapeHtml(category.description)}</p>` : ""}
                 </div>
               </div>
-              <div class="subject-right">
-                <span class="subject-count">${escapeHtml(exerciseCountLabel(subjectExercisesCount))}</span>
-                <span class="subject-chevron" aria-hidden="true">▾</span>
+              <div class="category-right">
+                <span class="category-count">${escapeHtml(exerciseCountLabel(exercises.length))}</span>
+                <span class="category-chevron" aria-hidden="true">▾</span>
               </div>
             </button>
 
-            <div class="subject-content" ${isExpanded ? "" : "hidden"}>
-              ${renderSubjectContent(subject, subjectGroup, autoExpand)}
+            <div class="category-content" ${isExpanded ? "" : "hidden"}>
+              <div class="grid">
+                ${exercises.map(exercise => renderExerciseCard(exercise, color)).join("")}
+              </div>
             </div>
           </section>
         `;
       }).join("");
 
-      results.innerHTML = html;
       updateExpandButtonLabel();
     }
 
-    function renderSubjectContent(subject, subjectGroup, autoExpand) {
-      if (!subjectGroup || subjectGroup.categories.length === 0) {
-        return `<div class="empty">Nessun esercizio ancora presente in questa sezione.</div>`;
-      }
-
-      return `
-        <div class="category-list">
-          ${subjectGroup.categories.map(categoryGroup => renderCategoryBlock(subject, categoryGroup, autoExpand)).join("")}
-        </div>
-      `;
-    }
-
-    function renderCategoryBlock(subject, categoryGroup, autoExpand) {
-      const category = categoryGroup.category;
-      const exercises = categoryGroup.exercises;
-      const key = categoryKey(subject.name, category.name);
-      const isExpanded = autoExpand || state.expandedCategoryKey === key;
-      const color = category.color || subject.color || "#365f85";
-
-      return `
-        <section class="category-block" style="--cat-color: ${escapeAttribute(color)}">
-          <button class="category-toggle" type="button"
-                  data-subject="${escapeAttribute(subject.name)}"
-                  data-category="${escapeAttribute(category.name)}"
-                  aria-expanded="${isExpanded ? "true" : "false"}">
-            <div class="category-left">
-              <div class="category-dot" aria-hidden="true"></div>
-              <div>
-                <h3 class="category-title">
-                  ${category.icon ? `<span aria-hidden="true">${escapeHtml(category.icon)}</span>` : ""}
-                  ${escapeHtml(category.name)}
-                </h3>
-                ${category.description ? `<p class="category-desc">${escapeHtml(category.description)}</p>` : ""}
-              </div>
-            </div>
-            <div class="category-right">
-              <span class="category-count">${escapeHtml(exerciseCountLabel(exercises.length))}</span>
-              <span class="category-chevron" aria-hidden="true">▾</span>
-            </div>
-          </button>
-
-          <div class="category-content" ${isExpanded ? "" : "hidden"}>
-            <div class="grid">
-              ${exercises.map(exercise => renderExerciseCard(exercise, color)).join("")}
-            </div>
-          </div>
-        </section>
-      `;
-    }
-
-    function groupBySubjectAndCategory(exercises) {
+    function groupByCategory(exercises) {
       const grouped = new Map();
 
       for (const exercise of exercises) {
-        const subjectKey = normalize(exercise.subject);
-        const catKey = categoryKey(exercise.subject, exercise.category);
+        const key = categoryKey(exercise.subject, exercise.category);
 
-        if (!grouped.has(subjectKey)) {
-          grouped.set(subjectKey, {
-            subject: state.subjectByName.get(subjectKey) || {
-              name: exercise.subject,
-              order: 999999,
-              color: "#365f85",
-              description: ""
-            },
-            categoriesMap: new Map()
-          });
-        }
-
-        const subjectGroup = grouped.get(subjectKey);
-
-        if (!subjectGroup.categoriesMap.has(catKey)) {
-          const category = state.categoryByKey.get(catKey) || {
+        if (!grouped.has(key)) {
+          const category = state.categoryByKey.get(key) || {
             name: exercise.category || "Senza categoria",
             subject: exercise.subject,
             description: "",
-            color: subjectGroup.subject.color,
+            color: state.subjectByName.get(normalize(exercise.subject))?.color || "#365f85",
             icon: "",
             order: 999999
           };
 
-          subjectGroup.categoriesMap.set(catKey, {
+          grouped.set(key, {
             category,
             exercises: []
           });
         }
 
-        subjectGroup.categoriesMap.get(catKey).exercises.push(exercise);
+        grouped.get(key).exercises.push(exercise);
       }
 
-      grouped.forEach(subjectGroup => {
-        subjectGroup.categories = [...subjectGroup.categoriesMap.values()]
-          .map(categoryGroup => ({
-            ...categoryGroup,
-            exercises: categoryGroup.exercises.sort((a, b) => {
-              return (
-                String(a.topic || "").localeCompare(String(b.topic || ""), "it") ||
-                a.order - b.order ||
-                String(a.title || "").localeCompare(String(b.title || ""), "it")
-              );
-            })
-          }))
-          .sort((a, b) => {
+      return [...grouped.values()]
+        .map(categoryGroup => ({
+          ...categoryGroup,
+          exercises: categoryGroup.exercises.sort((a, b) => {
             return (
-              a.category.order - b.category.order ||
-              a.category.name.localeCompare(b.category.name, "it")
+              String(a.topic || "").localeCompare(String(b.topic || ""), "it") ||
+              a.order - b.order ||
+              String(a.title || "").localeCompare(String(b.title || ""), "it")
             );
-          });
-      });
-
-      return grouped;
+          })
+        }))
+        .sort((a, b) => {
+          return (
+            a.category.order - b.category.order ||
+            a.category.name.localeCompare(b.category.name, "it")
+          );
+        });
     }
 
     function renderExerciseCard(exercise, color) {
@@ -1007,7 +1180,6 @@
         <a class="card" href="${escapeAttribute(target)}" style="--cat-color: ${escapeAttribute(color)}"
            aria-label="Apri esercizio: ${escapeAttribute(exercise.title)}">
           <div class="meta">
-            ${exercise.subject ? `<span class="pill">${escapeHtml(exercise.subject)}</span>` : ""}
             ${exercise.category ? `<span class="pill category-pill">${escapeHtml(exercise.category)}</span>` : ""}
             ${exercise.topic ? `<span class="pill secondary">${escapeHtml(exercise.topic)}</span>` : ""}
             ${exercise.level ? `<span class="pill secondary">${escapeHtml(levelLabel(exercise.level))}</span>` : ""}
@@ -1015,7 +1187,7 @@
 
           <div class="card-header">
             ${exercise.icon ? `<span class="exercise-icon" aria-hidden="true">${escapeHtml(exercise.icon)}</span>` : ""}
-            <h4>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h4>
+            <h3>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h3>
           </div>
 
           <p class="description">
@@ -1032,30 +1204,6 @@
       `;
     }
 
-    function toggleSubject(toggle) {
-      if (!toggle || hasActiveFilters() || state.forceExpandAll) return;
-
-      const block = toggle.closest(".subject-block");
-      const content = block?.querySelector(".subject-content");
-      if (!block || !content) return;
-
-      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-
-      results.querySelectorAll(".subject-toggle[aria-expanded='true']").forEach(button => {
-        if (button === toggle) return;
-        button.setAttribute("aria-expanded", "false");
-        const otherContent = button.closest(".subject-block")?.querySelector(".subject-content");
-        if (otherContent) otherContent.hidden = true;
-      });
-
-      const nextExpanded = !isExpanded;
-      toggle.setAttribute("aria-expanded", nextExpanded ? "true" : "false");
-      content.hidden = !nextExpanded;
-
-      state.expandedSubjectKey = nextExpanded ? normalize(toggle.dataset.subject || "") : null;
-      state.expandedCategoryKey = null;
-    }
-
     function toggleCategory(toggle) {
       if (!toggle || hasActiveFilters() || state.forceExpandAll) return;
 
@@ -1065,8 +1213,7 @@
 
       const isExpanded = toggle.getAttribute("aria-expanded") === "true";
 
-      const parentSubject = toggle.closest(".subject-content");
-      parentSubject?.querySelectorAll(".category-toggle[aria-expanded='true']").forEach(button => {
+      results.querySelectorAll(".category-toggle[aria-expanded='true']").forEach(button => {
         if (button === toggle) return;
         button.setAttribute("aria-expanded", "false");
         const otherContent = button.closest(".category-block")?.querySelector(".category-content");
@@ -1078,7 +1225,7 @@
       content.hidden = !nextExpanded;
 
       state.expandedCategoryKey = nextExpanded
-        ? categoryKey(toggle.dataset.subject || "", toggle.dataset.category || "")
+        ? categoryKey(state.activeSubject, toggle.dataset.category || "")
         : null;
     }
 
@@ -1086,7 +1233,6 @@
       searchInput.value = "";
       topicFilter.value = "";
       levelFilter.value = "";
-      state.expandedSubjectKey = null;
       state.expandedCategoryKey = null;
       state.forceExpandAll = false;
       applyFilters();
@@ -1095,7 +1241,6 @@
     function toggleExpandAll() {
       state.forceExpandAll = !state.forceExpandAll;
       if (state.forceExpandAll) {
-        state.expandedSubjectKey = null;
         state.expandedCategoryKey = null;
       }
       renderResults();
@@ -1103,10 +1248,6 @@
 
     function updateExpandButtonLabel() {
       expandAllButton.textContent = state.forceExpandAll ? "Chiudi tutto" : "Apri tutto";
-    }
-
-    function countExercisesInSubject(subjectGroup) {
-      return subjectGroup.categories.reduce((sum, categoryGroup) => sum + categoryGroup.exercises.length, 0);
     }
 
     function exerciseCountLabel(count) {
@@ -1179,17 +1320,21 @@
     levelFilter.addEventListener("change", applyFilters);
     resetButton.addEventListener("click", resetFilters);
     expandAllButton.addEventListener("click", toggleExpandAll);
+    backButton.addEventListener("click", closeSubject);
 
     results.addEventListener("click", event => {
       const categoryToggle = event.target.closest(".category-toggle");
       if (categoryToggle) {
         toggleCategory(categoryToggle);
-        return;
       }
+    });
 
-      const subjectToggle = event.target.closest(".subject-toggle");
-      if (subjectToggle) {
-        toggleSubject(subjectToggle);
+    window.addEventListener("hashchange", () => {
+      const hashSubject = decodeURIComponent(location.hash.replace("#", "")).trim();
+      if (!hashSubject) {
+        closeSubject();
+      } else if (state.subjectByName.has(normalize(hashSubject))) {
+        openSubject(hashSubject, { preserveHash: true });
       }
     });
 
