@@ -48,31 +48,44 @@
       margin: 0 auto;
     }
 
-    header { padding: 4rem 0 2.25rem; }
+    header {
+      padding: 4.4rem 0 2.7rem;
+      text-align: center;
+    }
 
     .top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      margin-bottom: 2.8rem;
+      display: none;
     }
 
     .brand {
-      color: var(--accent);
-      font-weight: 800;
-      letter-spacing: 0.02em;
+      display: none;
     }
 
-    .hero { max-width: 880px; }
+    .hero {
+      max-width: 880px;
+      margin: 0 auto;
+    }
 
     h1 {
-      margin: 0;
-      font-size: clamp(2.8rem, 6vw, 5.3rem);
+      margin: 0 auto;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.1rem, 7vw, 6rem);
       line-height: 0.96;
-      letter-spacing: -0.065em;
+      letter-spacing: -0.055em;
       max-width: 850px;
-      font-weight: 780;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    h1::after {
+      content: "";
+      display: block;
+      width: min(180px, 38vw);
+      height: 2px;
+      margin: 1.05rem auto 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.45;
     }
 
     main { padding-bottom: 4rem; }
@@ -607,9 +620,7 @@
     @media (max-width: 700px) {
       header { padding-top: 2.4rem; }
 
-      .top-row { margin-bottom: 2.2rem; }
-
-      h1 { font-size: clamp(2.55rem, 12vw, 4rem); }
+      h1 { font-size: clamp(2.75rem, 13vw, 4.4rem); }
 
       .workspace-head {
         flex-direction: column;
@@ -646,10 +657,6 @@
 
 <body>
   <header class="site-shell">
-    <div class="top-row">
-      <div class="brand">Esercizi svolti</div>
-    </div>
-
     <section class="hero">
       <h1>Esercizi svolti</h1>
     </section>
