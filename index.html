@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Esercizi svolti | Matematica e Fisica</title>
+  <title>Esercizi svolti | Laboratorio Digitale</title>
 
   <style>
     :root {
       --bg: #f6f4ef;
       --panel: #ffffff;
-      --panel-soft: rgba(255, 255, 255, 0.78);
+      --panel-soft: rgba(255, 255, 255, 0.82);
       --text: #1f2933;
       --muted: #667085;
       --border: #d8d3c7;
@@ -75,7 +75,7 @@
     }
 
     .hero {
-      max-width: 860px;
+      max-width: 880px;
     }
 
     .eyebrow {
@@ -104,7 +104,7 @@
 
     .subtitle {
       margin: 1.35rem 0 0;
-      max-width: 760px;
+      max-width: 780px;
       color: var(--muted);
       font-size: 1.12rem;
       line-height: 1.65;
@@ -123,7 +123,7 @@
       gap: 0.8rem;
       margin: 1.2rem 0 1.1rem;
       padding: 1rem;
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.86);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
@@ -187,12 +187,18 @@
       padding: 0.55rem 0.85rem;
       font-weight: 750;
       cursor: pointer;
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+    }
+
+    .category-button:hover {
+      transform: translateY(-1px);
+      border-color: var(--cat-color, var(--accent));
     }
 
     .category-button.active {
-      background: var(--accent);
+      background: var(--cat-color, var(--accent));
       color: #fff;
-      border-color: var(--accent);
+      border-color: var(--cat-color, var(--accent));
     }
 
     .grid {
@@ -207,7 +213,7 @@
       border-radius: var(--radius-lg);
       padding: 1.25rem;
       box-shadow: 0 14px 35px rgba(0, 0, 0, 0.052);
-      min-height: 285px;
+      min-height: 295px;
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
@@ -234,9 +240,33 @@
       font-weight: 760;
     }
 
+    .pill.category-pill {
+      background: color-mix(in srgb, var(--cat-color, var(--accent)) 16%, white);
+      color: color-mix(in srgb, var(--cat-color, var(--accent)) 70%, black);
+    }
+
     .pill.secondary {
       background: #f3efe5;
       color: #785d27;
+    }
+
+    .title-row {
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+    }
+
+    .exercise-icon {
+      flex: 0 0 auto;
+      display: inline-flex;
+      width: 2rem;
+      height: 2rem;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.75rem;
+      background: #f7f4ed;
+      border: 1px solid var(--border);
+      font-size: 1.05rem;
     }
 
     .card h2 {
@@ -383,17 +413,13 @@
     </div>
 
     <section class="hero">
-      <div>
-        <div class="eyebrow">Matematica · Fisica</div>
-        <h1>Archivio di esercizi svolti</h1>
-        <p class="subtitle">
-          Raccolta di esercizi organizzati per materia, categoria, argomento e livello.
-          Ogni scheda rimanda a una pagina HTML dedicata con testo, dati, svolgimento,
-          formule e risultato commentato.
-        </p>
-      </div>
-
-
+      <div class="eyebrow">Matematica · Fisica</div>
+      <h1>Archivio di esercizi svolti</h1>
+      <p class="subtitle">
+        Raccolta di esercizi organizzati secondo le stesse categorie del laboratorio digitale.
+        Ogni scheda rimanda a una pagina HTML dedicata con testo, dati, svolgimento,
+        formule e risultato commentato.
+      </p>
     </section>
   </header>
 
@@ -429,13 +455,17 @@
   </main>
 
   <footer>
-    <a href="https://github.com/robertocurciorubertini-ctrl" target="_blank" rel="noopener noreferrer">
+    <a href="https://github.com/laboratoriodigitale33-sketch/Eserciziario" target="_blank" rel="noopener noreferrer">
       Roberto Curcio Rubertini
     </a>
   </footer>
 
   <script>
+    const CATALOG_FILE = "esercizi.json";
+
     const state = {
+      categories: [],
+      categoryByName: new Map(),
       exercises: [],
       filtered: [],
       selectedCategory: ""
@@ -454,28 +484,33 @@
 
     async function loadExercises() {
       try {
-        const response = await fetch("configuration.json", { cache: "no-store" });
+        const response = await fetch(CATALOG_FILE, { cache: "no-store" });
 
         if (!response.ok) {
-          throw new Error("Impossibile caricare configuration.json");
+          throw new Error(`Impossibile caricare ${CATALOG_FILE}`);
         }
 
-        const exercises = await response.json();
+        const rawData = await response.json();
+        const catalog = normalizeCatalog(rawData);
 
-        if (!Array.isArray(exercises)) {
-          throw new Error("Il file configuration.json deve contenere un array di esercizi.");
-        }
+        state.categories = catalog.categories;
+        state.categoryByName = new Map(
+          state.categories
+            .filter(category => category && category.name)
+            .map(category => [String(category.name).trim(), category])
+        );
 
-        state.exercises = exercises;
-        populateFilters(exercises);
-        renderCategoryStrip(exercises);
+        state.exercises = catalog.exercises;
+        sortExercises();
+        populateFilters();
+        renderCategoryStrip();
         applyFilters();
       } catch (error) {
         summary.textContent = "Errore nel caricamento del catalogo.";
         exerciseGrid.innerHTML = `
           <div class="error">
             <strong>Non è stato possibile caricare il catalogo degli esercizi.</strong><br>
-            Controlla che <code>configuration.json</code> sia nella stessa cartella di <code>index.html</code>
+            Controlla che <code>${CATALOG_FILE}</code> sia nella stessa cartella di <code>index.html</code>
             e che il file JSON sia valido.<br><br>
             Nota: se apri il file direttamente con <code>file://</code>, alcuni browser bloccano
             <code>fetch()</code>. Per testare in locale usa un piccolo server, per esempio
@@ -486,19 +521,75 @@
       }
     }
 
-    function populateFilters(exercises) {
-      fillSelect(subjectFilter, uniqueValues(exercises, "subject"));
-      fillSelect(categoryFilter, uniqueValues(exercises, "category"));
-      fillSelect(topicFilter, uniqueValues(exercises, "topic"));
-      fillSelect(levelFilter, uniqueValues(exercises, "level"));
+    function normalizeCatalog(rawData) {
+      if (Array.isArray(rawData)) {
+        return {
+          categories: [],
+          exercises: rawData
+        };
+      }
+
+      if (!rawData || typeof rawData !== "object") {
+        throw new Error("Il catalogo deve essere un array oppure un oggetto JSON.");
+      }
+
+      return {
+        categories: Array.isArray(rawData.categories) ? rawData.categories : [],
+        exercises: Array.isArray(rawData.exercises)
+          ? rawData.exercises
+          : Array.isArray(rawData.simulations)
+            ? rawData.simulations
+            : []
+      };
     }
 
-    function uniqueValues(items, key) {
+    function sortExercises() {
+      const categoryOrder = new Map(
+        state.categories.map((category, index) => [
+          String(category.name || "").trim(),
+          Number.isFinite(Number(category.order)) ? Number(category.order) : 100000 + index
+        ])
+      );
+
+      state.exercises.sort((a, b) => {
+        const categoryA = categoryOrder.get(a.category) ?? 999999;
+        const categoryB = categoryOrder.get(b.category) ?? 999999;
+        const orderA = Number.isFinite(Number(a.order)) ? Number(a.order) : 999999;
+        const orderB = Number.isFinite(Number(b.order)) ? Number(b.order) : 999999;
+
+        return (
+          categoryA - categoryB ||
+          String(a.topic || "").localeCompare(String(b.topic || ""), "it") ||
+          orderA - orderB ||
+          String(a.title || "").localeCompare(String(b.title || ""), "it")
+        );
+      });
+    }
+
+    function populateFilters() {
+      fillSelect(subjectFilter, uniqueExerciseValues("subject"));
+      fillSelect(categoryFilter, categoriesForFilter());
+      fillSelect(topicFilter, uniqueExerciseValues("topic"));
+      fillSelect(levelFilter, uniqueExerciseValues("level"));
+    }
+
+    function uniqueExerciseValues(key) {
       return [...new Set(
-        items
+        state.exercises
           .map(item => item[key])
           .filter(Boolean)
+          .map(value => String(value).trim())
       )].sort((a, b) => a.localeCompare(b, "it"));
+    }
+
+    function categoriesForFilter() {
+      if (state.categories.length > 0) {
+        return state.categories
+          .map(category => String(category.name || "").trim())
+          .filter(Boolean);
+      }
+
+      return uniqueExerciseValues("category");
     }
 
     function fillSelect(select, values) {
@@ -514,17 +605,35 @@
       });
     }
 
-    function renderCategoryStrip(exercises) {
-      const categories = uniqueValues(exercises, "category");
+    function renderCategoryStrip() {
+      const categoriesWithExercises = new Set(
+        state.exercises
+          .map(exercise => String(exercise.category || "").trim())
+          .filter(Boolean)
+      );
 
-      categoryStrip.innerHTML = [
+      const categoriesToRender = state.categories.length > 0
+        ? state.categories.filter(category => categoriesWithExercises.has(String(category.name || "").trim()))
+        : [...categoriesWithExercises].map(name => ({ name }));
+
+      const buttons = [
         `<button class="category-button active" type="button" data-category="">Tutte</button>`,
-        ...categories.map(category => `
-          <button class="category-button" type="button" data-category="${escapeAttribute(category)}">
-            ${escapeHtml(category)}
-          </button>
-        `)
-      ].join("");
+        ...categoriesToRender.map(category => {
+          const name = String(category.name || "").trim();
+          const color = category.color || "#365f85";
+          const description = category.description || "";
+          return `
+            <button class="category-button" type="button"
+                    data-category="${escapeAttribute(name)}"
+                    title="${escapeAttribute(description)}"
+                    style="--cat-color: ${escapeAttribute(color)}">
+              ${escapeHtml(name)}
+            </button>
+          `;
+        })
+      ];
+
+      categoryStrip.innerHTML = buttons.join("");
 
       categoryStrip.querySelectorAll(".category-button").forEach(button => {
         button.addEventListener("click", () => {
@@ -593,20 +702,27 @@
       }
 
       exerciseGrid.innerHTML = state.filtered.map(exercise => {
+        const category = state.categoryByName.get(String(exercise.category || "").trim()) || {};
+        const categoryColor = category.color || "#365f85";
         const tags = (exercise.tags || [])
           .map(tag => `<span class="tag">#${escapeHtml(tag)}</span>`)
           .join("");
 
+        const target = exercise.file || exercise.path || "#";
+
         return `
-          <article class="card">
+          <article class="card" style="--cat-color: ${escapeAttribute(categoryColor)}">
             <div class="meta">
               ${exercise.subject ? `<span class="pill">${escapeHtml(exercise.subject)}</span>` : ""}
-              ${exercise.category ? `<span class="pill">${escapeHtml(exercise.category)}</span>` : ""}
+              ${exercise.category ? `<span class="pill category-pill">${escapeHtml(exercise.category)}</span>` : ""}
               ${exercise.topic ? `<span class="pill secondary">${escapeHtml(exercise.topic)}</span>` : ""}
               ${exercise.level ? `<span class="pill secondary">${escapeHtml(exercise.level)}</span>` : ""}
             </div>
 
-            <h2>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h2>
+            <div class="title-row">
+              ${exercise.icon ? `<span class="exercise-icon" aria-hidden="true">${escapeHtml(exercise.icon)}</span>` : ""}
+              <h2>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h2>
+            </div>
 
             <p class="description">
               ${escapeHtml(exercise.description || "Nessuna descrizione disponibile.")}
@@ -615,7 +731,7 @@
             <div class="tags">${tags}</div>
 
             <div class="card-footer">
-              <a class="open-link" href="${escapeAttribute(exercise.path || "#")}">
+              <a class="open-link" href="${escapeAttribute(target)}">
                 Apri esercizio
               </a>
               ${exercise.estimatedTime ? `<span class="duration">${escapeHtml(exercise.estimatedTime)}</span>` : ""}
