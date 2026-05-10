@@ -4,286 +4,177 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Raccolta esercizi</title>
-
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['\\(', '\\)']],
-        displayMath: [['\\[', '\\]']]
-      },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
   <style>
     :root {
       --bg: #f6f4ef;
-      --panel: rgba(255,255,255,0.88);
+      --panel: #ffffff;
       --text: #1f2933;
       --muted: #667085;
       --border: #d8d3c7;
       --accent: #365f85;
-      --accent-soft: rgba(54,95,133,0.12);
-      --shadow: 0 18px 45px rgba(0,0,0,0.075);
-      --radius-xl: 30px;
-      --radius-lg: 22px;
-      --radius-md: 15px;
+      --accent-soft: rgba(54,95,133,.12);
+      --shadow: 0 14px 34px rgba(0,0,0,.065);
+      --radius: 22px;
       --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       min-height: 100vh;
       font-family: var(--sans);
       color: var(--text);
-      background:
-        radial-gradient(circle at 8% 4%, rgba(54, 95, 133, 0.14), transparent 24rem),
-        radial-gradient(circle at 92% 10%, rgba(181, 141, 72, 0.09), transparent 22rem),
-        linear-gradient(180deg, #f8f6f0 0%, var(--bg) 100%);
+      background: radial-gradient(circle at 8% 4%, rgba(54,95,133,.13), transparent 22rem), var(--bg);
     }
-
-    .shell { width: min(1040px, calc(100% - 2rem)); margin: 0 auto; }
-    header { padding: 3.6rem 0 1.5rem; }
-    .back {
-      display: inline-flex;
-      margin-bottom: 1.1rem;
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 760;
-    }
-    .hero {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      background: var(--panel);
-      box-shadow: var(--shadow);
-      padding: clamp(1.35rem, 3vw, 2.4rem);
-    }
-    .eyebrow {
-      margin-bottom: 0.75rem;
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-    h1 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.7rem, 6vw, 5.3rem);
-      line-height: 0.96;
-      letter-spacing: -0.055em;
-      font-weight: 500;
-    }
-    .toolbar {
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.7rem;
-      margin: 1.1rem 0;
-    }
-    button {
-      border: 1px solid var(--border);
-      background: white;
-      color: var(--accent);
-      border-radius: 999px;
-      padding: 0.62rem 0.88rem;
-      font-weight: 760;
-      cursor: pointer;
-    }
-    button:hover { border-color: var(--accent); }
-
-    .exercise-list { display: grid; gap: 0.9rem; padding-bottom: 3.5rem; }
-    .exercise-card {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--panel);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.052);
-      overflow: hidden;
-    }
-    .exercise-visible {
-      border-top: 1px solid var(--border);
-      padding: 1.15rem;
-      background: rgba(255,255,255,0.34);
-    }
-    .solution-summary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      border-top: 1px solid var(--border);
-      padding: 0.92rem 1.25rem;
-      color: var(--accent);
-      font-weight: 800;
-      background: rgba(255,255,255,0.56);
-    }
-    .solution-summary:hover {
-      background: white;
-    }
-    .solution-body {
-      border-top: 1px solid rgba(216,211,199,0.82);
-      padding: 1.15rem;
-      background: rgba(255,255,255,0.42);
-    }
-    .statement-box {
-      max-width: none;
-    }
-    details summary { list-style: none; cursor: pointer; }
-    details summary::-webkit-details-marker { display: none; }
-    .summary-inner {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 1rem;
-      align-items: center;
-      padding: 1.15rem 1.25rem;
-    }
-    .number {
-      display: grid;
-      place-items: center;
-      width: 2.3rem;
-      height: 2.3rem;
-      border-radius: 0.8rem;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-weight: 850;
-    }
-    .exercise-title h2 { margin: 0; font-size: 1.12rem; letter-spacing: -0.025em; }
-    .exercise-title p { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.92rem; }
-    .chevron { color: var(--accent); font-size: 1.35rem; transition: transform 160ms ease; }
-    details[open] .chevron { transform: rotate(90deg); }
-    .exercise-body { border-top: 1px solid var(--border); padding: 1.15rem; }
-    .grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 1rem; align-items: start; }
-    .box { background: white; border: 1px solid rgba(216,211,199,0.82); border-radius: var(--radius-md); padding: 1rem; }
-    .box h3 { margin: 0 0 0.8rem; color: var(--accent); font-size: 0.84rem; text-transform: uppercase; letter-spacing: 0.09em; }
-    .result-label { margin-top: 0.85rem; color: var(--muted); font-size: 0.86rem; }
-    .empty, .error {
-      margin: 1rem 0 3rem;
-      background: white;
-      border: 1px dashed var(--border);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      color: var(--muted);
-      text-align: center;
-    }
-    @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
-    @media (max-width: 620px) { .summary-inner { grid-template-columns: auto 1fr; } .chevron { grid-column: 1 / -1; justify-self: end; } }
+    .shell { width: min(980px, calc(100% - 2rem)); margin: 0 auto; }
+    header { padding: 3.2rem 0 1.7rem; }
+    h1 { margin: 0; font-size: clamp(2.2rem, 6vw, 4.5rem); line-height: .95; letter-spacing: -.055em; }
+    .subtitle { margin-top: .9rem; color: var(--muted); line-height: 1.55; }
+    .toolbar { display: flex; gap: .7rem; margin: 1.5rem 0; flex-wrap: wrap; }
+    input, select { border: 1px solid var(--border); border-radius: 999px; padding: .75rem .95rem; background: #fff; color: var(--text); font-size: .95rem; }
+    input { flex: 1 1 260px; }
+    .list { display: grid; gap: 1rem; padding-bottom: 4rem; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .card-head { padding: 1.1rem 1.25rem; display: flex; gap: .8rem; align-items: flex-start; justify-content: space-between; }
+    .card-title { margin: 0; font-size: 1.15rem; line-height: 1.25; }
+    .desc { margin: .45rem 0 0; color: var(--muted); line-height: 1.55; }
+    .meta { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
+    .pill { font-size: .75rem; padding: .24rem .52rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+    .statement { padding: 0 1.25rem 1.1rem; color: var(--text); line-height: 1.65; }
+    .actions { padding: .85rem 1.25rem; border-top: 1px solid var(--border); display: flex; gap: .65rem; flex-wrap: wrap; }
+    button, .open-link { border: 1px solid var(--border); background: #fff; color: var(--accent); border-radius: 999px; padding: .58rem .78rem; font-weight: 750; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
+    button:hover, .open-link:hover { border-color: var(--accent); }
+    .solution { display: none; padding: 1.1rem 1.25rem 1.25rem; border-top: 1px dashed var(--border); line-height: 1.65; }
+    .card.open .solution { display: block; }
+    .empty, .error { background: #fff; border: 1px dashed var(--border); border-radius: var(--radius); padding: 2rem; color: var(--muted); line-height: 1.6; }
+    svg, canvas, img { max-width: 100%; }
+    @media (max-width: 680px) { .card-head { flex-direction: column; } }
   </style>
 </head>
 <body>
   <header class="shell">
-    <a class="back" href="../../../index.html">← Torna all'indice</a>
-    <section class="hero">
-      <div id="eyebrow" class="eyebrow">Esercizi svolti</div>
-      <h1 id="title">Raccolta esercizi</h1>
-    </section>
-  </header>
-
-  <main class="shell">
+    <h1 id="title">Raccolta esercizi</h1>
+    <p id="subtitle" class="subtitle">Caricamento...</p>
     <div class="toolbar">
-      <button id="openAll" type="button">Mostra tutte le soluzioni</button>
-      <button id="closeAll" type="button">Nascondi tutte le soluzioni</button>
+      <input id="search" type="search" placeholder="Cerca esercizio..." />
+      <select id="level"><option value="">Tutti i livelli</option></select>
     </div>
-    <section id="exerciseList" class="exercise-list" aria-label="Esercizi">
-      <div class="empty">Caricamento esercizi...</div>
-    </section>
+  </header>
+  <main class="shell">
+    <section id="list" class="list"><div class="empty">Caricamento raccolta...</div></section>
   </main>
 
   <script>
-    const LOCAL_CATALOG_FILE = "dinamica.json";
+    const CATALOG_FILE = "dinamica.json";
+    const state = { exercises: [], filtered: [] };
+    const titleEl = document.getElementById('title');
+    const subtitleEl = document.getElementById('subtitle');
+    const listEl = document.getElementById('list');
+    const searchEl = document.getElementById('search');
+    const levelEl = document.getElementById('level');
 
-    const escapeHtml = (value) => String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('\"', "&quot;")
-      .replaceAll("'", "&#039;");
-
-    async function loadCollection() {
-      const list = document.getElementById("exerciseList");
-      try {
-        const response = await fetch(LOCAL_CATALOG_FILE, { cache: "no-store" });
-        if (!response.ok) throw new Error(`Impossibile caricare ${LOCAL_CATALOG_FILE}`);
-        const data = await response.json();
-        renderCollection(data);
-      } catch (error) {
-        list.innerHTML = `
-          <div class="error">
-            <strong>Non è stato possibile caricare il JSON locale.</strong><br>
-            Controlla che <code>${LOCAL_CATALOG_FILE}</code> sia nella stessa cartella di <code>index.html</code>.<br><br>
-            Nota: in locale usa <code>python -m http.server</code>, non l'apertura diretta con <code>file://</code>.
-          </div>
-        `;
-        console.error(error);
+    function esc(value) {
+      return String(value ?? '')
+        .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+        .replaceAll('\"','&quot;').replaceAll("'",'&#039;');
+    }
+    function norm(value) {
+      return String(value ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    }
+    function levelLabel(value) {
+      const n = norm(value);
+      if (n === 'base') return 'Base';
+      if (n === 'intermedio') return 'Intermedio';
+      if (n === 'avanzato') return 'Avanzato';
+      return value || '';
+    }
+    function renderMath() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
       }
     }
-
-    function renderCollection(data) {
-      const collection = data.collection || {};
-      const exercises = Array.isArray(data.exercises) ? data.exercises : [];
-
-      document.title = `${collection.title || "Raccolta esercizi"} | Esercizi svolti`;
-      document.getElementById("eyebrow").textContent = [collection.subject, collection.category, collection.topic].filter(Boolean).join(" · ") || "Esercizi svolti";
-      document.getElementById("title").textContent = collection.title || "Raccolta esercizi";
-
-      const list = document.getElementById("exerciseList");
-      if (exercises.length === 0) {
-        list.innerHTML = `<div class="empty">Questa raccolta non contiene ancora esercizi.</div>`;
+    function fillFilters() {
+      const levels = [...new Set(state.exercises.map(e => e.level).filter(Boolean))].sort();
+      for (const level of levels) {
+        const opt = document.createElement('option');
+        opt.value = level;
+        opt.textContent = levelLabel(level);
+        levelEl.appendChild(opt);
+      }
+    }
+    function applyFilters() {
+      const q = norm(searchEl.value);
+      const level = levelEl.value;
+      state.filtered = state.exercises.filter(e => {
+        const haystack = norm([e.title, e.description, e.category, e.topic, e.level, ...(e.tags || [])].join(' '));
+        return (!q || haystack.includes(q)) && (!level || e.level === level);
+      });
+      renderList();
+    }
+    function renderList() {
+      if (!state.filtered.length) {
+        listEl.innerHTML = '<div class="empty">Nessun esercizio trovato.</div>';
         return;
       }
-
-      list.innerHTML = exercises
-        .sort((a, b) => Number(a.order || 999999) - Number(b.order || 999999))
-        .map((exercise, index) => renderExercise(exercise, index + 1))
-        .join("");
-
-      if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
+      listEl.innerHTML = state.filtered.map((e, i) => {
+        const tags = (e.tags || []).slice(0, 8).map(t => `<span class="pill">#${esc(t)}</span>`).join('');
+        const statement = e.statement ? `<div class="statement">${e.statement}</div>` : '';
+        const solutionButton = e.solution ? `<button type="button" data-toggle="${i}">Mostra soluzione</button>` : '';
+        const solution = e.solution ? `<div class="solution"><strong>Soluzione</strong><br>${e.solution}</div>` : '';
+        const openLink = e.file ? `<a class="open-link" href="${esc(e.file)}">Apri pagina esercizio →</a>` : '';
+        return `
+          <article class="card" data-index="${i}">
+            <div class="card-head">
+              <div>
+                <h2 class="card-title">${esc(e.icon || '')} ${esc(e.title || 'Esercizio senza titolo')}</h2>
+                <p class="desc">${esc(e.description || '')}</p>
+                <div class="meta">
+                  ${e.level ? `<span class="pill">${esc(levelLabel(e.level))}</span>` : ''}
+                  ${e.estimatedTime ? `<span class="pill">${esc(e.estimatedTime)}</span>` : ''}
+                  ${tags}
+                </div>
+              </div>
+            </div>
+            ${statement}
+            <div class="actions">${solutionButton}${openLink}</div>
+            ${solution}
+          </article>`;
+      }).join('');
+      renderMath();
     }
 
-    function renderExercise(exercise, number) {
-      return `
-        <article class="exercise-card">
-          <div class="summary-inner">
-            <div class="number">${number}</div>
-            <div class="exercise-title">
-              <h2>${escapeHtml(exercise.title || "Esercizio senza titolo")}</h2>
-              <p>${escapeHtml(exercise.description || "")}</p>
-            </div>
-          </div>
-
-          <div class="exercise-visible">
-            <section class="box statement-box">
-              <h3>Testo</h3>
-              ${exercise.statementHtml || "<p>Testo non disponibile.</p>"}
-            </section>
-          </div>
-
-          <details class="exercise">
-            <summary class="solution-summary">
-              <span>Mostra soluzione</span>
-              <span class="chevron" aria-hidden="true">›</span>
-            </summary>
-            <div class="solution-body">
-              <section class="box">
-                <h3>Soluzione</h3>
-                ${exercise.solutionHtml || "<p>Soluzione non disponibile.</p>"}
-              </section>
-            </div>
-          </details>
-        </article>
-      `;
-    }
-
-    document.getElementById("openAll").addEventListener("click", () => {
-      document.querySelectorAll("details.exercise").forEach(item => item.open = true);
-      if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise();
+    listEl.addEventListener('click', event => {
+      const btn = event.target.closest('button[data-toggle]');
+      if (!btn) return;
+      const card = btn.closest('.card');
+      card.classList.toggle('open');
+      btn.textContent = card.classList.contains('open') ? 'Nascondi soluzione' : 'Mostra soluzione';
     });
+    searchEl.addEventListener('input', applyFilters);
+    levelEl.addEventListener('change', applyFilters);
 
-    document.getElementById("closeAll").addEventListener("click", () => {
-      document.querySelectorAll("details.exercise").forEach(item => item.open = false);
-    });
-
-    loadCollection();
+    fetch(CATALOG_FILE, { cache: 'no-store' })
+      .then(r => { if (!r.ok) throw new Error('Errore nel caricamento'); return r.json(); })
+      .then(data => {
+        const collection = data.collection || {};
+        state.exercises = Array.isArray(data.exercises) ? data.exercises : [];
+        titleEl.textContent = collection.title ? `Esercizi di ${collection.title}` : 'Raccolta esercizi';
+        subtitleEl.textContent = `${collection.subject || ''}${collection.category ? ' · ' + collection.category : ''}${collection.topic ? ' · ' + collection.topic : ''} — ${state.exercises.length} esercizi`;
+        fillFilters();
+        applyFilters();
+      })
+      .catch(error => {
+        listEl.innerHTML = `<div class="error"><strong>Non è stato possibile caricare ${esc(CATALOG_FILE)}.</strong><br>Controlla che il JSON sia nella stessa cartella di questa pagina e che sia valido. Per testare in locale usa <code>python -m http.server</code>.</div>`;
+        console.error(error);
+      });
   </script>
 </body>
 </html>
