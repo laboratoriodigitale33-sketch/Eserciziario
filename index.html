@@ -51,63 +51,11 @@
     }
 
     header {
-      padding: 4rem 0 2.25rem;
-    }
-
-    .top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      margin-bottom: 3rem;
-    }
-
-    .brand {
-      color: var(--accent);
-      font-weight: 800;
-      letter-spacing: 0.02em;
-    }
-
-    .mini-label {
-      color: var(--muted);
-      font-size: 0.92rem;
-      text-align: right;
+      padding: 1.5rem 0 0.5rem;
     }
 
     .hero {
       max-width: 880px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      color: var(--accent);
-      background: var(--accent-soft);
-      border: 1px solid rgba(54, 95, 133, 0.16);
-      border-radius: 999px;
-      padding: 0.45rem 0.72rem;
-      font-size: 0.82rem;
-      font-weight: 750;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      margin-bottom: 1.1rem;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.7rem, 6vw, 5.5rem);
-      line-height: 0.96;
-      letter-spacing: -0.065em;
-      max-width: 850px;
-    }
-
-    .subtitle {
-      margin: 1.35rem 0 0;
-      max-width: 780px;
-      color: var(--muted);
-      font-size: 1.12rem;
-      line-height: 1.65;
     }
 
     main {
@@ -150,7 +98,7 @@
 
     .summary-row {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       gap: 1rem;
       margin: 1rem 0 1.35rem;
@@ -380,15 +328,6 @@
         padding-top: 2.4rem;
       }
 
-      .top-row {
-        flex-direction: column;
-        margin-bottom: 2.2rem;
-      }
-
-      .mini-label {
-        text-align: left;
-      }
-
       .controls {
         grid-template-columns: 1fr;
       }
@@ -407,19 +346,7 @@
 
 <body>
   <header class="site-shell">
-    <div class="top-row">
-      <div class="brand">Esercizi svolti</div>
-      <div class="mini-label">Archivio HTML per studenti</div>
-    </div>
-
     <section class="hero">
-      <div class="eyebrow">Matematica · Fisica</div>
-      <h1>Archivio di esercizi svolti</h1>
-      <p class="subtitle">
-        Raccolta di esercizi organizzati secondo le stesse categorie del laboratorio digitale.
-        Ogni scheda rimanda a una pagina HTML dedicata con testo, dati, svolgimento,
-        formule e risultato commentato.
-      </p>
     </section>
   </header>
 
@@ -445,7 +372,6 @@
     </section>
 
     <div class="summary-row">
-      <p id="summary">Caricamento esercizi...</p>
       <button id="resetButton" class="reset-button" type="button">Azzera filtri</button>
     </div>
 
@@ -506,7 +432,7 @@
         renderCategoryStrip();
         applyFilters();
       } catch (error) {
-        summary.textContent = "Errore nel caricamento del catalogo.";
+        if (summary) summary.textContent = "Errore nel caricamento del catalogo.";
         exerciseGrid.innerHTML = `
           <div class="error">
             <strong>Non è stato possibile caricare il catalogo degli esercizi.</strong><br>
@@ -690,7 +616,7 @@
       const count = state.filtered.length;
       const total = state.exercises.length;
 
-      summary.textContent = `${count} esercizi mostrati su ${total}.`;
+      if (summary) summary.textContent = `${count} esercizi mostrati su ${total}.`;
 
       if (count === 0) {
         exerciseGrid.innerHTML = `
