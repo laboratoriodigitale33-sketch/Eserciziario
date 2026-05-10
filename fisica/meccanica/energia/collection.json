@@ -1,0 +1,24 @@
+{
+  "title": "Energia: lavoro, potenza e conservazione",
+  "description": "Raccolta di esercizi svolti su lavoro, potenza, energia cinetica, energia potenziale gravitazionale, conservazione dell'energia meccanica e teorema dell'energia cinetica.",
+  "subject": "Fisica",
+  "category": "Meccanica",
+  "topic": "Energia",
+  "icon": "⚡",
+  "order": 60,
+  "tags": [
+    "energia",
+    "lavoro",
+    "potenza",
+    "energia cinetica",
+    "energia potenziale",
+    "conservazione energia",
+    "teorema energia cinetica"
+  ],
+  "level": "base",
+  "schoolYear": "Seconda superiore",
+  "estimatedTime": "90 min",
+  "output": "index.html",
+  "sourcesDir": "esercizi",
+  "isWip": false
+}
