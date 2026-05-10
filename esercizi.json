@@ -1,202 +1,50 @@
 {
+  "subjects": [
+    {
+      "name": "Fisica",
+      "order": 1,
+      "color": "#5bd4c4",
+      "description": "Esercizi di fisica organizzati per ambito."
+    },
+    {
+      "name": "Matematica",
+      "order": 2,
+      "color": "#8ab4f0",
+      "description": "Esercizi di matematica organizzati per argomento."
+    }
+  ],
   "categories": [
     {
-      "name": "Fondamenti",
-      "order": 1,
-      "color": "#8ab4f0",
-      "description": "Il linguaggio con cui la fisica descrive il mondo."
-    },
-    {
-      "name": "Meccanica",
-      "order": 10,
-      "color": "#5bd4c4",
-      "description": "Dalla caduta di una mela alle orbite dei pianeti, la meccanica descrive come e perché i corpi si muovono."
-    },
-    {
-      "name": "Gravitazione",
-      "order": 20,
-      "color": "#a78bfa",
-      "description": "La forza che domina su grandi scale: governa la caduta di un sasso, la forma delle galassie e il destino dell'universo."
-    },
-    {
-      "name": "Fluidodinamica",
-      "order": 30,
-      "color": "#5bc8f0",
-      "description": "Aria, acqua, plasma stellare: i fluidi sono ovunque, e il loro comportamento emerge da poche equazioni sorprendentemente difficili da risolvere."
-    },
-    {
-      "name": "Termodinamica",
-      "order": 40,
-      "color": "#f08c5b",
-      "description": "Perché il calore non scorre mai spontaneamente dal freddo al caldo? La termodinamica risponde con quattro principi che delimitano ciò che è fisicamente possibile — e ciò che non lo è mai."
-    },
-    {
-      "name": "Onde",
-      "order": 50,
-      "color": "#f0c060",
-      "description": "Capire le onde significa capire come l'informazione e l'energia si propagano nel mondo."
-    },
-    {
-      "name": "Ottica",
-      "order": 60,
-      "color": "#f0e060",
-      "description": "La luce viaggia in linea retta, si piega, si divide nei colori, interferisce con se stessa. L'ottica esplora i comportamenti della radiazione elettromagnetica visibile."
-    },
-    {
-      "name": "Elettromagnetismo",
-      "order": 70,
-      "color": "#f07070",
-      "description": "Elettricità e magnetismo sembravano fenomeni separati fino a quando Maxwell non scrisse quattro equazioni che li unificarono. Da lì nacque la fisica moderna."
-    },
-    {
-      "name": "Relatività",
-      "order": 80,
-      "color": "#c084fc",
-      "description": "Il tempo scorre più lento vicino a una massa. Due eventi simultanei per un osservatore non lo sono per un altro in moto. La relatività descrrive alcuni tra i fenomeni meno intuitivi e più spettacolari."
-    },
-    {
-      "name": "Meccanica Quantistica",
-      "order": 90,
-      "color": "#7dd3fc",
-      "description": "Su scala atomica i fenomeni sono intrinsecamente probabilistici e un elettrone può attraversare due fenditure allo stesso tempo. La meccanica quantistica è controintuitiva per costruzione — e tuttavia è la teoria fisica più precisa mai verificata."
-    },
-    {
-      "name": "Astrofisica",
-      "order": 100,
-      "color": "#e879f9",
-      "description": "Stelle che collassano in punti di densità infinita, galassie che si allontanano più veloce della luce, forme di energia e materia a noi sconosciute che rappresentano la maggioranza di cio che esiste nell'universo. Questa è l'astrofisica."
-    },
-    {
-      "name": "Fisica Nucleare",
-      "order": 110,
-      "color": "#fb923c",
-      "description": "Nel nucleo di ogni atomo sono compresse forze enormi tenute in equilibrio instabile. Capire come si formano, decadono e reagiscono i nuclei ha prodotto le applicazioni più potenti che la fisica abbia mai generato."
-    },
-    {
-      "name": "Fisica delle Particelle",
-      "order": 120,
-      "color": "#fb923c",
-      "description": "Nel nucleo di ogni atomo sono compresse forze enormi tenute in equilibrio instabile. Capire come si formano, decadono e reagiscono i nuclei ha prodotto le applicazioni più potenti che la fisica abbia mai generato."
-    },
-    {
-      "name": "Matematica per la Fisica",
-      "order": 9999,
-      "color": "#4F6F73",
-      "description": "Gli strumenti matematici spesso utilizzati nello studio della fisica."
-    },
-    {
-      "name": "WIP",
-      "order": 999999,
-      "color": "#6b7280",
-      "description": "Simulazioni in costruzione. Potrebbero contenere imprecisioni o comportamenti inattesi."
+      "name": "Analisi",
+      "subject": "Matematica",
+      "order": 10.0,
+      "color": "#8f6f3d",
+      "description": "Esercizi di analisi."
     }
   ],
   "exercises": [
     {
-      "title": "Secondo principio della dinamica su piano orizzontale",
-      "description": "Esercizio svolto sull'applicazione di F = m a a un corpo su piano orizzontale senza attrito.",
-      "category": "Meccanica",
-      "topic": "Dinamica",
-      "subject": "Fisica",
-      "icon": "➡️",
-      "order": 10,
+      "title": "Limiti",
+      "description": "Esercizi svolti sui limiti con soluzioni espandibili.",
+      "subject": "Matematica",
+      "category": "Analisi",
+      "topic": "Limiti",
+      "icon": "∞",
+      "order": 10.0,
       "tags": [
-        "dinamica",
-        "secondo principio",
-        "forza",
-        "massa",
-        "accelerazione",
-        "leggi di Newton"
+        "limiti",
+        "polinomi",
+        "continuità",
+        "zero su zero",
+        "scomposizione"
       ],
       "level": "base",
-      "schoolYear": "Seconda superiore",
-      "estimatedTime": "10 min",
-      "file": "meccanica/dinamica/secondo-principio-piano-orizzontale.html",
-      "isWip": false
-    },
-    {
-      "title": "Forza risultante con due forze opposte",
-      "description": "Esercizio svolto sul calcolo della forza risultante quando due forze agiscono lungo la stessa direzione ma con verso opposto.",
-      "category": "Meccanica",
-      "topic": "Dinamica",
-      "subject": "Fisica",
-      "icon": "↔️",
-      "order": 20,
-      "tags": [
-        "forza risultante",
-        "forze opposte",
-        "accelerazione",
-        "massa",
-        "dinamica"
-      ],
-      "level": "base",
-      "schoolYear": "Seconda superiore",
-      "estimatedTime": "8 min",
-      "file": "meccanica/dinamica/forza-risultante-forze-opposte.html",
-      "isWip": false
-    },
-    {
-      "title": "Peso e massa: calcolo della forza peso",
-      "description": "Esercizio svolto sulla distinzione tra massa e peso e sul calcolo della forza peso vicino alla superficie terrestre.",
-      "category": "Meccanica",
-      "topic": "Dinamica",
-      "subject": "Fisica",
-      "icon": "⬇️",
-      "order": 30,
-      "tags": [
-        "peso",
-        "massa",
-        "gravità",
-        "forza peso",
-        "newton"
-      ],
-      "level": "base",
-      "schoolYear": "Seconda superiore",
-      "estimatedTime": "7 min",
-      "file": "meccanica/dinamica/forza-peso-massa.html",
-      "isWip": false
-    },
-    {
-      "title": "Piano inclinato senza attrito",
-      "description": "Esercizio svolto sulla scomposizione della forza peso lungo un piano inclinato senza attrito.",
-      "category": "Meccanica",
-      "topic": "Dinamica",
-      "subject": "Fisica",
-      "icon": "📐",
-      "order": 40,
-      "tags": [
-        "piano inclinato",
-        "scomposizione forze",
-        "forza peso",
-        "accelerazione",
-        "dinamica"
-      ],
-      "level": "intermedio",
-      "schoolYear": "Seconda superiore",
-      "estimatedTime": "15 min",
-      "file": "meccanica/dinamica/piano-inclinato-senza-attrito.html",
-      "isWip": false
-    },
-    {
-      "title": "Attrito dinamico su piano orizzontale",
-      "description": "Esercizio svolto sul moto di un corpo soggetto a una forza applicata e a una forza di attrito dinamico.",
-      "category": "Meccanica",
-      "topic": "Dinamica",
-      "subject": "Fisica",
-      "icon": "▰",
-      "order": 50,
-      "tags": [
-        "attrito",
-        "attrito dinamico",
-        "forza normale",
-        "forza risultante",
-        "dinamica"
-      ],
-      "level": "intermedio",
-      "schoolYear": "Seconda superiore",
-      "estimatedTime": "15 min",
-      "file": "meccanica/dinamica/attrito-dinamico-piano-orizzontale.html",
-      "isWip": false
+      "schoolYear": "Quinta superiore",
+      "estimatedTime": "11 min",
+      "file": "matematica/limiti/index.html",
+      "isWip": false,
+      "type": "collection",
+      "count": 2
     }
   ]
 }
