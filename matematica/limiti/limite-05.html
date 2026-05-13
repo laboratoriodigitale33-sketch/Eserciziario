@@ -1,9 +1,9 @@
-<article class="exercise exercise-card" data-exercise-id="es_5">
+<article class="exercise exercise-card" data-exercise-id="limite-05">
   <script type="application/json" class="exercise-metadata">
   {
-    "id": "es_5",
+    "id": "limite-05",
     "title": "Forma indeterminata meno infinito più infinito con polinomi",
-    "order": 5,
+    "order": 50,
     "macroCategory": "matematica",
     "categoryPath": "matematica/limiti",
     "topic": "Forme indeterminate",
@@ -34,14 +34,14 @@
   <section class="exercise-request">
     <h3>Obiettivo</h3>
     <p>
-      Risolvere una forma indeterminata del tipo \( -\infty + \infty \), evitando di trattare gli infiniti come numeri ordinari.
+      Risolvere una forma indeterminata del tipo \( -\infty + \infty \), semplificando correttamente l’espressione prima di calcolare il limite.
     </p>
   </section>
 
   <section class="exercise-solution">
     <h3>Metodo scelto</h3>
     <p>
-      Consideriamo separatamente i due polinomi:
+      Consideriamo i due polinomi separatamente:
     </p>
     \[
       -4x^3 + 2x^2 - 7x + 5
@@ -54,7 +54,7 @@
     <p>
       Per \(x \to +\infty\), il primo polinomio tende a \(-\infty\), perché il termine dominante è \(-4x^3\).
       Il secondo polinomio tende invece a \(+\infty\), perché il termine dominante è \(4x^3\).
-      Il limite si presenta quindi nella forma indeterminata:
+      La somma si presenta quindi nella forma indeterminata:
     </p>
     \[
       -\infty + \infty.
@@ -75,7 +75,7 @@
       4x^3 - 2x^2 + 7x - 9
     \]
 
-    <p>Ora raggruppiamo i termini dello stesso grado:</p>
+    <p>Raggruppiamo i termini dello stesso grado:</p>
     \[
       \left(-4x^3 + 4x^3\right)
       +
@@ -91,7 +91,16 @@
       0 + 0 + 0 - 4 = -4.
     \]
 
-    <p>Quindi il limite diventa:</p>
+    <p>Quindi l’espressione dentro il limite è costante:</p>
+    \[
+      \left(-4x^3 + 2x^2 - 7x + 5\right)
+      +
+      \left(4x^3 - 2x^2 + 7x - 9\right)
+      =
+      -4.
+    \]
+
+    <p>Il limite diventa:</p>
     \[
       \lim_{x \to +\infty} (-4) = -4.
     \]
@@ -111,7 +120,7 @@
       <div class="cn-label">Osservazione</div>
       <p>
         Non bisogna scrivere \( -\infty + \infty = 0 \). Questa operazione non è definita.
-        La forma è indeterminata proprio perché dipende da come crescono i termini coinvolti.
+        La forma è indeterminata perché il risultato dipende dal comportamento relativo dei termini divergenti.
         In questo caso i termini divergenti si cancellano esattamente e rimane il valore costante \(-4\).
       </p>
     </div>

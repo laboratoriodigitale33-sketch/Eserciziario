@@ -1,9 +1,9 @@
-<article class="exercise exercise-card" data-exercise-id="es_4">
+<article class="exercise exercise-card" data-exercise-id="limite-04">
   <script type="application/json" class="exercise-metadata">
   {
-    "id": "es_4",
+    "id": "limite-04",
     "title": "Forma indeterminata infinito su infinito con polinomi",
-    "order": 4,
+    "order": 40,
     "macroCategory": "matematica",
     "categoryPath": "matematica/limiti",
     "topic": "Forme indeterminate",
@@ -28,18 +28,21 @@
 
   <section class="exercise-request">
     <h3>Obiettivo</h3>
-    <p>Risolvere una forma indeterminata del tipo \( \infty/\infty \), riconoscendo il termine dominante al numeratore e al denominatore.</p>
+    <p>
+      Risolvere una forma indeterminata del tipo \( \infty/\infty \), riconoscendo il ruolo dei termini dominanti.
+    </p>
   </section>
 
   <section class="exercise-solution">
     <h3>Metodo scelto</h3>
     <p>
-      Poiché \(x \to +\infty\), sia il numeratore sia il denominatore tendono a \(+\infty\). 
+      Per \(x \to +\infty\), sia il numeratore sia il denominatore divergono positivamente.
       Il limite si presenta quindi nella forma indeterminata
       \[
         \frac{\infty}{\infty}.
       \]
-      Per eliminarla dividiamo tutti i termini per la massima potenza di \(x\) presente, cioè \(x^4\).
+      Per risolverla dividiamo numeratore e denominatore per la massima potenza di \(x\) presente,
+      cioè \(x^4\).
     </p>
 
     <h3>Svolgimento passo per passo</h3>
@@ -48,7 +51,7 @@
       \lim_{x \to +\infty} \frac{6x^4 - 3x^2 + 7}{2x^4 + 5x^3 - x + 1}
     \]
 
-    <p>Dividiamo numeratore e denominatore per \(x^4\):</p>
+    <p>Dividiamo tutti i termini per \(x^4\):</p>
     \[
       \lim_{x \to +\infty}
       \frac{
@@ -58,7 +61,7 @@
       }
     \]
 
-    <p>Semplificando otteniamo:</p>
+    <p>Semplificando:</p>
     \[
       \lim_{x \to +\infty}
       \frac{
@@ -69,7 +72,8 @@
     \]
 
     <p>
-      Quando \(x \to +\infty\), tutte le frazioni del tipo \(1/x^n\), con \(n>0\), tendono a \(0\):
+      Quando \(x \to +\infty\), ogni termine del tipo \(\frac{1}{x^n}\), con \(n>0\), tende a \(0\).
+      Quindi:
     </p>
     \[
       \frac{3}{x^2} \to 0,
@@ -83,7 +87,7 @@
       \frac{1}{x^4} \to 0.
     \]
 
-    <p>Quindi il limite diventa:</p>
+    <p>Il limite diventa dunque:</p>
     \[
       \frac{6 - 0 + 0}{2 + 0 - 0 + 0}
       =

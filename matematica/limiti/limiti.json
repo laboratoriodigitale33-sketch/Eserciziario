@@ -5,50 +5,6 @@
   "count": 5,
   "exercises": [
     {
-      "id": "es_4",
-      "title": "Forma indeterminata infinito su infinito con polinomi",
-      "order": 4,
-      "macroCategory": "matematica",
-      "categoryPath": "matematica/limiti",
-      "topic": "Forme indeterminate",
-      "difficulty": "facile",
-      "tags": [
-        "limiti",
-        "forme indeterminate",
-        "infinito su infinito",
-        "polinomi"
-      ],
-      "hasImages": false,
-      "description": "Limite razionale in forma infinito su infinito risolto dividendo per la massima potenza di x.",
-      "subject": "Matematica",
-      "category": "Limiti",
-      "file": "limite-04.html",
-      "source": "limite-04.html",
-      "sourceFormat": "metadata"
-    },
-    {
-      "id": "es_5",
-      "title": "Forma indeterminata meno infinito più infinito con polinomi",
-      "order": 5,
-      "macroCategory": "matematica",
-      "categoryPath": "matematica/limiti",
-      "topic": "Forme indeterminate",
-      "difficulty": "facile",
-      "tags": [
-        "limiti",
-        "forme indeterminate",
-        "meno infinito più infinito",
-        "polinomi"
-      ],
-      "hasImages": false,
-      "description": "Limite di una somma di polinomi in forma meno infinito più infinito risolto tramite riduzione dei termini simili.",
-      "subject": "Matematica",
-      "category": "Limiti",
-      "file": "limite-05.html",
-      "source": "limite-05.html",
-      "sourceFormat": "metadata"
-    },
-    {
       "title": "Limite di un polinomio",
       "description": "Calcolo di un limite finito usando la continuità dei polinomi.",
       "subject": "Matematica",
@@ -119,6 +75,50 @@
       "id": "limite-03-infinito-su-infinito",
       "file": "limite-03-infinito-su-infinito.html",
       "source": "limite-03-infinito-su-infinito.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "id": "limite-04",
+      "title": "Forma indeterminata infinito su infinito con polinomi",
+      "order": 40,
+      "macroCategory": "matematica",
+      "categoryPath": "matematica/limiti",
+      "topic": "Forme indeterminate",
+      "difficulty": "facile",
+      "tags": [
+        "limiti",
+        "forme indeterminate",
+        "infinito su infinito",
+        "polinomi"
+      ],
+      "hasImages": false,
+      "description": "Limite razionale in forma infinito su infinito risolto dividendo per la massima potenza di x.",
+      "subject": "Matematica",
+      "category": "Limiti",
+      "file": "limite-04.html",
+      "source": "limite-04.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "id": "limite-05",
+      "title": "Forma indeterminata meno infinito più infinito con polinomi",
+      "order": 50,
+      "macroCategory": "matematica",
+      "categoryPath": "matematica/limiti",
+      "topic": "Forme indeterminate",
+      "difficulty": "facile",
+      "tags": [
+        "limiti",
+        "forme indeterminate",
+        "meno infinito più infinito",
+        "polinomi"
+      ],
+      "hasImages": false,
+      "description": "Limite di una somma di polinomi in forma meno infinito più infinito risolto tramite riduzione dei termini simili.",
+      "subject": "Matematica",
+      "category": "Limiti",
+      "file": "limite-05.html",
+      "source": "limite-05.html",
       "sourceFormat": "metadata"
     }
   ],
