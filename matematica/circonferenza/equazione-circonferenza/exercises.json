@@ -13,7 +13,10 @@
     "geometria analitica",
     "equazione della circonferenza",
     "assi cartesiani",
-    "sistema"
+    "sistema",
+    "equazione",
+    "termine noto",
+    "sistema lineare"
   ],
   "level": null,
   "schoolYear": null,
@@ -21,7 +24,7 @@
   "isWip": false,
   "path": "matematica/circonferenza/equazione-circonferenza",
   "sourceDir": ".",
-  "count": 3,
+  "count": 5,
   "exercises": [
     {
       "id": "es_1",
@@ -87,6 +90,52 @@
       "category": "Circonferenza",
       "file": "es_3.html",
       "source": "es_3.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "id": "es_4",
+      "title": "Circonferenza passante per tre punti con termine noto non nullo",
+      "order": 4,
+      "macroCategory": "matematica",
+      "categoryPath": "matematica/circonferenza/equazione-circonferenza",
+      "topic": "Equazione della circonferenza",
+      "difficulty": "medio",
+      "tags": [
+        "circonferenza",
+        "equazione",
+        "tre punti",
+        "termine noto",
+        "geometria analitica"
+      ],
+      "hasImages": true,
+      "description": "Determinare l’equazione della circonferenza passante per i punti \\( A(1,0) \\), \\( B(5,0) \\) e \\( C(2,3) \\).",
+      "subject": "Matematica",
+      "category": "Circonferenza",
+      "file": "es_4.html",
+      "source": "es_4.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "id": "es_5",
+      "title": "Circonferenza passante per tre punti non allineati con coordinate meno immediate",
+      "order": 5,
+      "macroCategory": "matematica",
+      "categoryPath": "matematica/circonferenza/equazione-circonferenza",
+      "topic": "Equazione della circonferenza",
+      "difficulty": "difficile",
+      "tags": [
+        "circonferenza",
+        "equazione",
+        "tre punti",
+        "sistema lineare",
+        "geometria analitica"
+      ],
+      "hasImages": true,
+      "description": "Determinare l’equazione della circonferenza passante per i punti \\( A(-1,0) \\), \\( B(3,4) \\) e \\( C(5,2) \\).",
+      "subject": "Matematica",
+      "category": "Circonferenza",
+      "file": "es_5.html",
+      "source": "es_5.html",
       "sourceFormat": "metadata"
     }
   ]
