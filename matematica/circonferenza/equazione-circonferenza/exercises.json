@@ -1,0 +1,93 @@
+{
+  "generator": "generate_exercises.py",
+  "title": "Equazione Circonferenza",
+  "subject": "Matematica",
+  "category": "Circonferenza",
+  "topic": "Equazione Circonferenza",
+  "description": "Raccolta di esercizi svolti: 3 esercizi con testo e soluzione espandibile.",
+  "icon": null,
+  "order": null,
+  "tags": [
+    "circonferenza",
+    "tre punti",
+    "geometria analitica",
+    "equazione della circonferenza",
+    "assi cartesiani",
+    "sistema"
+  ],
+  "level": null,
+  "schoolYear": null,
+  "estimatedTime": null,
+  "isWip": false,
+  "path": "matematica/circonferenza/equazione-circonferenza",
+  "sourceDir": ".",
+  "count": 3,
+  "exercises": [
+    {
+      "id": "es_1",
+      "title": "Equazione della circonferenza passante per tre punti con coordinate semplici",
+      "order": 1,
+      "macroCategory": "matematica",
+      "categoryPath": "matematica/circonferenza/equazione-circonferenza",
+      "topic": "Equazione della circonferenza",
+      "difficulty": "facile",
+      "tags": [
+        "circonferenza",
+        "tre punti",
+        "geometria analitica",
+        "equazione della circonferenza"
+      ],
+      "hasImages": true,
+      "description": "Determinare l’equazione della circonferenza passante per i tre punti \\(A(0,0)\\), \\(B(4,0)\\) e \\(C(0,2)\\).",
+      "subject": "Matematica",
+      "category": "Circonferenza",
+      "file": "es_1.html",
+      "source": "es_1.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "id": "es_2",
+      "title": "Equazione della circonferenza passante per tre punti sugli assi",
+      "order": 2,
+      "macroCategory": "matematica",
+      "categoryPath": "matematica/circonferenza/equazione-circonferenza",
+      "topic": "Equazione della circonferenza",
+      "difficulty": "facile",
+      "tags": [
+        "circonferenza",
+        "tre punti",
+        "assi cartesiani",
+        "geometria analitica"
+      ],
+      "hasImages": true,
+      "description": "Determinare l’equazione della circonferenza passante per i punti \\(A(0,0)\\), \\(B(6,0)\\) e \\(C(0,-2)\\).",
+      "subject": "Matematica",
+      "category": "Circonferenza",
+      "file": "es_2.html",
+      "source": "es_2.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "id": "es_3",
+      "title": "Equazione della circonferenza passante per tre punti con sistema semplice",
+      "order": 3,
+      "macroCategory": "matematica",
+      "categoryPath": "matematica/circonferenza/equazione-circonferenza",
+      "topic": "Equazione della circonferenza",
+      "difficulty": "medio",
+      "tags": [
+        "circonferenza",
+        "tre punti",
+        "sistema",
+        "geometria analitica"
+      ],
+      "hasImages": true,
+      "description": "Trovare l’equazione della circonferenza passante per i punti \\(A(0,2)\\), \\(B(4,0)\\) e \\(C(0,-2)\\).",
+      "subject": "Matematica",
+      "category": "Circonferenza",
+      "file": "es_3.html",
+      "source": "es_3.html",
+      "sourceFormat": "metadata"
+    }
+  ]
+}
