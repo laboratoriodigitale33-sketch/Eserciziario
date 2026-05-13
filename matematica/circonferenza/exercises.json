@@ -43,7 +43,7 @@
         "tangente"
       ],
       "hasImages": true,
-      "description": "Data la circonferenza \\(\\mathcal{C}: x^2 + y^2 = 25\\) e le rette:",
+      "description": "Esercizio 1 — Retta orizzontale e circonferenza centrata nell'origine Data la circonferenza \\(\\mathcal{C}: x^2 + y^2 = 25\\) e le rette: \\(r_1: y = 3\\) \\(r_2: y = 5\\) \\(r_3: y = 7\\...",
       "subject": "Matematica",
       "category": "Circonferenza",
       "file": "es_1.html",
@@ -64,10 +64,11 @@
         "discriminante",
         "sistema",
         "secante",
-        "tangente"
+        "tangente",
+        "parametro"
       ],
-      "hasImages": false,
-      "description": "Data la circonferenza \\(\\mathcal{C}: x^2 + y^2 = 10\\) e la retta \\(r: y = x + k\\), determina per quali valori di \\(k\\) la retta è:",
+      "hasImages": true,
+      "description": "Esercizio 2 — Retta obliqua e circonferenza — metodo del discriminante Data la circonferenza \\(\\mathcal{C}: x^2+y^2=10\\) e la famiglia di rette \\[ r_k: y=x+k, \\] determina per qua...",
       "subject": "Matematica",
       "category": "Circonferenza",
       "file": "es_2.html",

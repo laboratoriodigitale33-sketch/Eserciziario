@@ -8,113 +8,282 @@
     "categoryPath": "matematica/circonferenza/posizione-retta",
     "topic": "Posizione reciproca retta-circonferenza",
     "difficulty": "facile",
-    "tags": ["circonferenza", "retta", "discriminante", "sistema", "secante", "tangente"],
-    "hasImages": false
+    "tags": ["circonferenza", "retta", "discriminante", "sistema", "secante", "tangente", "parametro"],
+    "hasImages": true
   }
   </script>
 
-  <header class="exercise-header">
-    <h2>Esercizio 2 — Retta obliqua e circonferenza — metodo del discriminante</h2>
-  </header>
+  <template data-exercise-statement>
+    <section class="exercise-text">
+      <h2>Esercizio 2 — Retta obliqua e circonferenza — metodo del discriminante</h2>
+      <p>
+        Data la circonferenza \(\mathcal{C}: x^2+y^2=10\) e la famiglia di rette
+        \[
+          r_k: y=x+k,
+        \]
+        determina per quali valori reali del parametro \(k\) la retta è:
+      </p>
+      <ol type="a">
+        <li>secante alla circonferenza;</li>
+        <li>tangente alla circonferenza;</li>
+        <li>esterna alla circonferenza.</li>
+      </ol>
+    </section>
 
-  <section class="exercise-text">
-    <p>
-      Data la circonferenza \(\mathcal{C}: x^2 + y^2 = 10\) e la retta \(r: y = x + k\),
-      determina per quali valori di \(k\) la retta è:
-    </p>
-    <ol type="a">
-      <li>secante alla circonferenza;</li>
-      <li>tangente alla circonferenza;</li>
-      <li>esterna alla circonferenza.</li>
-    </ol>
-  </section>
+    <section class="exercise-data">
+      <h3>Dati</h3>
+      <ul>
+        <li>Circonferenza: \(x^2+y^2=10\)</li>
+        <li>Centro: \(C=(0,0)\)</li>
+        <li>Raggio: \(R=\sqrt{10}\)</li>
+        <li>Famiglia di rette: \(r_k:y=x+k\), con \(k\in\mathbb{R}\)</li>
+      </ul>
+    </section>
 
-  <section class="exercise-data">
-    <h3>Dati</h3>
-    <ul>
-      <li>Circonferenza: \(x^2 + y^2 = 10\) &nbsp;⟹&nbsp; centro \(C = (0, 0)\), raggio \(r = \sqrt{10}\)</li>
-      <li>Retta: \(y = x + k\), con \(k \in \mathbb{R}\)</li>
-    </ul>
-  </section>
+    <section class="exercise-request">
+      <h3>Richiesta</h3>
+      <p>
+        Studiare la posizione reciproca tra \(r_k\) e \(\mathcal{C}\) al variare di \(k\), usando il discriminante dell'equazione risolvente.
+      </p>
+    </section>
+  </template>
 
-  <section class="exercise-request">
-    <h3>Richiesta</h3>
-    <p>Trovare i valori di \(k\) che determinano ciascuna delle tre posizioni reciproche.</p>
-  </section>
+  <template data-exercise-solution>
+    <section class="exercise-solution">
+      <h3>Svolgimento</h3>
 
-  <section class="exercise-solution">
-    <h3>Svolgimento</h3>
+      <h4>Idea del metodo</h4>
+      <p>
+        Intersecare una retta e una circonferenza significa risolvere il sistema formato dalle loro equazioni.
+        Sostituendo l'equazione della retta nella circonferenza si ottiene un'equazione di secondo grado.
+        Il suo discriminante \(\Delta\) permette di distinguere i tre casi:
+      </p>
+      <ul>
+        <li>\(\Delta&gt;0\): due soluzioni reali distinte, quindi la retta è <strong>secante</strong>;</li>
+        <li>\(\Delta=0\): una soluzione reale doppia, quindi la retta è <strong>tangente</strong>;</li>
+        <li>\(\Delta&lt;0\): nessuna soluzione reale, quindi la retta è <strong>esterna</strong>.</li>
+      </ul>
 
-    <h4>Metodo: sostituzione e discriminante</h4>
-    <p>
-      Si sostituisce l'espressione di \(y\) ricavata dalla retta nell'equazione della circonferenza,
-      ottenendo un'equazione di secondo grado in \(x\).
-      Il segno del discriminante \(\Delta\) decide la posizione:
-    </p>
-    <ul>
-      <li>\(\Delta > 0\): due soluzioni reali distinte &nbsp;⟹&nbsp; retta <strong>secante</strong>.</li>
-      <li>\(\Delta = 0\): soluzione doppia &nbsp;⟹&nbsp; retta <strong>tangente</strong>.</li>
-      <li>\(\Delta < 0\): nessuna soluzione reale &nbsp;⟹&nbsp; retta <strong>esterna</strong>.</li>
-    </ul>
+      <h4>Sostituzione della retta nella circonferenza</h4>
+      <p>Sostituiamo \(y=x+k\) nell'equazione \(x^2+y^2=10\):</p>
+      \[
+        x^2+(x+k)^2=10.
+      \]
+      <p>Sviluppiamo il quadrato:</p>
+      \[
+        x^2+x^2+2kx+k^2=10.
+      \]
+      <p>Portiamo tutto al primo membro:</p>
+      \[
+        2x^2+2kx+k^2-10=0.
+      \]
+      <p>Otteniamo quindi un'equazione di secondo grado nella variabile \(x\):</p>
+      \[
+        2x^2+2kx+(k^2-10)=0.
+      \]
 
-    <h4>Passo 1 — Sostituzione</h4>
-    <p>Sostituiamo \(y = x + k\) in \(x^2 + y^2 = 10\):</p>
-    \[
-      x^2 + (x + k)^2 = 10
-    \]
-    \[
-      x^2 + x^2 + 2kx + k^2 = 10
-    \]
-    \[
-      2x^2 + 2kx + (k^2 - 10) = 0
-    \]
+      <h4>Calcolo del discriminante</h4>
+      <p>
+        L'equazione ha forma \(ax^2+bx+c=0\), con:
+      </p>
+      <ul>
+        <li>\(a=2\);</li>
+        <li>\(b=2k\);</li>
+        <li>\(c=k^2-10\).</li>
+      </ul>
+      <p>Il discriminante è:</p>
+      \[
+        \Delta=b^2-4ac.
+      \]
+      <p>Sostituendo i coefficienti:</p>
+      \[
+        \Delta=(2k)^2-4\cdot 2\cdot (k^2-10).
+      \]
+      \[
+        \Delta=4k^2-8(k^2-10).
+      \]
+      \[
+        \Delta=4k^2-8k^2+80.
+      \]
+      \[
+        \Delta=80-4k^2=4(20-k^2).
+      \]
 
-    <h4>Passo 2 — Calcolo del discriminante</h4>
-    <p>L'equazione ha la forma \(ax^2 + bx + c = 0\) con \(a = 2\), \(b = 2k\), \(c = k^2 - 10\).</p>
-    \[
-      \Delta = b^2 - 4ac = (2k)^2 - 4 \cdot 2 \cdot (k^2 - 10)
-    \]
-    \[
-      \Delta = 4k^2 - 8k^2 + 80 = -4k^2 + 80 = 4(20 - k^2)
-    \]
+      <h4>Studio del segno di \(\Delta\)</h4>
+      <p>Poiché \(4&gt;0\), il segno di \(\Delta\) coincide con il segno di \(20-k^2\).</p>
 
-    <h4>Passo 3 — Studio del segno di \(\Delta\)</h4>
-    <p>Il segno di \(\Delta\) dipende dal fattore \((20 - k^2)\):</p>
+      <p><strong>1. Caso secante.</strong> La retta è secante quando \(\Delta&gt;0\):</p>
+      \[
+        4(20-k^2)&gt;0.
+      \]
+      \[
+        20-k^2&gt;0.
+      \]
+      \[
+        k^2&lt;20.
+      \]
+      \[
+        -\sqrt{20}&lt;k&lt;\sqrt{20}.
+      \]
+      <p>Poiché \(\sqrt{20}=2\sqrt{5}\), otteniamo:</p>
+      \[
+        -2\sqrt{5}&lt;k&lt;2\sqrt{5}.
+      \]
 
-    <p><strong>(a) Retta secante:</strong> \(\Delta > 0\)</p>
-    \[
-      20 - k^2 > 0 \;\Rightarrow\; k^2 < 20 \;\Rightarrow\; -2\sqrt{5} < k < 2\sqrt{5}
-    \]
+      <p><strong>2. Caso tangente.</strong> La retta è tangente quando \(\Delta=0\):</p>
+      \[
+        4(20-k^2)=0.
+      \]
+      \[
+        20-k^2=0.
+      \]
+      \[
+        k^2=20.
+      \]
+      \[
+        k=\pm\sqrt{20}=\pm 2\sqrt{5}.
+      \]
+      <p>
+        Per questi due valori la retta tocca la circonferenza in un solo punto.
+        Possiamo trovare anche i punti di tangenza.
+      </p>
+      <p>Se \(k=2\sqrt{5}\), l'equazione risolvente diventa:</p>
+      \[
+        2x^2+4\sqrt{5}\,x+10=0.
+      \]
+      <p>Dividendo per \(2\):</p>
+      \[
+        x^2+2\sqrt{5}\,x+5=0.
+      \]
+      <p>Il trinomio è un quadrato perfetto:</p>
+      \[
+        (x+\sqrt{5})^2=0,
+      \]
+      quindi
+      \[
+        x=-\sqrt{5}.
+      \]
+      <p>Allora:</p>
+      \[
+        y=x+k=-\sqrt{5}+2\sqrt{5}=\sqrt{5}.
+      \]
+      <p>Il punto di tangenza è \((-\sqrt{5},\sqrt{5})\).</p>
 
-    <p><strong>(b) Retta tangente:</strong> \(\Delta = 0\)</p>
-    \[
-      20 - k^2 = 0 \;\Rightarrow\; k = \pm\sqrt{20} = \pm 2\sqrt{5}
-    \]
-    <p>Per \(k = 2\sqrt{5}\): \(2x^2 + 4\sqrt{5}\,x + 10 = 0 \Rightarrow x = -\sqrt{5}\), &nbsp; punto di tangenza: \((-\sqrt{5},\, -\sqrt{5}+2\sqrt{5}) = (-\sqrt{5},\, \sqrt{5})\).</p>
-    <p>Per \(k = -2\sqrt{5}\): punto di tangenza: \((\sqrt{5},\, -\sqrt{5})\).</p>
+      <p>Se \(k=-2\sqrt{5}\), per simmetria si ottiene il punto di tangenza:</p>
+      \[
+        (\sqrt{5},-\sqrt{5}).
+      \]
 
-    <p><strong>(c) Retta esterna:</strong> \(\Delta < 0\)</p>
-    \[
-      20 - k^2 < 0 \;\Rightarrow\; k^2 > 20 \;\Rightarrow\; k < -2\sqrt{5} \;\text{ oppure }\; k > 2\sqrt{5}
-    \]
+      <p><strong>3. Caso esterno.</strong> La retta è esterna quando \(\Delta&lt;0\):</p>
+      \[
+        4(20-k^2)&lt;0.
+      \]
+      \[
+        20-k^2&lt;0.
+      \]
+      \[
+        k^2&gt;20.
+      \]
+      quindi
+      \[
+        k&lt;-2\sqrt{5}\quad \text{oppure}\quad k&gt;2\sqrt{5}.
+      \]
 
-    <h4>Verifica con il metodo della distanza</h4>
-    <p>La retta \(y = x + k\) si riscrive come \(x - y + k = 0\). La distanza del centro \((0,0)\) da essa è:</p>
-    \[
-      d = \frac{|0 - 0 + k|}{\sqrt{1^2 + (-1)^2}} = \frac{|k|}{\sqrt{2}}
-    \]
-    <p>Il confronto con \(r = \sqrt{10}\):</p>
-    \[
-      d = \sqrt{10} \;\Rightarrow\; \frac{|k|}{\sqrt{2}} = \sqrt{10} \;\Rightarrow\; |k| = \sqrt{20} = 2\sqrt{5} \qquad \checkmark
-    \]
-  </section>
+      <h4>Controllo geometrico</h4>
+      <p>
+        La retta \(y=x+k\) si può scrivere in forma implicita come
+        \[
+          x-y+k=0.
+        \]
+        La distanza del centro \(C=(0,0)\) da questa retta è
+        \[
+          d=\frac{|1\cdot 0+(-1)\cdot 0+k|}{\sqrt{1^2+(-1)^2}}
+          =\frac{|k|}{\sqrt{2}}.
+        \]
+        La tangente si ha quando \(d=R\), cioè quando
+        \[
+          \frac{|k|}{\sqrt{2}}=\sqrt{10}.
+        \]
+        Moltiplicando per \(\sqrt{2}\):
+        \[
+          |k|=\sqrt{20}=2\sqrt{5}.
+        \]
+        Questo conferma i valori trovati con il discriminante.
+      </p>
 
-  <section class="exercise-result">
-    <h3>Risultato</h3>
-    <ul>
-      <li><strong>Secante</strong>: \(-2\sqrt{5} < k < 2\sqrt{5}\) &nbsp; (ovvero \(|k| < 2\sqrt{5} \approx 4{,}47\))</li>
-      <li><strong>Tangente</strong>: \(k = \pm 2\sqrt{5}\)</li>
-      <li><strong>Esterna</strong>: \(k < -2\sqrt{5}\) oppure \(k > 2\sqrt{5}\)</li>
-    </ul>
-  </section>
+      <div class="schema-wrap" role="img" aria-label="Schema della circonferenza x quadrato più y quadrato uguale 10 e della famiglia di rette y uguale x più k">
+        <svg viewBox="0 0 660 520" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="660" height="520" rx="18" fill="#fbf8f1" />
+          <g transform="translate(330 260) scale(36 -36)">
+            <g stroke="#d9cfbd" stroke-width="0.025">
+              <line x1="-7" y1="-6" x2="7" y2="-6" />
+              <line x1="-7" y1="-5" x2="7" y2="-5" />
+              <line x1="-7" y1="-4" x2="7" y2="-4" />
+              <line x1="-7" y1="-3" x2="7" y2="-3" />
+              <line x1="-7" y1="-2" x2="7" y2="-2" />
+              <line x1="-7" y1="-1" x2="7" y2="-1" />
+              <line x1="-7" y1="0" x2="7" y2="0" />
+              <line x1="-7" y1="1" x2="7" y2="1" />
+              <line x1="-7" y1="2" x2="7" y2="2" />
+              <line x1="-7" y1="3" x2="7" y2="3" />
+              <line x1="-7" y1="4" x2="7" y2="4" />
+              <line x1="-7" y1="5" x2="7" y2="5" />
+              <line x1="-7" y1="6" x2="7" y2="6" />
+              <line x1="-7" y1="-6" x2="-7" y2="6" />
+              <line x1="-6" y1="-6" x2="-6" y2="6" />
+              <line x1="-5" y1="-6" x2="-5" y2="6" />
+              <line x1="-4" y1="-6" x2="-4" y2="6" />
+              <line x1="-3" y1="-6" x2="-3" y2="6" />
+              <line x1="-2" y1="-6" x2="-2" y2="6" />
+              <line x1="-1" y1="-6" x2="-1" y2="6" />
+              <line x1="0" y1="-6" x2="0" y2="6" />
+              <line x1="1" y1="-6" x2="1" y2="6" />
+              <line x1="2" y1="-6" x2="2" y2="6" />
+              <line x1="3" y1="-6" x2="3" y2="6" />
+              <line x1="4" y1="-6" x2="4" y2="6" />
+              <line x1="5" y1="-6" x2="5" y2="6" />
+              <line x1="6" y1="-6" x2="6" y2="6" />
+              <line x1="7" y1="-6" x2="7" y2="6" />
+            </g>
+            <line x1="-7.2" y1="0" x2="7.2" y2="0" stroke="#3d3530" stroke-width="0.05" />
+            <line x1="0" y1="-6.2" x2="0" y2="6.2" stroke="#3d3530" stroke-width="0.05" />
+            <circle cx="0" cy="0" r="3.1623" fill="none" stroke="#8b3a2a" stroke-width="0.09" />
+            <line x1="-6.5" y1="-6.5" x2="6.5" y2="6.5" stroke="#3a6a4a" stroke-width="0.07" />
+            <line x1="-6.5" y1="-2.0279" x2="2.0279" y2="6.5" stroke="#b5622a" stroke-width="0.08" />
+            <line x1="-2.0279" y1="-6.5" x2="6.5" y2="2.0279" stroke="#b5622a" stroke-width="0.08" />
+            <line x1="-6.5" y1="0.2" x2="-0.2" y2="6.5" stroke="#3a5a7a" stroke-width="0.07" stroke-dasharray="0.2 0.14" />
+            <line x1="0.2" y1="-6.5" x2="6.5" y2="-0.2" stroke="#3a5a7a" stroke-width="0.07" stroke-dasharray="0.2 0.14" />
+            <circle cx="-2.236" cy="2.236" r="0.11" fill="#b5622a" />
+            <circle cx="2.236" cy="-2.236" r="0.11" fill="#b5622a" />
+            <circle cx="0" cy="0" r="0.11" fill="#1a1612" />
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#1a1612">
+            <text x="590" y="257">x</text>
+            <text x="337" y="33">y</text>
+            <text x="338" y="258">C</text>
+            <text x="450" y="116" fill="#3a6a4a">|k| &lt; 2√5: secante</text>
+            <text x="390" y="77" fill="#b5622a">k = 2√5: tangente</text>
+            <text x="402" y="431" fill="#b5622a">k = -2√5: tangente</text>
+            <text x="58" y="80" fill="#3a5a7a">|k| &gt; 2√5: esterna</text>
+          </g>
+          <text x="330" y="492" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#7a6f65">
+            Le rette y=x+k traslano parallelamente: il valore critico è |k|=2√5.
+          </text>
+        </svg>
+        <p class="schema-caption">Schema qualitativo della famiglia \(y=x+k\): secanti, tangenti e rette esterne.</p>
+      </div>
+    </section>
+
+    <section class="exercise-result">
+      <h3>Risultato finale</h3>
+      <ul>
+        <li><strong>Secante</strong> per \(-2\sqrt{5}&lt;k&lt;2\sqrt{5}\).</li>
+        <li><strong>Tangente</strong> per \(k=\pm 2\sqrt{5}\).</li>
+        <li><strong>Esterna</strong> per \(k&lt;-2\sqrt{5}\) oppure \(k&gt;2\sqrt{5}\).</li>
+      </ul>
+      <p>
+        Nei due casi tangenti i punti di tangenza sono \((-\sqrt{5},\sqrt{5})\) e \((\sqrt{5},-\sqrt{5})\).
+      </p>
+    </section>
+  </template>
 </article>

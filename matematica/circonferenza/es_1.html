@@ -13,97 +13,191 @@
   }
   </script>
 
-  <header class="exercise-header">
-    <h2>Esercizio 1 — Retta orizzontale e circonferenza centrata nell'origine</h2>
-  </header>
+  <template data-exercise-statement>
+    <section class="exercise-text">
+      <h2>Esercizio 1 — Retta orizzontale e circonferenza centrata nell'origine</h2>
+      <p>
+        Data la circonferenza \(\mathcal{C}: x^2 + y^2 = 25\) e le rette:
+      </p>
+      <ul>
+        <li>\(r_1: y = 3\)</li>
+        <li>\(r_2: y = 5\)</li>
+        <li>\(r_3: y = 7\)</li>
+      </ul>
+      <p>Determina la posizione reciproca di ciascuna retta rispetto alla circonferenza.</p>
+    </section>
 
-  <section class="exercise-text">
-    <p>
-      Data la circonferenza \(\mathcal{C}: x^2 + y^2 = 25\) e le rette:
-    </p>
-    <ul>
-      <li>\(r_1: y = 3\)</li>
-      <li>\(r_2: y = 5\)</li>
-      <li>\(r_3: y = 7\)</li>
-    </ul>
-    <p>Determina la posizione reciproca di ciascuna retta rispetto alla circonferenza.</p>
-  </section>
+    <section class="exercise-data">
+      <h3>Dati</h3>
+      <ul>
+        <li>Circonferenza: \(x^2 + y^2 = 25\)</li>
+        <li>Centro: \(C=(0,0)\)</li>
+        <li>Raggio: \(R=5\)</li>
+        <li>Rette: \(r_1:y=3\), \(r_2:y=5\), \(r_3:y=7\)</li>
+      </ul>
+    </section>
 
-  <section class="exercise-data">
-    <h3>Dati</h3>
-    <ul>
-      <li>Circonferenza: \(x^2 + y^2 = 25\) &nbsp;⟹&nbsp; centro \(C = (0, 0)\), raggio \(r = 5\)</li>
-      <li>\(r_1: y = 3\), &nbsp; \(r_2: y = 5\), &nbsp; \(r_3: y = 7\)</li>
-    </ul>
-  </section>
+    <section class="exercise-request">
+      <h3>Richiesta</h3>
+      <p>
+        Classificare ciascuna retta come <em>secante</em>, <em>tangente</em> o <em>esterna</em> alla circonferenza.
+      </p>
+    </section>
+  </template>
 
-  <section class="exercise-request">
-    <h3>Richiesta</h3>
-    <p>Classificare ciascuna retta come <em>secante</em>, <em>tangente</em> o <em>esterna</em> alla circonferenza, motivando il risultato.</p>
-  </section>
+  <template data-exercise-solution>
+    <section class="exercise-solution">
+      <h3>Svolgimento</h3>
 
-  <section class="exercise-solution">
-    <h3>Svolgimento</h3>
+      <h4>Metodo scelto</h4>
+      <p>
+        Usiamo prima un criterio geometrico molto rapido. Per una circonferenza di centro \(C\) e raggio \(R\), una retta è:
+      </p>
+      <ul>
+        <li><strong>secante</strong> se la distanza \(d\) del centro dalla retta soddisfa \(d&lt;R\);</li>
+        <li><strong>tangente</strong> se \(d=R\);</li>
+        <li><strong>esterna</strong> se \(d&gt;R\).</li>
+      </ul>
+      <p>
+        In questo esercizio le rette hanno forma \(y=k\). La distanza del centro \(C=(0,0)\) dalla retta orizzontale \(y=k\) è semplicemente
+        \[
+          d=|k|.
+        \]
+      </p>
 
-    <h4>Metodo: distanza del centro dalla retta</h4>
-    <p>
-      Per una retta in forma implicita \(ax + by + c = 0\) e un centro \(C = (x_0, y_0)\), la distanza è:
+      <h4>Studio della retta \(r_1:y=3\)</h4>
+      <p>Per \(r_1\) si ha \(k=3\), quindi:</p>
       \[
-        d = \frac{|ax_0 + by_0 + c|}{\sqrt{a^2 + b^2}}
+        d_1=|3|=3.
       \]
-      Il confronto con il raggio \(r\) determina la posizione:
-    </p>
-    <ul>
-      <li>\(d < r\): la retta è <strong>secante</strong> (interseca in due punti distinti).</li>
-      <li>\(d = r\): la retta è <strong>tangente</strong> (tocca in un solo punto).</li>
-      <li>\(d > r\): la retta è <strong>esterna</strong> (non interseca la circonferenza).</li>
-    </ul>
+      <p>Poiché \(3&lt;5\), la retta \(r_1\) è <strong>secante</strong>.</p>
+      <p>Possiamo verificarlo anche algebricamente sostituendo \(y=3\) nell'equazione della circonferenza:</p>
+      \[
+        x^2+3^2=25
+      \]
+      \[
+        x^2+9=25
+      \]
+      \[
+        x^2=16
+      \]
+      \[
+        x=\pm 4.
+      \]
+      <p>Dunque i punti di intersezione sono \((-4,3)\) e \((4,3)\). La presenza di due punti conferma che la retta è secante.</p>
 
-    <p>Le rette orizzontali \(y = k\) si riscrivono come \(0 \cdot x + 1 \cdot y - k = 0\).</p>
-    <p>Il centro è \(C = (0, 0)\), quindi:</p>
-    \[
-      d = \frac{|0 \cdot 0 + 1 \cdot 0 - k|}{\sqrt{0^2 + 1^2}} = \frac{|-k|}{1} = |k|
-    \]
+      <h4>Studio della retta \(r_2:y=5\)</h4>
+      <p>Per \(r_2\) si ha \(k=5\), quindi:</p>
+      \[
+        d_2=|5|=5.
+      \]
+      <p>Poiché \(d_2=R\), la retta \(r_2\) è <strong>tangente</strong>.</p>
+      <p>Verifica algebrica:</p>
+      \[
+        x^2+5^2=25
+      \]
+      \[
+        x^2+25=25
+      \]
+      \[
+        x^2=0
+      \]
+      \[
+        x=0.
+      \]
+      <p>Il punto di tangenza è quindi \((0,5)\). La soluzione doppia indica che la retta tocca la circonferenza in un solo punto.</p>
 
-    <h4>Retta \(r_1: y = 3\) &nbsp;⟹&nbsp; \(k = 3\)</h4>
-    \[
-      d_1 = |3| = 3 < 5 = r
-    \]
-    <p>\(r_1\) è <strong>secante</strong>: interseca la circonferenza in due punti distinti.</p>
-    <p>
-      Verifica per sostituzione: \(x^2 + 9 = 25 \Rightarrow x^2 = 16 \Rightarrow x = \pm 4\).
-      Punti di intersezione: \((-4, 3)\) e \((4, 3)\). ✓
-    </p>
+      <h4>Studio della retta \(r_3:y=7\)</h4>
+      <p>Per \(r_3\) si ha \(k=7\), quindi:</p>
+      \[
+        d_3=|7|=7.
+      \]
+      <p>Poiché \(7&gt;5\), la retta \(r_3\) è <strong>esterna</strong>.</p>
+      <p>La verifica algebrica dà infatti:</p>
+      \[
+        x^2+7^2=25
+      \]
+      \[
+        x^2+49=25
+      \]
+      \[
+        x^2=-24.
+      \]
+      <p>Non esistono soluzioni reali, quindi non ci sono punti di intersezione.</p>
 
-    <h4>Retta \(r_2: y = 5\) &nbsp;⟹&nbsp; \(k = 5\)</h4>
-    \[
-      d_2 = |5| = 5 = r
-    \]
-    <p>\(r_2\) è <strong>tangente</strong>: tocca la circonferenza in un solo punto.</p>
-    <p>
-      Verifica: \(x^2 + 25 = 25 \Rightarrow x^2 = 0 \Rightarrow x = 0\).
-      Punto di tangenza: \((0, 5)\). ✓
-    </p>
+      <div class="schema-wrap" role="img" aria-label="Schema della circonferenza x quadrato più y quadrato uguale 25 e delle rette orizzontali y uguale 3, y uguale 5 e y uguale 7">
+        <svg viewBox="0 0 640 520" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="640" height="520" rx="18" fill="#fbf8f1" />
+          <g transform="translate(320 280) scale(32 -32)">
+            <g stroke="#d9cfbd" stroke-width="0.03">
+              <line x1="-8" y1="-6" x2="8" y2="-6" />
+              <line x1="-8" y1="-5" x2="8" y2="-5" />
+              <line x1="-8" y1="-4" x2="8" y2="-4" />
+              <line x1="-8" y1="-3" x2="8" y2="-3" />
+              <line x1="-8" y1="-2" x2="8" y2="-2" />
+              <line x1="-8" y1="-1" x2="8" y2="-1" />
+              <line x1="-8" y1="0" x2="8" y2="0" />
+              <line x1="-8" y1="1" x2="8" y2="1" />
+              <line x1="-8" y1="2" x2="8" y2="2" />
+              <line x1="-8" y1="3" x2="8" y2="3" />
+              <line x1="-8" y1="4" x2="8" y2="4" />
+              <line x1="-8" y1="5" x2="8" y2="5" />
+              <line x1="-8" y1="6" x2="8" y2="6" />
+              <line x1="-8" y1="-6" x2="-8" y2="7" />
+              <line x1="-7" y1="-6" x2="-7" y2="7" />
+              <line x1="-6" y1="-6" x2="-6" y2="7" />
+              <line x1="-5" y1="-6" x2="-5" y2="7" />
+              <line x1="-4" y1="-6" x2="-4" y2="7" />
+              <line x1="-3" y1="-6" x2="-3" y2="7" />
+              <line x1="-2" y1="-6" x2="-2" y2="7" />
+              <line x1="-1" y1="-6" x2="-1" y2="7" />
+              <line x1="0" y1="-6" x2="0" y2="7" />
+              <line x1="1" y1="-6" x2="1" y2="7" />
+              <line x1="2" y1="-6" x2="2" y2="7" />
+              <line x1="3" y1="-6" x2="3" y2="7" />
+              <line x1="4" y1="-6" x2="4" y2="7" />
+              <line x1="5" y1="-6" x2="5" y2="7" />
+              <line x1="6" y1="-6" x2="6" y2="7" />
+              <line x1="7" y1="-6" x2="7" y2="7" />
+              <line x1="8" y1="-6" x2="8" y2="7" />
+            </g>
+            <line x1="-8.3" y1="0" x2="8.3" y2="0" stroke="#3d3530" stroke-width="0.055" />
+            <line x1="0" y1="-6.3" x2="0" y2="7.3" stroke="#3d3530" stroke-width="0.055" />
+            <circle cx="0" cy="0" r="5" fill="none" stroke="#8b3a2a" stroke-width="0.095" />
+            <line x1="-7.8" y1="3" x2="7.8" y2="3" stroke="#3a6a4a" stroke-width="0.08" />
+            <line x1="-7.8" y1="5" x2="7.8" y2="5" stroke="#b5622a" stroke-width="0.08" />
+            <line x1="-7.8" y1="7" x2="7.8" y2="7" stroke="#3a5a7a" stroke-width="0.08" stroke-dasharray="0.22 0.14" />
+            <circle cx="-4" cy="3" r="0.11" fill="#3a6a4a" />
+            <circle cx="4" cy="3" r="0.11" fill="#3a6a4a" />
+            <circle cx="0" cy="5" r="0.12" fill="#b5622a" />
+            <circle cx="0" cy="0" r="0.12" fill="#1a1612" />
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="15" fill="#1a1612">
+            <text x="594" y="284">x</text>
+            <text x="326" y="46">y</text>
+            <text x="325" y="284">C</text>
+            <text x="505" y="183" fill="#3a6a4a">r₁: y = 3</text>
+            <text x="505" y="119" fill="#b5622a">r₂: y = 5</text>
+            <text x="505" y="55" fill="#3a5a7a">r₃: y = 7</text>
+            <text x="106" y="185" fill="#3a6a4a">(-4, 3)</text>
+            <text x="428" y="185" fill="#3a6a4a">(4, 3)</text>
+            <text x="330" y="116" fill="#b5622a">(0, 5)</text>
+          </g>
+          <text x="320" y="492" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#7a6f65">
+            La retta y=3 taglia la circonferenza, y=5 la tocca, y=7 resta esterna.
+          </text>
+        </svg>
+        <p class="schema-caption">Schema qualitativo della posizione delle tre rette rispetto alla circonferenza \(x^2+y^2=25\).</p>
+      </div>
+    </section>
 
-    <h4>Retta \(r_3: y = 7\) &nbsp;⟹&nbsp; \(k = 7\)</h4>
-    \[
-      d_3 = |7| = 7 > 5 = r
-    \]
-    <p>\(r_3\) è <strong>esterna</strong>: non interseca la circonferenza.</p>
-    <p>Verifica: \(x^2 + 49 = 25 \Rightarrow x^2 = -24\): nessuna soluzione reale. ✓</p>
-
-    <div class="schema-wrap">
-      <img src="assets/schema_es_1.svg" alt="Schema con circonferenza x²+y²=25 e le tre rette orizzontali y=3 (secante), y=5 (tangente), y=7 (esterna)">
-      <p class="schema-caption">Posizione delle tre rette rispetto alla circonferenza \(x^2+y^2=25\)</p>
-    </div>
-  </section>
-
-  <section class="exercise-result">
-    <h3>Risultato</h3>
-    <ul>
-      <li>\(r_1: y = 3\) &nbsp;→&nbsp; <strong>secante</strong> &nbsp; (punti: \((\pm 4,\, 3)\))</li>
-      <li>\(r_2: y = 5\) &nbsp;→&nbsp; <strong>tangente</strong> &nbsp; (punto: \((0,\, 5)\))</li>
-      <li>\(r_3: y = 7\) &nbsp;→&nbsp; <strong>esterna</strong></li>
-    </ul>
-  </section>
+    <section class="exercise-result">
+      <h3>Risultato finale</h3>
+      <ul>
+        <li>\(r_1:y=3\) è <strong>secante</strong>; punti di intersezione: \((-4,3)\), \((4,3)\).</li>
+        <li>\(r_2:y=5\) è <strong>tangente</strong>; punto di tangenza: \((0,5)\).</li>
+        <li>\(r_3:y=7\) è <strong>esterna</strong>; non ha intersezioni reali con la circonferenza.</li>
+      </ul>
+    </section>
+  </template>
 </article>
