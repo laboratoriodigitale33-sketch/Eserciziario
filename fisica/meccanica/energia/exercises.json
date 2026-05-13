@@ -1,0 +1,318 @@
+{
+  "generator": "generate_exercises.py",
+  "title": "Energia: lavoro, potenza e conservazione",
+  "subject": "Fisica",
+  "category": "Meccanica",
+  "topic": "Energia",
+  "description": "Raccolta di esercizi svolti su lavoro, potenza, energia cinetica, energia potenziale gravitazionale, conservazione dell'energia meccanica e teorema dell'energia cinetica.",
+  "icon": "⚡",
+  "order": 60,
+  "tags": [
+    "energia",
+    "lavoro",
+    "potenza",
+    "energia cinetica",
+    "energia potenziale",
+    "conservazione energia",
+    "teorema energia cinetica",
+    "forza",
+    "spostamento",
+    "attrito",
+    "lavoro negativo",
+    "forza perpendicolare"
+  ],
+  "level": "base",
+  "schoolYear": "Seconda superiore",
+  "estimatedTime": "90 min",
+  "isWip": false,
+  "path": "fisica/meccanica/energia",
+  "sourceDir": "esercizi",
+  "count": 15,
+  "exercises": [
+    {
+      "order": 1,
+      "title": "Lavoro di una forza parallela allo spostamento",
+      "level": "base",
+      "estimatedTime": "6 min",
+      "tags": [
+        "lavoro",
+        "forza",
+        "spostamento"
+      ],
+      "id": "01-lavoro-forza-parallela",
+      "description": "Un ragazzo spinge una cassa con una forza costante di \\(50 \\ \\text{N}\\). La cassa si sposta di \\(4 \\ \\text{m}\\) nella stessa direzione della forza. Calcola il lavoro compiuto dall...",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/01-lavoro-forza-parallela.html",
+      "source": "esercizi/01-lavoro-forza-parallela.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 2,
+      "title": "Lavoro di una forza opposta allo spostamento",
+      "level": "base",
+      "estimatedTime": "6 min",
+      "tags": [
+        "lavoro",
+        "attrito",
+        "lavoro negativo"
+      ],
+      "id": "02-lavoro-attrito",
+      "description": "Una forza di attrito pari a \\(12 \\ \\text{N}\\) agisce su un corpo che si sposta di \\(5 \\ \\text{m}\\). La forza di attrito è opposta al moto. Calcola il lavoro compiuto dall'attrito.",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/02-lavoro-attrito.html",
+      "source": "esercizi/02-lavoro-attrito.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 3,
+      "title": "Lavoro nullo",
+      "level": "base",
+      "estimatedTime": "5 min",
+      "tags": [
+        "lavoro",
+        "forza perpendicolare",
+        "coseno"
+      ],
+      "id": "03-lavoro-nullo",
+      "description": "Un ragazzo trasporta uno zaino esercitando su di esso una forza verticale verso l'alto di \\(80 \\ \\text{N}\\). Lo zaino si sposta orizzontalmente di \\(10 \\ \\text{m}\\). Calcola il la...",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/03-lavoro-nullo.html",
+      "source": "esercizi/03-lavoro-nullo.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 4,
+      "title": "Potenza media",
+      "level": "base",
+      "estimatedTime": "5 min",
+      "tags": [
+        "potenza",
+        "lavoro",
+        "tempo"
+      ],
+      "id": "04-potenza-media",
+      "description": "Un motore compie un lavoro di \\(2400 \\ \\text{J}\\) in \\(12 \\ \\text{s}\\). Calcola la potenza media sviluppata.",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/04-potenza-media.html",
+      "source": "esercizi/04-potenza-media.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 5,
+      "title": "Lavoro e potenza",
+      "level": "base",
+      "estimatedTime": "7 min",
+      "tags": [
+        "lavoro",
+        "potenza",
+        "forza"
+      ],
+      "id": "05-lavoro-e-potenza",
+      "description": "Una persona spinge un carrello con una forza di \\(40 \\ \\text{N}\\) per \\(6 \\ \\text{m}\\). Lo spostamento avviene nella stessa direzione della forza e dura \\(8 \\ \\text{s}\\). Calcola...",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/05-lavoro-e-potenza.html",
+      "source": "esercizi/05-lavoro-e-potenza.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 6,
+      "title": "Energia cinetica",
+      "level": "base",
+      "estimatedTime": "6 min",
+      "tags": [
+        "energia cinetica",
+        "massa",
+        "velocità"
+      ],
+      "id": "06-energia-cinetica",
+      "description": "Un corpo di massa \\(3 \\ \\text{kg}\\) si muove con velocità \\(4 \\ \\text{m/s}\\). Calcola la sua energia cinetica.",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/06-energia-cinetica.html",
+      "source": "esercizi/06-energia-cinetica.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 7,
+      "title": "Velocità dall'energia cinetica",
+      "level": "base",
+      "estimatedTime": "7 min",
+      "tags": [
+        "energia cinetica",
+        "velocità",
+        "formula inversa"
+      ],
+      "id": "07-velocita-da-energia-cinetica",
+      "description": "Un corpo di massa \\(2 \\ \\text{kg}\\) ha energia cinetica pari a \\(25 \\ \\text{J}\\). Calcola la sua velocità.",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/07-velocita-da-energia-cinetica.html",
+      "source": "esercizi/07-velocita-da-energia-cinetica.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 8,
+      "title": "Energia potenziale gravitazionale",
+      "level": "base",
+      "estimatedTime": "6 min",
+      "tags": [
+        "energia potenziale",
+        "gravità",
+        "altezza"
+      ],
+      "id": "08-energia-potenziale",
+      "description": "Un libro di massa \\(1{,}5 \\ \\text{kg}\\) si trova su uno scaffale alto \\(2 \\ \\text{m}\\). Calcola la sua energia potenziale gravitazionale rispetto al pavimento.",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/08-energia-potenziale.html",
+      "source": "esercizi/08-energia-potenziale.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 9,
+      "title": "Altezza dall'energia potenziale",
+      "level": "base",
+      "estimatedTime": "7 min",
+      "tags": [
+        "energia potenziale",
+        "altezza",
+        "formula inversa"
+      ],
+      "id": "09-altezza-da-energia-potenziale",
+      "description": "Un oggetto di massa \\(4 \\ \\text{kg}\\) possiede energia potenziale gravitazionale pari a \\(196 \\ \\text{J}\\). Calcola a quale altezza si trova rispetto al suolo.",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/09-altezza-da-energia-potenziale.html",
+      "source": "esercizi/09-altezza-da-energia-potenziale.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 10,
+      "title": "Da energia potenziale a energia cinetica",
+      "level": "base",
+      "estimatedTime": "8 min",
+      "tags": [
+        "conservazione energia",
+        "caduta",
+        "velocità"
+      ],
+      "id": "10-potenziale-in-cinetica",
+      "description": "Un corpo cade da fermo da un'altezza di \\(5 \\ \\text{m}\\). Trascurando l'attrito dell'aria, calcola la velocità del corpo appena prima di toccare il suolo.",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/10-potenziale-in-cinetica.html",
+      "source": "esercizi/10-potenziale-in-cinetica.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 11,
+      "title": "Da energia cinetica a energia potenziale",
+      "level": "base",
+      "estimatedTime": "8 min",
+      "tags": [
+        "conservazione energia",
+        "lancio verticale",
+        "altezza"
+      ],
+      "id": "11-cinetica-in-potenziale",
+      "description": "Un sasso viene lanciato verticalmente verso l'alto con velocità iniziale \\(10 \\ \\text{m/s}\\). Trascurando l'attrito dell'aria, calcola l'altezza massima raggiunta.",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/11-cinetica-in-potenziale.html",
+      "source": "esercizi/11-cinetica-in-potenziale.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 12,
+      "title": "Lavoro ed energia cinetica",
+      "level": "base",
+      "estimatedTime": "8 min",
+      "tags": [
+        "teorema energia cinetica",
+        "lavoro",
+        "velocità"
+      ],
+      "id": "12-lavoro-ed-energia-cinetica",
+      "description": "Un corpo di massa \\(2 \\ \\text{kg}\\), inizialmente fermo, viene spinto da una forza costante che compie su di esso un lavoro di \\(36 \\ \\text{J}\\). Trascurando gli attriti, calcola...",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/12-lavoro-ed-energia-cinetica.html",
+      "source": "esercizi/12-lavoro-ed-energia-cinetica.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 13,
+      "title": "Lavoro contro la gravità",
+      "level": "base",
+      "estimatedTime": "7 min",
+      "tags": [
+        "lavoro",
+        "energia potenziale",
+        "gravità"
+      ],
+      "id": "13-lavoro-contro-gravita",
+      "description": "Una persona solleva lentamente una scatola di massa \\(5 \\ \\text{kg}\\) fino a un'altezza di \\(1{,}2 \\ \\text{m}\\). Calcola il lavoro minimo compiuto dalla persona.",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/13-lavoro-contro-gravita.html",
+      "source": "esercizi/13-lavoro-contro-gravita.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 14,
+      "title": "Lavoro, energia cinetica ed energia potenziale",
+      "level": "base",
+      "estimatedTime": "10 min",
+      "tags": [
+        "lavoro",
+        "energia cinetica",
+        "energia potenziale"
+      ],
+      "id": "14-lavoro-cinetica-potenziale",
+      "description": "Un corpo di massa \\(2 \\ \\text{kg}\\) parte da fermo dal suolo. Una forza esterna compie su di esso un lavoro di \\(100 \\ \\text{J}\\), portandolo a un'altezza di \\(3 \\ \\text{m}\\). Tra...",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/14-lavoro-cinetica-potenziale.html",
+      "source": "esercizi/14-lavoro-cinetica-potenziale.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "order": 15,
+      "title": "Esercizio misto finale: trovare l'altezza",
+      "level": "base",
+      "estimatedTime": "10 min",
+      "tags": [
+        "lavoro resistente",
+        "energia cinetica",
+        "energia potenziale"
+      ],
+      "id": "15-esercizio-misto-altezza",
+      "description": "Un corpo di massa \\(1 \\ \\text{kg}\\) viene lanciato verso l'alto con velocità iniziale \\(8 \\ \\text{m/s}\\). Durante la salita, una forza resistente compie un lavoro di \\(-14 \\ \\text...",
+      "subject": "Fisica",
+      "category": "Meccanica",
+      "topic": "Energia",
+      "file": "esercizi/15-esercizio-misto-altezza.html",
+      "source": "esercizi/15-esercizio-misto-altezza.html",
+      "sourceFormat": "metadata"
+    }
+  ]
+}

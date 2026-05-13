@@ -667,7 +667,7 @@
       <div class="empty">Caricamento catalogo...</div>
     </section>
 
-    <section id="workspace" class="workspace" aria-label="Archivio della materia selezionata">
+    <section id="workspace" class="workspace" aria-label="Raccolte della materia selezionata">
       <div class="workspace-head">
         <h2 id="workspaceTitle" class="workspace-title">Materia</h2>
         <button id="backButton" class="back-button" type="button">← Torna alle materie</button>
@@ -690,7 +690,7 @@
         <button id="resetButton" class="reset-button" type="button">Azzera filtri</button>
       </div>
 
-      <section id="results" class="results" aria-label="Categorie esercizi">
+      <section id="results" class="results" aria-label="Categorie e raccolte">
         <div class="empty">Seleziona una materia.</div>
       </section>
     </section>
@@ -947,7 +947,7 @@
             </div>
             <div class="home-card-bottom">
               <span class="home-card-open">Apri sezione</span>
-              <span class="home-card-count">${escapeHtml(exerciseCountLabel(exercises.length))}</span>
+              <span class="home-card-count">${escapeHtml(collectionCountLabel(exercises.length))}</span>
             </div>
           </button>
         `;
@@ -1081,7 +1081,7 @@
       if (state.filtered.length === 0) {
         results.innerHTML = `
           <div class="empty">
-            Nessun esercizio corrisponde ai filtri selezionati oppure questa materia non contiene ancora esercizi.
+            Nessuna raccolta corrisponde ai filtri selezionati oppure questa materia non contiene ancora raccolte.
           </div>
         `;
         updateExpandButtonLabel();
@@ -1114,7 +1114,7 @@
                 </div>
               </div>
               <div class="category-right">
-                <span class="category-count">${escapeHtml(exerciseCountLabel(exercises.length))}</span>
+                <span class="category-count">${escapeHtml(collectionCountLabel(exercises.length))}</span>
                 <span class="category-chevron" aria-hidden="true">▾</span>
               </div>
             </button>
@@ -1185,7 +1185,7 @@
 
       return `
         <a class="card" href="${escapeAttribute(target)}" style="--cat-color: ${escapeAttribute(color)}"
-           aria-label="Apri esercizio: ${escapeAttribute(exercise.title)}">
+           aria-label="Apri raccolta: ${escapeAttribute(exercise.title)}">
           <div class="meta">
             ${exercise.category ? `<span class="pill category-pill">${escapeHtml(exercise.category)}</span>` : ""}
             ${exercise.topic ? `<span class="pill secondary">${escapeHtml(exercise.topic)}</span>` : ""}
@@ -1204,7 +1204,7 @@
           <div class="tags">${tags}</div>
 
           <div class="card-footer">
-            <span class="open-label">Apri esercizio</span>
+            <span class="open-label">Apri raccolta</span>
             ${exercise.estimatedTime ? `<span class="duration">${escapeHtml(exercise.estimatedTime)}</span>` : ""}
           </div>
         </a>
@@ -1257,8 +1257,8 @@
       expandAllButton.textContent = state.forceExpandAll ? "Chiudi tutto" : "Apri tutto";
     }
 
-    function exerciseCountLabel(count) {
-      return count === 1 ? "1 esercizio" : `${count} esercizi`;
+    function collectionCountLabel(count) {
+      return count === 1 ? "1 raccolta" : `${count} raccolte`;
     }
 
     function levelLabel(value) {

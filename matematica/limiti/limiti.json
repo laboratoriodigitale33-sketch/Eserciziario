@@ -83,5 +83,20 @@
   "subject": "Matematica",
   "topic": "Limiti",
   "description": "Raccolta di esercizi svolti: 3 esercizi con testo e soluzione espandibile.",
-  "sourceDir": "."
+  "sourceDir": ".",
+  "icon": "∞",
+  "order": null,
+  "tags": [
+    "limiti",
+    "polinomi",
+    "continuità",
+    "zero su zero",
+    "scomposizione",
+    "infinito su infinito",
+    "funzioni razionali"
+  ],
+  "level": "base",
+  "schoolYear": "Quinta superiore",
+  "estimatedTime": null,
+  "isWip": false
 }

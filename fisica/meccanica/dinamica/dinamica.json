@@ -206,5 +206,25 @@
     }
   ],
   "path": "fisica/meccanica/dinamica",
-  "sourceDir": "."
+  "sourceDir": ".",
+  "icon": "📘",
+  "order": null,
+  "tags": [
+    "dinamica",
+    "primo principio",
+    "inerzia",
+    "equilibrio",
+    "forza normale",
+    "peso",
+    "grafico spazio-tempo",
+    "velocità",
+    "forza risultante",
+    "secondo principio",
+    "forza",
+    "massa"
+  ],
+  "level": "base",
+  "schoolYear": "Seconda superiore",
+  "estimatedTime": null,
+  "isWip": false
 }

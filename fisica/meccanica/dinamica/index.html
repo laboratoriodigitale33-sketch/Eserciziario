@@ -214,6 +214,20 @@ function removeUnsafeNodes(root) {
   root.querySelectorAll(".solution-toggle").forEach(node => node.removeAttribute("onclick"));
 }
 
+function normalizeToggleElement(card) {
+  const current = card.querySelector(".solution-toggle");
+  if (!current) return null;
+
+  if (current.tagName.toLowerCase() === "button") {
+    current.type = "button";
+    return current;
+  }
+
+  const button = createToggle();
+  current.replaceWith(button);
+  return button;
+}
+
 function normalizeExistingCard(card, exercise, index) {
   removeUnsafeNodes(card);
   card.classList.add("exercise-card");
@@ -235,6 +249,8 @@ function normalizeExistingCard(card, exercise, index) {
   if (card.querySelector(".exercise-solution") && !card.querySelector(".solution-toggle")) {
     const solution = card.querySelector(".exercise-solution");
     card.insertBefore(createToggle(), solution);
+  } else {
+    normalizeToggleElement(card);
   }
 
   setToggleState(card, false);
