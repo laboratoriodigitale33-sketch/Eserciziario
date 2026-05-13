@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 -20 150 130" width="360" height="288">
+  <defs>
+    <marker id="axg" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#7a6f65"/>
+    </marker>
+  </defs>
+
+  <rect x="-20" y="-20" width="150" height="130" fill="#ede5d5" rx="4"/>
+
+  <!-- assi: scala 12px/unit, origine in (24, 84) del viewport -->
+  <line x1="-15" y1="84" x2="124" y2="84" stroke="#7a6f65" stroke-width="0.8" marker-end="url(#axg)"/>
+  <line x1="24"  y1="108" x2="24" y2="-15" stroke="#7a6f65" stroke-width="0.8" marker-end="url(#axg)"/>
+  <text x="118" y="81" font-family="IBM Plex Mono" font-size="7" fill="#7a6f65">x</text>
+  <text x="27"  y="-10" font-family="IBM Plex Mono" font-size="7" fill="#7a6f65">y</text>
+
+  <!-- tacche -->
+  <text x="36"  y="92" font-family="IBM Plex Mono" font-size="6" fill="#7a6f65" text-anchor="middle">1</text>
+  <text x="60"  y="92" font-family="IBM Plex Mono" font-size="6" fill="#7a6f65" text-anchor="middle">3</text>
+  <text x="21"  y="60" font-family="IBM Plex Mono" font-size="6" fill="#7a6f65" text-anchor="end">2</text>
+  <text x="21"  y="36" font-family="IBM Plex Mono" font-size="6" fill="#7a6f65" text-anchor="end">4</text>
+
+  <!-- C=(1,2) → SVG(36, 60); r=3 → 36px -->
+  <circle cx="36" cy="60" r="36" fill="rgba(58,90,122,0.08)" stroke="#1a1612" stroke-width="2"/>
+  <circle cx="36" cy="60" r="2.5" fill="#8b3a2a"/>
+  <text x="39" y="58" font-family="IBM Plex Mono" font-size="7" fill="#8b3a2a">C(1,2)</text>
+
+  <!-- 
+    Direzione rette: x-2y+k=0 → y=(x+k)/2, pendenza 1/2
+    Retta centrale (per C): x-2y+3=0 → y=(x+3)/2 passa per (1,2) ✓
+    r1: x-2y+8=0 → y=(x+8)/2, k=8
+    r2: x-2y-2=0 → y=(x-2)/2, k=-2
+    
+    In SVG (scala 12, origine 24,84):
+    SVG_x = 24 + 12*x_math
+    SVG_y = 84 - 12*y_math
+    
+    Retta y=(x+k)/2: per x_math∈[-2,8] → SVG_x∈[0,120]
+    
+    Retta centrale (k=3): x_m=-2→y_m=0.5, SVG(0,78); x_m=8→y_m=5.5, SVG(120,18)
+    r1 (k=8): x_m=-2→y_m=3, SVG(0,48); x_m=8→y_m=8, SVG(120,-12)
+    r2 (k=-2): x_m=-2→y_m=-2, SVG(0,108); x_m=8→y_m=3, SVG(120,48)
+  -->
+
+  <!-- retta centrale (tratteggio leggero) -->
+  <line x1="0" y1="78" x2="120" y2="18" stroke="#c8b89a" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="105" y="15" font-family="IBM Plex Mono" font-size="7" fill="#c8b89a">asse</text>
+
+  <!-- r1: x-2y+8=0, k=8 -->
+  <line x1="0" y1="48" x2="110" y2="-6" stroke="#3a6a4a" stroke-width="2"/>
+  <text x="95" y="-7" font-family="IBM Plex Mono" font-size="8" fill="#3a6a4a">r₁</text>
+  <text x="95" y="2" font-family="IBM Plex Mono" font-size="7" fill="#3a6a4a">k=8</text>
+
+  <!-- r2: x-2y-2=0, k=-2 -->
+  <line x1="0" y1="108" x2="120" y2="48" stroke="#c9a84c" stroke-width="2"/>
+  <text x="105" y="45" font-family="IBM Plex Mono" font-size="8" fill="#b5882a">r₂</text>
+  <text x="105" y="54" font-family="IBM Plex Mono" font-size="7" fill="#b5882a">k=−2</text>
+
+  <!-- 
+    Punti di intersezione r1 con cerchio (approssimati per lo schema):
+    y≈4.894: SVG_y=84-12*4.894≈25.3, x=2y-8≈1.79→SVG(21.5+24,25.3)=(45.5,25.3)
+    y≈3.106: SVG_y=84-12*3.106≈46.7, x≈-1.79→SVG(24-21.5,46.7)=(2.5,46.7)
+  -->
+  <circle cx="45" cy="26" r="2.5" fill="#3a6a4a" stroke="#1a1612" stroke-width="1"/>
+  <circle cx="3"  cy="47" r="2.5" fill="#3a6a4a" stroke="#1a1612" stroke-width="1"/>
+  <!-- corda r1 -->
+  <line x1="45" y1="26" x2="3" y2="47" stroke="#3a6a4a" stroke-width="2.5" opacity="0.5"/>
+
+  <!-- Punti intersezione r2: y=±2√5/5≈±0.894 
+    y1≈0.894: SVG_y=84-12*0.894≈73.3, x=2y+2≈3.789→SVG(24+45.5,73.3)=(69.5,73.3)
+    y2≈-0.894: SVG_y=84-12*(-0.894)≈94.7, x=2y+2≈0.211→SVG(24+2.5,94.7)=(26.5,94.7)
+  -->
+  <circle cx="70" cy="73" r="2.5" fill="#c9a84c" stroke="#1a1612" stroke-width="1"/>
+  <circle cx="27" cy="95" r="2.5" fill="#c9a84c" stroke="#1a1612" stroke-width="1"/>
+  <!-- corda r2 -->
+  <line x1="70" y1="73" x2="27" y2="95" stroke="#c9a84c" stroke-width="2.5" opacity="0.7"/>
+
+  <!-- segmenti di distanza dal centro alle rette (perpendicolari) -->
+  <!-- piede su r1: T_foot ≈ punto medio corda (24,36.5) → SVG(24+24, 84-12*...) ~ (48,36) -->
+  <line x1="36" y1="60" x2="24" y2="36" stroke="#3a6a4a" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="26" y="50" font-family="IBM Plex Mono" font-size="7" fill="#3a6a4a">d=√5</text>
+
+  <!-- piede su r2: ~punto medio (48,84) -->
+  <line x1="36" y1="60" x2="48" y2="84" stroke="#c9a84c" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="44" y="75" font-family="IBM Plex Mono" font-size="7" fill="#b5882a">d=√5</text>
+
+  <!-- etichette corde -->
+  <text x="-8" y="34" font-family="IBM Plex Mono" font-size="7" fill="#3a6a4a">ℓ=4</text>
+  <text x="38" y="100" font-family="IBM Plex Mono" font-size="7" fill="#b5882a">ℓ=4</text>
+</svg>

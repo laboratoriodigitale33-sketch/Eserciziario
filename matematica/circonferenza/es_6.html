@@ -1,0 +1,185 @@
+<article class="exercise" data-exercise-id="es_6">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_6",
+    "title": "Retta a distanza assegnata da una circonferenza — corda di data lunghezza",
+    "order": 6,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/circonferenza/posizione-retta",
+    "topic": "Posizione reciproca retta-circonferenza",
+    "difficulty": "difficile",
+    "tags": ["circonferenza", "retta", "corda", "lunghezza corda", "distanza", "parametro", "luogo geometrico"],
+    "hasImages": true
+  }
+  </script>
+
+  <header class="exercise-header">
+    <h2>Esercizio 6 — Retta con corda di lunghezza assegnata</h2>
+  </header>
+
+  <section class="exercise-text">
+    <p>
+      Considera la circonferenza \(\mathcal{C}: x^2 + y^2 - 2x - 4y - 4 = 0\).
+    </p>
+    <ol type="a">
+      <li>
+        Trova tutte le rette parallele a \(s: x - 2y + 1 = 0\) che staccano sulla circonferenza
+        una corda di lunghezza \(\ell = 4\).
+      </li>
+      <li>
+        Per ciascuna retta trovata, verifica la posizione e calcola i punti di intersezione
+        con la circonferenza.
+      </li>
+    </ol>
+  </section>
+
+  <section class="exercise-data">
+    <h3>Dati</h3>
+    <ul>
+      <li>Circonferenza: \(x^2 + y^2 - 2x - 4y - 4 = 0\)</li>
+      <li>Direzione: parallele a \(s: x - 2y + 1 = 0\), ovvero nella forma \(x - 2y + k = 0\)</li>
+      <li>Lunghezza corda richiesta: \(\ell = 4\)</li>
+    </ul>
+  </section>
+
+  <section class="exercise-request">
+    <h3>Richiesta</h3>
+    <ol>
+      <li>Ricavare centro e raggio della circonferenza.</li>
+      <li>Trovare i valori di \(k\) che danno corda di lunghezza 4.</li>
+      <li>Scrivere le equazioni delle due rette.</li>
+      <li>Trovare i punti di intersezione.</li>
+    </ol>
+  </section>
+
+  <section class="exercise-solution">
+    <h3>Svolgimento</h3>
+
+    <h4>Passo 1 — Centro e raggio</h4>
+    \[
+      (x^2 - 2x) + (y^2 - 4y) = 4
+    \]
+    \[
+      (x-1)^2 - 1 + (y-2)^2 - 4 = 4
+    \]
+    \[
+      (x-1)^2 + (y-2)^2 = 9
+    \]
+    \[
+      C = (1,\, 2), \qquad r = 3
+    \]
+
+    <h4>Passo 2 — Famiglia di rette parallele a \(s\)</h4>
+    <p>
+      La retta \(s: x - 2y + 1 = 0\) ha vettore normale \(\vec{n} = (1, -2)\).
+      Le rette parallele ad \(s\) hanno la stessa direzione, dunque la stessa equazione a meno
+      del termine noto:
+      \[
+        r_k: x - 2y + k = 0, \qquad k \in \mathbb{R}
+      \]
+    </p>
+
+    <h4>Passo 3 — Distanza del centro dalla retta \(r_k\)</h4>
+    \[
+      d(C, r_k) = \frac{|1 \cdot 1 + (-2) \cdot 2 + k|}{\sqrt{1^2 + (-2)^2}} = \frac{|1 - 4 + k|}{\sqrt{5}} = \frac{|k - 3|}{\sqrt{5}}
+    \]
+
+    <h4>Passo 4 — Relazione tra distanza e lunghezza della corda</h4>
+    <p>
+      Nel triangolo rettangolo formato dal raggio \(r\), dalla distanza \(d\) e da metà-corda \(\ell/2\):
+      \[
+        \left(\frac{\ell}{2}\right)^2 + d^2 = r^2
+      \]
+      Con \(\ell = 4\) e \(r = 3\):
+      \[
+        \left(\frac{4}{2}\right)^2 + d^2 = 9 \;\Rightarrow\; 4 + d^2 = 9 \;\Rightarrow\; d^2 = 5 \;\Rightarrow\; d = \sqrt{5}
+      \]
+    </p>
+
+    <h4>Passo 5 — Trovare \(k\)</h4>
+    <p>Imponiamo \(d = \sqrt{5}\):</p>
+    \[
+      \frac{|k - 3|}{\sqrt{5}} = \sqrt{5} \;\Rightarrow\; |k - 3| = 5
+    \]
+    \[
+      k - 3 = 5 \;\Rightarrow\; k = 8 \qquad \text{oppure} \qquad k - 3 = -5 \;\Rightarrow\; k = -2
+    \]
+    <p>Le due rette sono:</p>
+    \[
+      r_1: x - 2y + 8 = 0 \qquad \text{e} \qquad r_2: x - 2y - 2 = 0
+    \]
+
+    <h4>Passo 6 — Punti di intersezione con \(r_1: x = 2y - 8\)</h4>
+    <p>Sostituiamo \(x = 2y - 8\) in \((x-1)^2 + (y-2)^2 = 9\):</p>
+    \[
+      (2y - 9)^2 + (y - 2)^2 = 9
+    \]
+    \[
+      4y^2 - 36y + 81 + y^2 - 4y + 4 = 9
+    \]
+    \[
+      5y^2 - 40y + 76 = 0
+    \]
+    \[
+      \Delta = 1600 - 4 \cdot 5 \cdot 76 = 1600 - 1520 = 80
+    \]
+    \[
+      y = \frac{40 \pm \sqrt{80}}{10} = \frac{40 \pm 4\sqrt{5}}{10} = 4 \pm \frac{2\sqrt{5}}{5}
+    \]
+    <p>Le corrispondenti ascisse: \(x = 2y - 8\).</p>
+    \[
+      y_1 = 4 + \tfrac{2\sqrt{5}}{5} \;\Rightarrow\; x_1 = -\tfrac{4\sqrt{5}}{5}, \qquad
+      y_2 = 4 - \tfrac{2\sqrt{5}}{5} \;\Rightarrow\; x_2 = -\tfrac{4\sqrt{5}}{5} + \ldots
+    \]
+    <p>Verifica della lunghezza della corda:
+      \[
+        \ell = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}
+      \]
+      Dal teorema di Pitagora sul triangolo: \(\ell = 2\sqrt{r^2 - d^2} = 2\sqrt{9-5} = 2 \cdot 2 = 4\) ✓
+    </p>
+
+    <h4>Passo 7 — Punti di intersezione con \(r_2: x = 2y + 2\)</h4>
+    <p>Sostituiamo \(x = 2y + 2\) in \((x-1)^2 + (y-2)^2 = 9\):</p>
+    \[
+      (2y + 1)^2 + (y - 2)^2 = 9
+    \]
+    \[
+      4y^2 + 4y + 1 + y^2 - 4y + 4 = 9
+    \]
+    \[
+      5y^2 = 4 \;\Rightarrow\; y = \pm \frac{2}{\sqrt{5}} = \pm \frac{2\sqrt{5}}{5}
+    \]
+    \[
+      y_1 = \tfrac{2\sqrt{5}}{5} \;\Rightarrow\; x_1 = \tfrac{4\sqrt{5}}{5} + 2, \qquad
+      y_2 = -\tfrac{2\sqrt{5}}{5} \;\Rightarrow\; x_2 = -\tfrac{4\sqrt{5}}{5} + 2
+    \]
+
+    <div class="schema-wrap">
+      <img src="assets/schema_es_6.svg" alt="Schema con la circonferenza centrata in (1,2) e le due rette parallele r1 e r2 che staccano una corda di lunghezza 4">
+      <p class="schema-caption">Le due rette parallele equidistanti dal centro staccano corde di uguale lunghezza</p>
+    </div>
+
+    <h4>Osservazione geometrica</h4>
+    <p>
+      Le due rette \(r_1\) e \(r_2\) sono simmetriche rispetto alla retta per il centro
+      \(C = (1,2)\) parallela ad \(s\), cioè \(x - 2y + 3 = 0\) (distanza dal centro uguale a zero).
+      La distanza di ciascuna da questa retta centrale è \(\sqrt{5}\), e le corde intercettate
+      sono congruenti, come atteso per simmetria.
+    </p>
+  </section>
+
+  <section class="exercise-result">
+    <h3>Risultato</h3>
+    <ul>
+      <li>Centro \(C = (1, 2)\), raggio \(r = 3\)</li>
+      <li>Le due rette parallele ad \(x - 2y + 1 = 0\) con corda di lunghezza 4 sono:
+        <ul>
+          <li>\(r_1: x - 2y + 8 = 0\)</li>
+          <li>\(r_2: x - 2y - 2 = 0\)</li>
+        </ul>
+      </li>
+      <li>La distanza del centro da ciascuna retta è \(d = \sqrt{5}\)</li>
+      <li>Verifica: \(\ell = 2\sqrt{r^2 - d^2} = 2\sqrt{9-5} = 4\) ✓</li>
+    </ul>
+  </section>
+</article>

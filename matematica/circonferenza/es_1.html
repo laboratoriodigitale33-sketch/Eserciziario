@@ -1,0 +1,109 @@
+<article class="exercise" data-exercise-id="es_1">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_1",
+    "title": "Retta orizzontale e circonferenza centrata nell'origine",
+    "order": 1,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/circonferenza/posizione-retta",
+    "topic": "Posizione reciproca retta-circonferenza",
+    "difficulty": "facile",
+    "tags": ["circonferenza", "retta", "posizione reciproca", "discriminante", "secante", "esterna", "tangente"],
+    "hasImages": true
+  }
+  </script>
+
+  <header class="exercise-header">
+    <h2>Esercizio 1 — Retta orizzontale e circonferenza centrata nell'origine</h2>
+  </header>
+
+  <section class="exercise-text">
+    <p>
+      Data la circonferenza \(\mathcal{C}: x^2 + y^2 = 25\) e le rette:
+    </p>
+    <ul>
+      <li>\(r_1: y = 3\)</li>
+      <li>\(r_2: y = 5\)</li>
+      <li>\(r_3: y = 7\)</li>
+    </ul>
+    <p>Determina la posizione reciproca di ciascuna retta rispetto alla circonferenza.</p>
+  </section>
+
+  <section class="exercise-data">
+    <h3>Dati</h3>
+    <ul>
+      <li>Circonferenza: \(x^2 + y^2 = 25\) &nbsp;⟹&nbsp; centro \(C = (0, 0)\), raggio \(r = 5\)</li>
+      <li>\(r_1: y = 3\), &nbsp; \(r_2: y = 5\), &nbsp; \(r_3: y = 7\)</li>
+    </ul>
+  </section>
+
+  <section class="exercise-request">
+    <h3>Richiesta</h3>
+    <p>Classificare ciascuna retta come <em>secante</em>, <em>tangente</em> o <em>esterna</em> alla circonferenza, motivando il risultato.</p>
+  </section>
+
+  <section class="exercise-solution">
+    <h3>Svolgimento</h3>
+
+    <h4>Metodo: distanza del centro dalla retta</h4>
+    <p>
+      Per una retta in forma implicita \(ax + by + c = 0\) e un centro \(C = (x_0, y_0)\), la distanza è:
+      \[
+        d = \frac{|ax_0 + by_0 + c|}{\sqrt{a^2 + b^2}}
+      \]
+      Il confronto con il raggio \(r\) determina la posizione:
+    </p>
+    <ul>
+      <li>\(d < r\): la retta è <strong>secante</strong> (interseca in due punti distinti).</li>
+      <li>\(d = r\): la retta è <strong>tangente</strong> (tocca in un solo punto).</li>
+      <li>\(d > r\): la retta è <strong>esterna</strong> (non interseca la circonferenza).</li>
+    </ul>
+
+    <p>Le rette orizzontali \(y = k\) si riscrivono come \(0 \cdot x + 1 \cdot y - k = 0\).</p>
+    <p>Il centro è \(C = (0, 0)\), quindi:</p>
+    \[
+      d = \frac{|0 \cdot 0 + 1 \cdot 0 - k|}{\sqrt{0^2 + 1^2}} = \frac{|-k|}{1} = |k|
+    \]
+
+    <h4>Retta \(r_1: y = 3\) &nbsp;⟹&nbsp; \(k = 3\)</h4>
+    \[
+      d_1 = |3| = 3 < 5 = r
+    \]
+    <p>\(r_1\) è <strong>secante</strong>: interseca la circonferenza in due punti distinti.</p>
+    <p>
+      Verifica per sostituzione: \(x^2 + 9 = 25 \Rightarrow x^2 = 16 \Rightarrow x = \pm 4\).
+      Punti di intersezione: \((-4, 3)\) e \((4, 3)\). ✓
+    </p>
+
+    <h4>Retta \(r_2: y = 5\) &nbsp;⟹&nbsp; \(k = 5\)</h4>
+    \[
+      d_2 = |5| = 5 = r
+    \]
+    <p>\(r_2\) è <strong>tangente</strong>: tocca la circonferenza in un solo punto.</p>
+    <p>
+      Verifica: \(x^2 + 25 = 25 \Rightarrow x^2 = 0 \Rightarrow x = 0\).
+      Punto di tangenza: \((0, 5)\). ✓
+    </p>
+
+    <h4>Retta \(r_3: y = 7\) &nbsp;⟹&nbsp; \(k = 7\)</h4>
+    \[
+      d_3 = |7| = 7 > 5 = r
+    \]
+    <p>\(r_3\) è <strong>esterna</strong>: non interseca la circonferenza.</p>
+    <p>Verifica: \(x^2 + 49 = 25 \Rightarrow x^2 = -24\): nessuna soluzione reale. ✓</p>
+
+    <div class="schema-wrap">
+      <img src="assets/schema_es_1.svg" alt="Schema con circonferenza x²+y²=25 e le tre rette orizzontali y=3 (secante), y=5 (tangente), y=7 (esterna)">
+      <p class="schema-caption">Posizione delle tre rette rispetto alla circonferenza \(x^2+y^2=25\)</p>
+    </div>
+  </section>
+
+  <section class="exercise-result">
+    <h3>Risultato</h3>
+    <ul>
+      <li>\(r_1: y = 3\) &nbsp;→&nbsp; <strong>secante</strong> &nbsp; (punti: \((\pm 4,\, 3)\))</li>
+      <li>\(r_2: y = 5\) &nbsp;→&nbsp; <strong>tangente</strong> &nbsp; (punto: \((0,\, 5)\))</li>
+      <li>\(r_3: y = 7\) &nbsp;→&nbsp; <strong>esterna</strong></li>
+    </ul>
+  </section>
+</article>

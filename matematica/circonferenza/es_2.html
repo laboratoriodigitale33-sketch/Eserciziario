@@ -1,0 +1,120 @@
+<article class="exercise" data-exercise-id="es_2">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_2",
+    "title": "Retta obliqua e circonferenza centrata nell'origine — metodo algebrico",
+    "order": 2,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/circonferenza/posizione-retta",
+    "topic": "Posizione reciproca retta-circonferenza",
+    "difficulty": "facile",
+    "tags": ["circonferenza", "retta", "discriminante", "sistema", "secante", "tangente"],
+    "hasImages": false
+  }
+  </script>
+
+  <header class="exercise-header">
+    <h2>Esercizio 2 — Retta obliqua e circonferenza — metodo del discriminante</h2>
+  </header>
+
+  <section class="exercise-text">
+    <p>
+      Data la circonferenza \(\mathcal{C}: x^2 + y^2 = 10\) e la retta \(r: y = x + k\),
+      determina per quali valori di \(k\) la retta è:
+    </p>
+    <ol type="a">
+      <li>secante alla circonferenza;</li>
+      <li>tangente alla circonferenza;</li>
+      <li>esterna alla circonferenza.</li>
+    </ol>
+  </section>
+
+  <section class="exercise-data">
+    <h3>Dati</h3>
+    <ul>
+      <li>Circonferenza: \(x^2 + y^2 = 10\) &nbsp;⟹&nbsp; centro \(C = (0, 0)\), raggio \(r = \sqrt{10}\)</li>
+      <li>Retta: \(y = x + k\), con \(k \in \mathbb{R}\)</li>
+    </ul>
+  </section>
+
+  <section class="exercise-request">
+    <h3>Richiesta</h3>
+    <p>Trovare i valori di \(k\) che determinano ciascuna delle tre posizioni reciproche.</p>
+  </section>
+
+  <section class="exercise-solution">
+    <h3>Svolgimento</h3>
+
+    <h4>Metodo: sostituzione e discriminante</h4>
+    <p>
+      Si sostituisce l'espressione di \(y\) ricavata dalla retta nell'equazione della circonferenza,
+      ottenendo un'equazione di secondo grado in \(x\).
+      Il segno del discriminante \(\Delta\) decide la posizione:
+    </p>
+    <ul>
+      <li>\(\Delta > 0\): due soluzioni reali distinte &nbsp;⟹&nbsp; retta <strong>secante</strong>.</li>
+      <li>\(\Delta = 0\): soluzione doppia &nbsp;⟹&nbsp; retta <strong>tangente</strong>.</li>
+      <li>\(\Delta < 0\): nessuna soluzione reale &nbsp;⟹&nbsp; retta <strong>esterna</strong>.</li>
+    </ul>
+
+    <h4>Passo 1 — Sostituzione</h4>
+    <p>Sostituiamo \(y = x + k\) in \(x^2 + y^2 = 10\):</p>
+    \[
+      x^2 + (x + k)^2 = 10
+    \]
+    \[
+      x^2 + x^2 + 2kx + k^2 = 10
+    \]
+    \[
+      2x^2 + 2kx + (k^2 - 10) = 0
+    \]
+
+    <h4>Passo 2 — Calcolo del discriminante</h4>
+    <p>L'equazione ha la forma \(ax^2 + bx + c = 0\) con \(a = 2\), \(b = 2k\), \(c = k^2 - 10\).</p>
+    \[
+      \Delta = b^2 - 4ac = (2k)^2 - 4 \cdot 2 \cdot (k^2 - 10)
+    \]
+    \[
+      \Delta = 4k^2 - 8k^2 + 80 = -4k^2 + 80 = 4(20 - k^2)
+    \]
+
+    <h4>Passo 3 — Studio del segno di \(\Delta\)</h4>
+    <p>Il segno di \(\Delta\) dipende dal fattore \((20 - k^2)\):</p>
+
+    <p><strong>(a) Retta secante:</strong> \(\Delta > 0\)</p>
+    \[
+      20 - k^2 > 0 \;\Rightarrow\; k^2 < 20 \;\Rightarrow\; -2\sqrt{5} < k < 2\sqrt{5}
+    \]
+
+    <p><strong>(b) Retta tangente:</strong> \(\Delta = 0\)</p>
+    \[
+      20 - k^2 = 0 \;\Rightarrow\; k = \pm\sqrt{20} = \pm 2\sqrt{5}
+    \]
+    <p>Per \(k = 2\sqrt{5}\): \(2x^2 + 4\sqrt{5}\,x + 10 = 0 \Rightarrow x = -\sqrt{5}\), &nbsp; punto di tangenza: \((-\sqrt{5},\, -\sqrt{5}+2\sqrt{5}) = (-\sqrt{5},\, \sqrt{5})\).</p>
+    <p>Per \(k = -2\sqrt{5}\): punto di tangenza: \((\sqrt{5},\, -\sqrt{5})\).</p>
+
+    <p><strong>(c) Retta esterna:</strong> \(\Delta < 0\)</p>
+    \[
+      20 - k^2 < 0 \;\Rightarrow\; k^2 > 20 \;\Rightarrow\; k < -2\sqrt{5} \;\text{ oppure }\; k > 2\sqrt{5}
+    \]
+
+    <h4>Verifica con il metodo della distanza</h4>
+    <p>La retta \(y = x + k\) si riscrive come \(x - y + k = 0\). La distanza del centro \((0,0)\) da essa è:</p>
+    \[
+      d = \frac{|0 - 0 + k|}{\sqrt{1^2 + (-1)^2}} = \frac{|k|}{\sqrt{2}}
+    \]
+    <p>Il confronto con \(r = \sqrt{10}\):</p>
+    \[
+      d = \sqrt{10} \;\Rightarrow\; \frac{|k|}{\sqrt{2}} = \sqrt{10} \;\Rightarrow\; |k| = \sqrt{20} = 2\sqrt{5} \qquad \checkmark
+    \]
+  </section>
+
+  <section class="exercise-result">
+    <h3>Risultato</h3>
+    <ul>
+      <li><strong>Secante</strong>: \(-2\sqrt{5} < k < 2\sqrt{5}\) &nbsp; (ovvero \(|k| < 2\sqrt{5} \approx 4{,}47\))</li>
+      <li><strong>Tangente</strong>: \(k = \pm 2\sqrt{5}\)</li>
+      <li><strong>Esterna</strong>: \(k < -2\sqrt{5}\) oppure \(k > 2\sqrt{5}\)</li>
+    </ul>
+  </section>
+</article>
