@@ -28,6 +28,13 @@
       "order": 20,
       "color": "#8ab4f0",
       "description": "Raccolte di limiti."
+    },
+    {
+      "name": "Circonferenza",
+      "subject": "Matematica",
+      "order": 30,
+      "color": "#8ab4f0",
+      "description": "Raccolte di circonferenza."
     }
   ],
   "exercises": [
@@ -96,6 +103,38 @@
       "isWip": false
     },
     {
+      "id": "matematica-circonferenza",
+      "title": "Posizione reciproca retta-circonferenza",
+      "description": "Raccolta di 6 esercizi svolti sulla posizione reciproca tra una retta e una circonferenza: dai casi elementari con rette orizzontali fino alla ricerca di rette con corda di lunghezza assegnata. Ogni esercizio presenta testo, dati, svolgimento simbolico e risultato.",
+      "subject": "Matematica",
+      "category": "Circonferenza",
+      "topic": "Posizione reciproca retta-circonferenza",
+      "icon": "⭕",
+      "order": 30,
+      "tags": [
+        "circonferenza",
+        "retta",
+        "posizione reciproca",
+        "discriminante",
+        "distanza punto-retta",
+        "secante",
+        "tangente",
+        "esterna",
+        "corda",
+        "lunghezza corda",
+        "punto esterno",
+        "forma generale"
+      ],
+      "level": "misto",
+      "schoolYear": "Terza superiore",
+      "estimatedTime": "6 esercizi",
+      "file": "matematica/circonferenza/index.html",
+      "manifest": "matematica/circonferenza/exercises.json",
+      "count": 6,
+      "isCollection": true,
+      "isWip": false
+    },
+    {
       "id": "matematica-limiti",
       "title": "Limiti",
       "description": "Raccolta di esercizi svolti: 3 esercizi con testo e soluzione espandibile.",
@@ -103,7 +142,7 @@
       "category": "Limiti",
       "topic": "Limiti",
       "icon": "∞",
-      "order": 30,
+      "order": 40,
       "tags": [
         "limiti",
         "polinomi",
