@@ -103,7 +103,7 @@
       "isWip": false
     },
     {
-      "id": "matematica-circonferenza",
+      "id": "matematica-circonferenza-posizione-retta",
       "title": "Posizione reciproca retta-circonferenza",
       "description": "Raccolta di 6 esercizi svolti sulla posizione reciproca tra una retta e una circonferenza: dai casi elementari con rette orizzontali fino alla ricerca di rette con corda di lunghezza assegnata. Ogni esercizio presenta testo, dati, svolgimento simbolico e risultato.",
       "subject": "Matematica",
@@ -128,8 +128,8 @@
       "level": "misto",
       "schoolYear": "Terza superiore",
       "estimatedTime": "6 esercizi",
-      "file": "matematica/circonferenza/index.html",
-      "manifest": "matematica/circonferenza/exercises.json",
+      "file": "matematica/circonferenza/posizione-retta/index.html",
+      "manifest": "matematica/circonferenza/posizione-retta/exercises.json",
       "count": 6,
       "isCollection": true,
       "isWip": false
