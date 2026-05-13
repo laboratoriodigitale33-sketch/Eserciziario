@@ -1,0 +1,114 @@
+<article class="exercise" data-exercise-id="es_8">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_8",
+    "title": "Riconoscere una retta esterna con il discriminante",
+    "order": 8,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/circonferenza/posizione-retta",
+    "topic": "Posizione reciproca retta-circonferenza",
+    "difficulty": "facile",
+    "tags": ["circonferenza", "retta", "discriminante", "esterna", "nessuna intersezione", "forma generale"],
+    "hasImages": true
+  }
+  </script>
+
+  <template data-exercise-statement>
+    <section class="exercise-text">
+      <h2>Esercizio 8 — Riconoscere una retta esterna con il discriminante</h2>
+      <p>
+        Data la circonferenza
+        \[
+          \mathcal{C}:x^2+y^2-6x+4y+4=0
+        \]
+        e la retta
+        \[
+          r:y=x+5,
+        \]
+        stabilisci con il metodo del discriminante se la retta è secante, tangente o esterna.
+      </p>
+    </section>
+
+    <section class="exercise-data">
+      <h3>Dati</h3>
+      <ul>
+        <li>Circonferenza: \(x^2+y^2-6x+4y+4=0\).</li>
+        <li>Retta: \(y=x+5\).</li>
+      </ul>
+    </section>
+
+    <section class="exercise-request">
+      <h3>Richiesta</h3>
+      <p>Risolvere il sistema tramite sostituzione e classificare la retta in base al segno di \(\Delta\).</p>
+    </section>
+
+    <section class="exercise-figure">
+      <h3>Figura</h3>
+      <div class="schema-wrap" role="img" aria-label="Circonferenza con centro tre meno due e retta y uguale x più cinque esterna">
+        <svg viewBox="0 0 660 500" xmlns="http://www.w3.org/2000/svg">
+          <rect width="660" height="500" rx="18" fill="#fbf8f1" />
+          <g transform="translate(265 260) scale(38 -38)">
+            <g stroke="#d9cfbd" stroke-width="0.023">
+              <path d="M -4 -6 H 10 M -4 -5 H 10 M -4 -4 H 10 M -4 -3 H 10 M -4 -2 H 10 M -4 -1 H 10 M -4 0 H 10 M -4 1 H 10 M -4 2 H 10 M -4 3 H 10 M -4 4 H 10 M -4 5 H 10 M -4 6 H 10 M -4 7 H 10" />
+              <path d="M -4 -6 V 7 M -3 -6 V 7 M -2 -6 V 7 M -1 -6 V 7 M 0 -6 V 7 M 1 -6 V 7 M 2 -6 V 7 M 3 -6 V 7 M 4 -6 V 7 M 5 -6 V 7 M 6 -6 V 7 M 7 -6 V 7 M 8 -6 V 7 M 9 -6 V 7 M 10 -6 V 7" />
+            </g>
+            <line x1="-4.2" y1="0" x2="10.2" y2="0" stroke="#3d3530" stroke-width="0.05" />
+            <line x1="0" y1="-6.2" x2="0" y2="7.2" stroke="#3d3530" stroke-width="0.05" />
+            <circle cx="3" cy="-2" r="3" fill="none" stroke="#8b3a2a" stroke-width="0.085" />
+            <line x1="-4" y1="1" x2="2" y2="7" stroke="#3a5a7a" stroke-width="0.08" stroke-dasharray="0.20 0.14" />
+            <circle cx="3" cy="-2" r="0.12" fill="#1a1612" />
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#1a1612">
+            <text x="594" y="263">x</text>
+            <text x="271" y="35">y</text>
+            <text x="373" y="342">C(3,-2)</text>
+            <text x="390" y="68" fill="#3a5a7a">r: y=x+5</text>
+          </g>
+          <text x="330" y="472" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#7a6f65">
+            Discriminante negativo: nessun punto reale appartiene sia alla retta sia alla circonferenza.
+          </text>
+        </svg>
+        <p class="schema-caption">La retta non interseca la circonferenza.</p>
+      </div>
+    </section>
+  </template>
+
+  <template data-exercise-solution>
+    <section class="exercise-solution">
+      <h3>Svolgimento</h3>
+
+      <h4>Passo 1 — Sostituzione della retta</h4>
+      <p>Sostituiamo \(y=x+5\) in \(x^2+y^2-6x+4y+4=0\):</p>
+      \[
+        x^2+(x+5)^2-6x+4(x+5)+4=0.
+      \]
+      <p>Sviluppiamo:</p>
+      \[
+        x^2+x^2+10x+25-6x+4x+20+4=0.
+      \]
+      <p>Raccogliamo i termini simili:</p>
+      \[
+        2x^2+8x+49=0.
+      \]
+
+      <h4>Passo 2 — Discriminante</h4>
+      <p>L'equazione ha coefficienti \(a=2\), \(b=8\), \(c=49\). Quindi:</p>
+      \[
+        \Delta=8^2-4\cdot 2\cdot 49.
+      \]
+      \[
+        \Delta=64-392=-328.
+      \]
+      <p>Poiché \(\Delta&lt;0\), l'equazione non ha soluzioni reali. Quindi la retta è <strong>esterna</strong>.</p>
+    </section>
+
+    <section class="exercise-result">
+      <h3>Risultato finale</h3>
+      <ul>
+        <li>Equazione risolvente: \(2x^2+8x+49=0\).</li>
+        <li>\(\Delta=-328&lt;0\), quindi la retta è <strong>esterna</strong>.</li>
+        <li>Non esistono punti reali di intersezione.</li>
+      </ul>
+    </section>
+  </template>
+</article>
