@@ -1,0 +1,122 @@
+<article class="exercise" data-exercise-id="es_7">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_7",
+    "title": "Riconoscere una retta tangente con il discriminante",
+    "order": 7,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/circonferenza/posizione-retta",
+    "topic": "Posizione reciproca retta-circonferenza",
+    "difficulty": "facile",
+    "tags": ["circonferenza", "retta", "discriminante", "tangente", "punto di tangenza", "forma generale"],
+    "hasImages": true
+  }
+  </script>
+
+  <template data-exercise-statement>
+    <section class="exercise-text">
+      <h2>Esercizio 7 — Riconoscere una retta tangente con il discriminante</h2>
+      <p>
+        Data la circonferenza
+        \[
+          \mathcal{C}:x^2+y^2-4x-2y-4=0
+        \]
+        e la retta
+        \[
+          r:y=4,
+        \]
+        stabilisci con il metodo del discriminante se la retta è secante, tangente o esterna. Se è tangente, trova il punto di tangenza.
+      </p>
+    </section>
+
+    <section class="exercise-data">
+      <h3>Dati</h3>
+      <ul>
+        <li>Circonferenza: \(x^2+y^2-4x-2y-4=0\).</li>
+        <li>Retta: \(y=4\).</li>
+      </ul>
+    </section>
+
+    <section class="exercise-request">
+      <h3>Richiesta</h3>
+      <p>Usare il discriminante dell'equazione risolvente per classificare la retta e trovare l'eventuale punto di tangenza.</p>
+    </section>
+
+    <section class="exercise-figure">
+      <h3>Figura</h3>
+      <div class="schema-wrap" role="img" aria-label="Circonferenza con centro due uno e retta y uguale quattro tangente">
+        <svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="640" height="480" rx="18" fill="#fbf8f1" />
+          <g transform="translate(280 270) scale(42 -42)">
+            <g stroke="#d9cfbd" stroke-width="0.022">
+              <path d="M -4 -4 H 8 M -4 -3 H 8 M -4 -2 H 8 M -4 -1 H 8 M -4 0 H 8 M -4 1 H 8 M -4 2 H 8 M -4 3 H 8 M -4 4 H 8 M -4 5 H 8" />
+              <path d="M -4 -4 V 5 M -3 -4 V 5 M -2 -4 V 5 M -1 -4 V 5 M 0 -4 V 5 M 1 -4 V 5 M 2 -4 V 5 M 3 -4 V 5 M 4 -4 V 5 M 5 -4 V 5 M 6 -4 V 5 M 7 -4 V 5 M 8 -4 V 5" />
+            </g>
+            <line x1="-4.2" y1="0" x2="8.2" y2="0" stroke="#3d3530" stroke-width="0.05" />
+            <line x1="0" y1="-4.2" x2="0" y2="5.2" stroke="#3d3530" stroke-width="0.05" />
+            <circle cx="2" cy="1" r="3" fill="none" stroke="#8b3a2a" stroke-width="0.085" />
+            <line x1="-4" y1="4" x2="8" y2="4" stroke="#b5622a" stroke-width="0.08" />
+            <circle cx="2" cy="4" r="0.13" fill="#b5622a" />
+            <circle cx="2" cy="1" r="0.12" fill="#1a1612" />
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#1a1612">
+            <text x="590" y="272">x</text>
+            <text x="286" y="43">y</text>
+            <text x="372" y="231">C(2,1)</text>
+            <text x="402" y="102" fill="#b5622a">r: y=4</text>
+            <text x="370" y="103" fill="#b5622a">T(2,4)</text>
+          </g>
+          <text x="320" y="452" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#7a6f65">
+            Discriminante nullo: il sistema ha una soluzione reale doppia.
+          </text>
+        </svg>
+        <p class="schema-caption">La retta tocca la circonferenza in un solo punto.</p>
+      </div>
+    </section>
+  </template>
+
+  <template data-exercise-solution>
+    <section class="exercise-solution">
+      <h3>Svolgimento</h3>
+
+      <h4>Passo 1 — Sostituzione della retta</h4>
+      <p>Sostituiamo \(y=4\) nell'equazione della circonferenza:</p>
+      \[
+        x^2+4^2-4x-2\cdot 4-4=0.
+      \]
+      <p>Semplifichiamo:</p>
+      \[
+        x^2+16-4x-8-4=0.
+      \]
+      \[
+        x^2-4x+4=0.
+      \]
+
+      <h4>Passo 2 — Discriminante</h4>
+      <p>L'equazione ha coefficienti \(a=1\), \(b=-4\), \(c=4\). Quindi:</p>
+      \[
+        \Delta=(-4)^2-4\cdot 1\cdot 4=16-16=0.
+      \]
+      <p>Poiché \(\Delta=0\), la retta è <strong>tangente</strong>.</p>
+
+      <h4>Passo 3 — Punto di tangenza</h4>
+      <p>Risolviamo l'equazione:</p>
+      \[
+        x^2-4x+4=0 \Rightarrow (x-2)^2=0 \Rightarrow x=2.
+      \]
+      <p>Poiché la retta è \(y=4\), il punto di tangenza è:</p>
+      \[
+        T=(2,4).
+      \]
+    </section>
+
+    <section class="exercise-result">
+      <h3>Risultato finale</h3>
+      <ul>
+        <li>Equazione risolvente: \(x^2-4x+4=0\).</li>
+        <li>\(\Delta=0\), quindi la retta è <strong>tangente</strong>.</li>
+        <li>Punto di tangenza: \(T=(2,4)\).</li>
+      </ul>
+    </section>
+  </template>
+</article>

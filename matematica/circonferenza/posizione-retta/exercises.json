@@ -27,7 +27,7 @@
   "exercises": [
     {
       "id": "es_1",
-      "title": "Retta orizzontale e circonferenza centrata nell'origine",
+      "title": "Metodo del discriminante con rette orizzontali",
       "order": 1,
       "macroCategory": "matematica",
       "categoryPath": "matematica/circonferenza/posizione-retta",
@@ -39,11 +39,11 @@
         "posizione reciproca",
         "discriminante",
         "secante",
-        "esterna",
-        "tangente"
+        "tangente",
+        "esterna"
       ],
       "hasImages": true,
-      "description": "Esercizio 1 — Retta orizzontale e circonferenza centrata nell'origine Data la circonferenza \\(\\mathcal{C}: x^2 + y^2 = 25\\) e le rette: \\(r_1: y = 3\\) \\(r_2: y = 5\\) \\(r_3: y = 7\\...",
+      "description": "Esercizio 1 — Metodo del discriminante con rette orizzontali Data la circonferenza \\(\\mathcal{C}: x^2+y^2=25\\) e le rette \\[ r_1:y=3,\\qquad r_2:y=5,\\qquad r_3:y=7, \\] stabilisci,...",
       "subject": "Matematica",
       "category": "Circonferenza",
       "file": "es_1.html",
@@ -51,33 +51,8 @@
       "sourceFormat": "metadata"
     },
     {
-      "id": "es_2",
-      "title": "Retta obliqua e circonferenza centrata nell'origine — metodo algebrico",
-      "order": 2,
-      "macroCategory": "matematica",
-      "categoryPath": "matematica/circonferenza/posizione-retta",
-      "topic": "Posizione reciproca retta-circonferenza",
-      "difficulty": "facile",
-      "tags": [
-        "circonferenza",
-        "retta",
-        "discriminante",
-        "sistema",
-        "secante",
-        "tangente",
-        "parametro"
-      ],
-      "hasImages": true,
-      "description": "Esercizio 2 — Retta obliqua e circonferenza — metodo del discriminante Data la circonferenza \\(\\mathcal{C}: x^2+y^2=10\\) e la famiglia di rette \\[ r_k: y=x+k, \\] determina per qua...",
-      "subject": "Matematica",
-      "category": "Circonferenza",
-      "file": "es_2.html",
-      "source": "es_2.html",
-      "sourceFormat": "metadata"
-    },
-    {
       "id": "es_3",
-      "title": "Circonferenza non centrata nell'origine e retta obliqua",
+      "title": "Circonferenza non centrata e retta secante — metodo del discriminante",
       "order": 3,
       "macroCategory": "matematica",
       "categoryPath": "matematica/circonferenza/posizione-retta",
@@ -86,13 +61,14 @@
       "tags": [
         "circonferenza",
         "retta",
-        "distanza punto-retta",
-        "centro",
-        "raggio",
-        "forma canonica"
+        "sistema",
+        "discriminante",
+        "secante",
+        "corda",
+        "intersezioni"
       ],
       "hasImages": true,
-      "description": "Data la circonferenza \\(\\mathcal{C}: (x-3)^2 + (y+1)^2 = 20\\) e la retta \\(r: 2x - y - 9 = 0\\), determina la posizione reciproca di \\(r\\) rispetto a \\(\\mathcal{C}\\). Se la retta è...",
+      "description": "Esercizio 3 — Circonferenza non centrata e retta secante Data la circonferenza \\[ \\mathcal{C}:(x-3)^2+(y+1)^2=20 \\] e la retta \\[ r:2x-y-9=0, \\] determina con il metodo del discri...",
       "subject": "Matematica",
       "category": "Circonferenza",
       "file": "es_3.html",
@@ -101,7 +77,7 @@
     },
     {
       "id": "es_4",
-      "title": "Circonferenza in forma generale — ricavare centro e raggio",
+      "title": "Circonferenza in forma generale e retta secante — metodo del discriminante",
       "order": 4,
       "macroCategory": "matematica",
       "categoryPath": "matematica/circonferenza/posizione-retta",
@@ -111,13 +87,13 @@
         "circonferenza",
         "forma generale",
         "completamento del quadrato",
-        "centro",
-        "raggio",
-        "tangente",
-        "punti di tangenza"
+        "sistema",
+        "discriminante",
+        "secante",
+        "intersezioni"
       ],
-      "hasImages": false,
-      "description": "Data la circonferenza \\(\\mathcal{C}: x^2 + y^2 - 4x + 6y - 3 = 0\\) e la retta \\(r: 3x + 4y + 2 = 0\\), stabilisci la posizione reciproca. Se la retta è tangente, determina il punto...",
+      "hasImages": true,
+      "description": "Esercizio 4 — Circonferenza in forma generale e retta secante Data la circonferenza \\[ \\mathcal{C}:x^2+y^2-4x+6y-3=0 \\] e la retta \\[ r:3x+4y+2=0, \\] stabilisci la posizione recip...",
       "subject": "Matematica",
       "category": "Circonferenza",
       "file": "es_4.html",
@@ -125,52 +101,51 @@
       "sourceFormat": "metadata"
     },
     {
-      "id": "es_5",
-      "title": "Rette tangenti a una circonferenza passanti per un punto esterno",
-      "order": 5,
+      "id": "es_7",
+      "title": "Riconoscere una retta tangente con il discriminante",
+      "order": 7,
       "macroCategory": "matematica",
       "categoryPath": "matematica/circonferenza/posizione-retta",
       "topic": "Posizione reciproca retta-circonferenza",
-      "difficulty": "difficile",
-      "tags": [
-        "circonferenza",
-        "tangente",
-        "punto esterno",
-        "fascio di rette",
-        "discriminante",
-        "punti di tangenza"
-      ],
-      "hasImages": true,
-      "description": "Data la circonferenza \\(\\mathcal{C}: x^2 + y^2 - 6x + 2y + 5 = 0\\) e il punto \\(P = (5,\\, 4)\\), determina le equazioni delle rette passanti per \\(P\\) e tangenti a \\(\\mathcal{C}\\)....",
-      "subject": "Matematica",
-      "category": "Circonferenza",
-      "file": "es_5.html",
-      "source": "es_5.html",
-      "sourceFormat": "metadata"
-    },
-    {
-      "id": "es_6",
-      "title": "Retta a distanza assegnata da una circonferenza — corda di data lunghezza",
-      "order": 6,
-      "macroCategory": "matematica",
-      "categoryPath": "matematica/circonferenza/posizione-retta",
-      "topic": "Posizione reciproca retta-circonferenza",
-      "difficulty": "difficile",
+      "difficulty": "facile",
       "tags": [
         "circonferenza",
         "retta",
-        "corda",
-        "lunghezza corda",
-        "distanza",
-        "parametro",
-        "luogo geometrico"
+        "discriminante",
+        "tangente",
+        "punto di tangenza",
+        "forma generale"
       ],
       "hasImages": true,
-      "description": "Considera la circonferenza \\(\\mathcal{C}: x^2 + y^2 - 2x - 4y - 4 = 0\\).",
+      "description": "Esercizio 7 — Riconoscere una retta tangente con il discriminante Data la circonferenza \\[ \\mathcal{C}:x^2+y^2-4x-2y-4=0 \\] e la retta \\[ r:y=4, \\] stabilisci con il metodo del di...",
       "subject": "Matematica",
       "category": "Circonferenza",
-      "file": "es_6.html",
-      "source": "es_6.html",
+      "file": "es_7.html",
+      "source": "es_7.html",
+      "sourceFormat": "metadata"
+    },
+    {
+      "id": "es_8",
+      "title": "Riconoscere una retta esterna con il discriminante",
+      "order": 8,
+      "macroCategory": "matematica",
+      "categoryPath": "matematica/circonferenza/posizione-retta",
+      "topic": "Posizione reciproca retta-circonferenza",
+      "difficulty": "facile",
+      "tags": [
+        "circonferenza",
+        "retta",
+        "discriminante",
+        "esterna",
+        "nessuna intersezione",
+        "forma generale"
+      ],
+      "hasImages": true,
+      "description": "Esercizio 8 — Riconoscere una retta esterna con il discriminante Data la circonferenza \\[ \\mathcal{C}:x^2+y^2-6x+4y+4=0 \\] e la retta \\[ r:y=x+5, \\] stabilisci con il metodo del d...",
+      "subject": "Matematica",
+      "category": "Circonferenza",
+      "file": "es_8.html",
+      "source": "es_8.html",
       "sourceFormat": "metadata"
     }
   ],
@@ -178,5 +153,5 @@
   "order": null,
   "path": "matematica/circonferenza/posizione-retta",
   "sourceDir": ".",
-  "count": 6
+  "count": 5
 }
