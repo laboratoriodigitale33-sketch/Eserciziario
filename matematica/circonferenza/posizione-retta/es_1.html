@@ -2,12 +2,17 @@
   <script type="application/json" class="exercise-metadata">
   {
     "id": "es_1",
-    "title": "Metodo del discriminante con rette orizzontali",
+    "title": "Retta orizzontale e circonferenza centrata nell'origine",
     "order": 1,
     "macroCategory": "matematica",
     "categoryPath": "matematica/circonferenza/posizione-retta",
+    "subject": "Matematica",
+    "category": "Circonferenza",
     "topic": "Posizione reciproca retta-circonferenza",
     "difficulty": "facile",
+    "level": "base",
+    "schoolYear": "Terza superiore",
+    "estimatedTime": "10 min",
     "tags": ["circonferenza", "retta", "posizione reciproca", "discriminante", "secante", "tangente", "esterna"],
     "hasImages": true
   }
@@ -15,141 +20,122 @@
 
   <template data-exercise-statement>
     <section class="exercise-text">
-      <h2>Esercizio 1 — Metodo del discriminante con rette orizzontali</h2>
+      <h2>Esercizio 1 - Retta orizzontale e circonferenza centrata nell'origine</h2>
       <p>
-        Data la circonferenza \(\mathcal{C}: x^2+y^2=25\) e le rette
-        \[
-          r_1:y=3,\qquad r_2:y=5,\qquad r_3:y=7,
-        \]
-        stabilisci, usando il metodo del discriminante, se ciascuna retta è secante, tangente o esterna alla circonferenza.
+        Data la circonferenza \(\mathcal{C}: x^2 + y^2 = 25\) e le rette
+        \(r_1: y = 3\), \(r_2: y = 5\), \(r_3: y = 7\), determina la posizione
+        reciproca di ciascuna retta rispetto alla circonferenza.
       </p>
     </section>
 
     <section class="exercise-data">
       <h3>Dati</h3>
       <ul>
-        <li>Circonferenza: \(x^2+y^2=25\).</li>
-        <li>Rette: \(r_1:y=3\), \(r_2:y=5\), \(r_3:y=7\).</li>
+        <li>Circonferenza: \(x^2+y^2=25\)</li>
+        <li>Rette: \(y=3\), \(y=5\), \(y=7\)</li>
       </ul>
     </section>
 
     <section class="exercise-request">
       <h3>Richiesta</h3>
       <p>
-        Per ciascuna retta, risolvere il sistema retta-circonferenza tramite sostituzione e studiare il segno del discriminante \(\Delta\).
+        Usa il metodo del discriminante: sostituisci l'equazione della retta
+        nella circonferenza e studia il valore di \(\Delta\).
       </p>
     </section>
 
-    <section class="exercise-figure">
-      <h3>Figura</h3>
-      <div class="schema-wrap" role="img" aria-label="Circonferenza x quadrato più y quadrato uguale 25 e rette y uguale 3, y uguale 5, y uguale 7">
-        <svg viewBox="0 0 640 500" xmlns="http://www.w3.org/2000/svg">
-          <rect width="640" height="500" rx="18" fill="#fbf8f1" />
-          <g transform="translate(320 270) scale(32 -32)">
-            <g stroke="#d9cfbd" stroke-width="0.025">
-              <path d="M -8 -6 H 8 M -8 -5 H 8 M -8 -4 H 8 M -8 -3 H 8 M -8 -2 H 8 M -8 -1 H 8 M -8 0 H 8 M -8 1 H 8 M -8 2 H 8 M -8 3 H 8 M -8 4 H 8 M -8 5 H 8 M -8 6 H 8" />
-              <path d="M -8 -6 V 7 M -7 -6 V 7 M -6 -6 V 7 M -5 -6 V 7 M -4 -6 V 7 M -3 -6 V 7 M -2 -6 V 7 M -1 -6 V 7 M 0 -6 V 7 M 1 -6 V 7 M 2 -6 V 7 M 3 -6 V 7 M 4 -6 V 7 M 5 -6 V 7 M 6 -6 V 7 M 7 -6 V 7 M 8 -6 V 7" />
-            </g>
-            <line x1="-8.3" y1="0" x2="8.3" y2="0" stroke="#3d3530" stroke-width="0.055" />
-            <line x1="0" y1="-6.3" x2="0" y2="7.3" stroke="#3d3530" stroke-width="0.055" />
-            <circle cx="0" cy="0" r="5" fill="none" stroke="#8b3a2a" stroke-width="0.095" />
-            <line x1="-7.8" y1="3" x2="7.8" y2="3" stroke="#3a6a4a" stroke-width="0.08" />
-            <line x1="-7.8" y1="5" x2="7.8" y2="5" stroke="#b5622a" stroke-width="0.08" />
-            <line x1="-7.8" y1="7" x2="7.8" y2="7" stroke="#3a5a7a" stroke-width="0.08" stroke-dasharray="0.20 0.14" />
-            <circle cx="-4" cy="3" r="0.12" fill="#3a6a4a" />
-            <circle cx="4" cy="3" r="0.12" fill="#3a6a4a" />
-            <circle cx="0" cy="5" r="0.13" fill="#b5622a" />
-            <circle cx="0" cy="0" r="0.11" fill="#1a1612" />
+    <div class="schema-wrap" role="img" aria-label="Circonferenza x quadrato piu y quadrato uguale 25 e tre rette orizzontali">
+      <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="640" height="420" rx="14" fill="#fbf8f1" />
+        <g transform="translate(320 230) scale(28 -28)">
+          <g stroke="#ddd0bc" stroke-width="0.03">
+            <path d="M-8 -6H8M-8 -5H8M-8 -4H8M-8 -3H8M-8 -2H8M-8 -1H8M-8 1H8M-8 2H8M-8 3H8M-8 4H8M-8 5H8M-8 6H8" />
+            <path d="M-8 -6V7M-7 -6V7M-6 -6V7M-5 -6V7M-4 -6V7M-3 -6V7M-2 -6V7M-1 -6V7M1 -6V7M2 -6V7M3 -6V7M4 -6V7M5 -6V7M6 -6V7M7 -6V7M8 -6V7" />
           </g>
-          <g font-family="IBM Plex Mono, monospace" font-size="15" fill="#1a1612">
-            <text x="595" y="275">x</text>
-            <text x="328" y="40">y</text>
-            <text x="334" y="272">O</text>
-            <text x="505" y="179" fill="#3a6a4a">r₁: y=3</text>
-            <text x="505" y="115" fill="#b5622a">r₂: y=5</text>
-            <text x="505" y="51" fill="#3a5a7a">r₃: y=7</text>
-          </g>
-          <text x="320" y="470" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#7a6f65">
-            Il discriminante conta le intersezioni reali tra retta e circonferenza.
-          </text>
-        </svg>
-        <p class="schema-caption">Caso secante, tangente ed esterno letti tramite il segno di \(\Delta\).</p>
-      </div>
-    </section>
+          <line x1="-8.5" y1="0" x2="8.5" y2="0" stroke="#3d3530" stroke-width="0.06" />
+          <line x1="0" y1="-6.5" x2="0" y2="7.2" stroke="#3d3530" stroke-width="0.06" />
+          <circle cx="0" cy="0" r="5" fill="none" stroke="#8b3a2a" stroke-width="0.1" />
+          <line x1="-8" y1="3" x2="8" y2="3" stroke="#3a6a4a" stroke-width="0.08" />
+          <line x1="-8" y1="5" x2="8" y2="5" stroke="#b5622a" stroke-width="0.08" />
+          <line x1="-8" y1="7" x2="8" y2="7" stroke="#3a5a7a" stroke-width="0.08" stroke-dasharray="0.22 0.14" />
+          <circle cx="-4" cy="3" r="0.12" fill="#3a6a4a" />
+          <circle cx="4" cy="3" r="0.12" fill="#3a6a4a" />
+          <circle cx="0" cy="5" r="0.13" fill="#b5622a" />
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#1a1612">
+          <text x="510" y="150" fill="#3a6a4a">r1: y = 3</text>
+          <text x="510" y="94" fill="#b5622a">r2: y = 5</text>
+          <text x="510" y="38" fill="#3a5a7a">r3: y = 7</text>
+          <text x="193" y="152" fill="#3a6a4a">(-4, 3)</text>
+          <text x="415" y="152" fill="#3a6a4a">(4, 3)</text>
+          <text x="329" y="94" fill="#b5622a">(0, 5)</text>
+        </g>
+      </svg>
+      <p class="schema-caption">Schema qualitativo: due intersezioni, una tangenza, nessuna intersezione.</p>
+    </div>
   </template>
 
   <template data-exercise-solution>
     <section class="exercise-solution">
-      <h3>Svolgimento</h3>
+      <h3>Svolgimento con il metodo del discriminante</h3>
 
-      <h4>Richiamo teorico essenziale</h4>
+      <h4>Criterio algebrico</h4>
       <p>
-        Per studiare l'intersezione tra una retta e una circonferenza risolviamo il sistema tra le due equazioni.
-        Dopo la sostituzione otteniamo un'equazione di secondo grado del tipo
-        \[
-          ax^2+bx+c=0.
-        \]
-        Il discriminante è
-        \[
-          \Delta=b^2-4ac.
-        \]
-        Se \(\Delta&gt;0\) ci sono due intersezioni reali distinte e la retta è secante; se \(\Delta=0\) c'è un'intersezione doppia e la retta è tangente; se \(\Delta&lt;0\) non ci sono intersezioni reali e la retta è esterna.
+        Sostituiamo la retta nella circonferenza. Otteniamo un'equazione di secondo
+        grado. Allora:
       </p>
+      <ul>
+        <li>se \(\Delta &gt; 0\), la retta e' <strong>secante</strong>;</li>
+        <li>se \(\Delta = 0\), la retta e' <strong>tangente</strong>;</li>
+        <li>se \(\Delta &lt; 0\), la retta e' <strong>esterna</strong>.</li>
+      </ul>
 
-      <h4>Studio di una retta generica \(y=k\)</h4>
-      <p>Sostituiamo \(y=k\) nella circonferenza:</p>
+      <h4>Retta \(r_1: y=3\)</h4>
+      <p>Sostituiamo \(y=3\) in \(x^2+y^2=25\):</p>
       \[
-        x^2+k^2=25.
+        x^2+3^2=25 \quad \Rightarrow \quad x^2-16=0.
       \]
-      <p>Portando tutto al primo membro:</p>
+      <p>Questa e' una quadratica in \(x\), con \(a=1\), \(b=0\), \(c=-16\).</p>
       \[
-        x^2+(k^2-25)=0.
+        \Delta=b^2-4ac=0^2-4\cdot 1\cdot(-16)=64&gt;0.
       \]
-      <p>Questa è un'equazione di secondo grado in \(x\), con</p>
+      <p>La retta \(r_1\) e' quindi <strong>secante</strong>.</p>
       \[
-        a=1,\qquad b=0,\qquad c=k^2-25.
-      \]
-      <p>Quindi</p>
-      \[
-        \Delta=b^2-4ac=0^2-4\cdot 1\cdot (k^2-25)=100-4k^2.
-      \]
-
-      <h4>Retta \(r_1:y=3\)</h4>
-      <p>Per \(k=3\):</p>
-      \[
-        \Delta_1=100-4\cdot 3^2=100-36=64&gt;0.
-      \]
-      <p>Dunque \(r_1\) è <strong>secante</strong>. Troviamo i punti:</p>
-      \[
-        x^2+3^2=25 \Rightarrow x^2=16 \Rightarrow x=\pm 4.
+        x=\frac{0\pm\sqrt{64}}{2}=\pm4.
       \]
       <p>I punti di intersezione sono \((-4,3)\) e \((4,3)\).</p>
 
-      <h4>Retta \(r_2:y=5\)</h4>
-      <p>Per \(k=5\):</p>
+      <h4>Retta \(r_2: y=5\)</h4>
       \[
-        \Delta_2=100-4\cdot 5^2=100-100=0.
+        x^2+5^2=25 \quad \Rightarrow \quad x^2=0.
       \]
-      <p>Dunque \(r_2\) è <strong>tangente</strong>. Infatti:</p>
+      <p>Qui \(a=1\), \(b=0\), \(c=0\), quindi:</p>
       \[
-        x^2+5^2=25 \Rightarrow x^2=0 \Rightarrow x=0.
+        \Delta=0^2-4\cdot1\cdot0=0.
       \]
-      <p>Il punto di tangenza è \((0,5)\).</p>
+      <p>La retta \(r_2\) e' <strong>tangente</strong>.</p>
+      \[
+        x=0.
+      \]
+      <p>Il punto di tangenza e' \((0,5)\).</p>
 
-      <h4>Retta \(r_3:y=7\)</h4>
-      <p>Per \(k=7\):</p>
+      <h4>Retta \(r_3: y=7\)</h4>
       \[
-        \Delta_3=100-4\cdot 7^2=100-196=-96&lt;0.
+        x^2+7^2=25 \quad \Rightarrow \quad x^2+24=0.
       \]
-      <p>Dunque \(r_3\) è <strong>esterna</strong>: il sistema non ha soluzioni reali.</p>
+      <p>Qui \(a=1\), \(b=0\), \(c=24\), quindi:</p>
+      \[
+        \Delta=0^2-4\cdot1\cdot24=-96&lt;0.
+      \]
+      <p>La retta \(r_3\) e' <strong>esterna</strong>, perche' non ci sono soluzioni reali.</p>
     </section>
 
     <section class="exercise-result">
       <h3>Risultato finale</h3>
       <ul>
-        <li>\(r_1:y=3\): \(\Delta=64&gt;0\), quindi è <strong>secante</strong>; intersezioni \((-4,3)\), \((4,3)\).</li>
-        <li>\(r_2:y=5\): \(\Delta=0\), quindi è <strong>tangente</strong>; punto \((0,5)\).</li>
-        <li>\(r_3:y=7\): \(\Delta=-96&lt;0\), quindi è <strong>esterna</strong>.</li>
+        <li>\(r_1:y=3\) e' secante: \((-4,3)\), \((4,3)\).</li>
+        <li>\(r_2:y=5\) e' tangente: punto \((0,5)\).</li>
+        <li>\(r_3:y=7\) e' esterna: nessuna intersezione reale.</li>
       </ul>
     </section>
   </template>

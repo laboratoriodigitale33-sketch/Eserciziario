@@ -2,153 +2,135 @@
   <script type="application/json" class="exercise-metadata">
   {
     "id": "es_4",
-    "title": "Circonferenza in forma generale e retta secante — metodo del discriminante",
+    "title": "Circonferenza in forma generale e retta secante",
     "order": 4,
     "macroCategory": "matematica",
     "categoryPath": "matematica/circonferenza/posizione-retta",
+    "subject": "Matematica",
+    "category": "Circonferenza",
     "topic": "Posizione reciproca retta-circonferenza",
     "difficulty": "medio",
-    "tags": ["circonferenza", "forma generale", "completamento del quadrato", "sistema", "discriminante", "secante", "intersezioni"],
+    "level": "intermedio",
+    "schoolYear": "Terza superiore",
+    "estimatedTime": "16 min",
+    "tags": ["circonferenza", "forma generale", "discriminante", "secante", "punti di intersezione"],
     "hasImages": true
   }
   </script>
 
   <template data-exercise-statement>
     <section class="exercise-text">
-      <h2>Esercizio 4 — Circonferenza in forma generale e retta secante</h2>
+      <h2>Esercizio 4 - Circonferenza in forma generale e retta secante</h2>
       <p>
         Data la circonferenza
         \[
-          \mathcal{C}:x^2+y^2-4x+6y-3=0
+          \mathcal{C}: x^2+y^2-4x+6y-3=0
         \]
         e la retta
         \[
-          r:3x+4y+2=0,
+          r: 3x+4y+2=0,
         \]
-        stabilisci la posizione reciproca usando il metodo del discriminante. Se ci sono intersezioni, determina i punti.
+        stabilisci la posizione reciproca usando il metodo del discriminante.
+        Se la retta e' secante, determina i punti di intersezione.
       </p>
     </section>
 
     <section class="exercise-data">
       <h3>Dati</h3>
       <ul>
-        <li>Circonferenza: \(x^2+y^2-4x+6y-3=0\).</li>
-        <li>Retta: \(3x+4y+2=0\).</li>
+        <li>Circonferenza: \(x^2+y^2-4x+6y-3=0\)</li>
+        <li>Retta: \(3x+4y+2=0\)</li>
       </ul>
     </section>
 
-    <section class="exercise-request">
-      <h3>Richiesta</h3>
-      <ol>
-        <li>Risolvere il sistema retta-circonferenza.</li>
-        <li>Usare il discriminante per classificare la retta.</li>
-        <li>Calcolare i punti di intersezione.</li>
-      </ol>
-    </section>
-
-    <section class="exercise-figure">
-      <h3>Figura</h3>
-      <div class="schema-wrap" role="img" aria-label="Circonferenza con centro due meno tre e retta tre x più quattro y più due uguale zero secante">
-        <svg viewBox="0 0 660 500" xmlns="http://www.w3.org/2000/svg">
-          <rect width="660" height="500" rx="18" fill="#fbf8f1" />
-          <g transform="translate(300 240) scale(35 -35)">
-            <g stroke="#d9cfbd" stroke-width="0.025">
-              <path d="M -6 -8 H 8 M -6 -7 H 8 M -6 -6 H 8 M -6 -5 H 8 M -6 -4 H 8 M -6 -3 H 8 M -6 -2 H 8 M -6 -1 H 8 M -6 0 H 8 M -6 1 H 8 M -6 2 H 8 M -6 3 H 8 M -6 4 H 8 M -6 5 H 8" />
-              <path d="M -6 -8 V 5 M -5 -8 V 5 M -4 -8 V 5 M -3 -8 V 5 M -2 -8 V 5 M -1 -8 V 5 M 0 -8 V 5 M 1 -8 V 5 M 2 -8 V 5 M 3 -8 V 5 M 4 -8 V 5 M 5 -8 V 5 M 6 -8 V 5 M 7 -8 V 5 M 8 -8 V 5" />
-            </g>
-            <line x1="-6.2" y1="0" x2="8.2" y2="0" stroke="#3d3530" stroke-width="0.055" />
-            <line x1="0" y1="-8.2" x2="0" y2="5.2" stroke="#3d3530" stroke-width="0.055" />
-            <circle cx="2" cy="-3" r="4" fill="none" stroke="#8b3a2a" stroke-width="0.09" />
-            <line x1="-6" y1="4" x2="8" y2="-6.5" stroke="#3a6a4a" stroke-width="0.08" />
-            <circle cx="-0.655" cy="-0.009" r="0.12" fill="#3a6a4a" />
-            <circle cx="5.615" cy="-4.711" r="0.12" fill="#3a6a4a" />
-            <circle cx="2" cy="-3" r="0.12" fill="#1a1612" />
-          </g>
-          <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#1a1612">
-            <text x="590" y="242">x</text>
-            <text x="306" y="34">y</text>
-            <text x="374" y="350">C(2,-3)</text>
-            <text x="72" y="98" fill="#3a6a4a">r: 3x+4y+2=0</text>
-            <text x="262" y="250" fill="#3a6a4a">A</text>
-            <text x="497" y="409" fill="#3a6a4a">B</text>
-          </g>
-          <text x="330" y="472" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#7a6f65">
-            La retta è secante: il discriminante dell'equazione risolvente è positivo.
-          </text>
-        </svg>
-        <p class="schema-caption">La figura mostra che la retta interseca la circonferenza in due punti distinti.</p>
-      </div>
-    </section>
+    <div class="schema-wrap" role="img" aria-label="Circonferenza in forma generale e retta secante">
+      <svg viewBox="0 0 640 430" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="640" height="430" rx="14" fill="#fbf8f1" />
+        <g transform="translate(260 215) scale(31 -31)">
+          <line x1="-5" y1="0" x2="10" y2="0" stroke="#3d3530" stroke-width="0.055" />
+          <line x1="0" y1="-7" x2="0" y2="5" stroke="#3d3530" stroke-width="0.055" />
+          <circle cx="2" cy="-3" r="4" fill="none" stroke="#8b3a2a" stroke-width="0.095" />
+          <line x1="-4" y1="2.5" x2="9" y2="-7.25" stroke="#3a5a7a" stroke-width="0.08" />
+          <circle cx="-0.655" cy="-0.009" r="0.12" fill="#3a6a4a" />
+          <circle cx="5.615" cy="-4.712" r="0.12" fill="#3a6a4a" />
+          <circle cx="2" cy="-3" r="0.12" fill="#1a1612" />
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#1a1612">
+          <text x="330" y="315">C(2,-3)</text>
+          <text x="420" y="142" fill="#3a5a7a">3x + 4y + 2 = 0</text>
+          <text x="218" y="208" fill="#3a6a4a">A</text>
+          <text x="438" y="356" fill="#3a6a4a">B</text>
+        </g>
+      </svg>
+      <p class="schema-caption">La retta interseca la circonferenza in due punti: lo studio corretto passa dal discriminante della quadratica ottenuta per sostituzione.</p>
+    </div>
   </template>
 
   <template data-exercise-solution>
     <section class="exercise-solution">
-      <h3>Svolgimento</h3>
+      <h3>Svolgimento con il metodo del discriminante</h3>
 
-      <h4>Osservazione preliminare</h4>
-      <p>
-        Il testo precedente indicava questa situazione come caso tangente, ma con i dati assegnati la retta non è tangente: è secante. Lo si vede in modo diretto dal discriminante positivo.
-      </p>
-
-      <h4>Passo 1 — Esplicitazione della retta</h4>
-      <p>Dalla retta \(3x+4y+2=0\) ricaviamo:</p>
+      <h4>Passo 1 - Esplicitazione della retta</h4>
       \[
-        4y=-3x-2 \Rightarrow y=\frac{-3x-2}{4}.
+        3x+4y+2=0
+      \]
+      \[
+        4y=-3x-2
+      \]
+      \[
+        y=\frac{-3x-2}{4}.
       \]
 
-      <h4>Passo 2 — Sostituzione nella circonferenza</h4>
+      <h4>Passo 2 - Sostituzione nella circonferenza</h4>
       <p>Sostituiamo \(y=\frac{-3x-2}{4}\) in \(x^2+y^2-4x+6y-3=0\):</p>
       \[
-        x^2+\left(\frac{-3x-2}{4}\right)^2-4x+6\left(\frac{-3x-2}{4}\right)-3=0.
+        x^2+\left(\frac{-3x-2}{4}\right)^2-4x
+        +6\left(\frac{-3x-2}{4}\right)-3=0.
       \]
-      <p>Per eliminare i denominatori moltiplichiamo tutto per \(16\):</p>
+      <p>Moltiplichiamo per \(16\):</p>
       \[
-        16x^2+(-3x-2)^2-64x+24(-3x-2)-48=0.
+        16x^2+(9x^2+12x+4)-64x-72x-48-48=0.
       \]
-      <p>Sviluppiamo:</p>
-      \[
-        16x^2+9x^2+12x+4-64x-72x-48-48=0.
-      \]
-      <p>Raccogliamo i termini simili:</p>
       \[
         25x^2-124x-92=0.
       \]
 
-      <h4>Passo 3 — Discriminante</h4>
-      <p>L'equazione ha coefficienti \(a=25\), \(b=-124\), \(c=-92\). Quindi:</p>
+      <h4>Passo 3 - Discriminante</h4>
       \[
-        \Delta=b^2-4ac=(-124)^2-4\cdot 25\cdot(-92).
+        \Delta=(-124)^2-4\cdot25\cdot(-92)
       \]
       \[
         \Delta=15376+9200=24576.
       \]
-      <p>Poiché \(24576&gt;0\), la retta è <strong>secante</strong>.</p>
+      <p>Poiche' \(\Delta&gt;0\), la retta e' <strong>secante</strong>.</p>
 
-      <h4>Passo 4 — Coordinate dei punti di intersezione</h4>
-      <p>Poiché \(\sqrt{24576}=64\sqrt{6}\), si ha:</p>
+      <h4>Passo 4 - Ascisse dei punti di intersezione</h4>
       \[
-        x=\frac{124\pm 64\sqrt{6}}{50}=\frac{62\pm 32\sqrt{6}}{25}.
+        x=\frac{124\pm\sqrt{24576}}{50}
+        =\frac{124\pm64\sqrt6}{50}
+        =\frac{62\pm32\sqrt6}{25}.
       \]
-      <p>Ora sostituiamo in \(y=\frac{-3x-2}{4}\):</p>
+
+      <h4>Passo 5 - Ordinate dei punti</h4>
+      <p>Usiamo \(y=\frac{-3x-2}{4}\).</p>
       \[
-        y=\frac{-3\left(\frac{62\pm 32\sqrt{6}}{25}\right)-2}{4}
-        =\frac{-186\mp 96\sqrt{6}-50}{100}
-        =\frac{-59\mp 24\sqrt{6}}{25}.
+        y=\frac{-59\mp24\sqrt6}{25}.
       \]
-      <p>I due punti sono quindi:</p>
+      <p>Quindi:</p>
       \[
-        A\left(\frac{62-32\sqrt{6}}{25},\frac{-59+24\sqrt{6}}{25}\right),
-        \qquad
-        B\left(\frac{62+32\sqrt{6}}{25},\frac{-59-24\sqrt{6}}{25}\right).
+        A\left(\frac{62-32\sqrt6}{25},\,\frac{-59+24\sqrt6}{25}\right)
+      \]
+      \[
+        B\left(\frac{62+32\sqrt6}{25},\,\frac{-59-24\sqrt6}{25}\right).
       \]
     </section>
 
     <section class="exercise-result">
-      <h3>Risultato finale</h3>
+      <h3>Risultato</h3>
       <ul>
-        <li>Equazione risolvente: \(25x^2-124x-92=0\).</li>
-        <li>\(\Delta=24576&gt;0\), quindi la retta è <strong>secante</strong>.</li>
-        <li>Intersezioni: \(A\left(\frac{62-32\sqrt{6}}{25},\frac{-59+24\sqrt{6}}{25}\right)\), \(B\left(\frac{62+32\sqrt{6}}{25},\frac{-59-24\sqrt{6}}{25}\right)\).</li>
+        <li>\(\Delta=24576&gt;0\), quindi la retta e' <strong>secante</strong>.</li>
+        <li>\(A\left(\frac{62-32\sqrt6}{25},\frac{-59+24\sqrt6}{25}\right)\)</li>
+        <li>\(B\left(\frac{62+32\sqrt6}{25},\frac{-59-24\sqrt6}{25}\right)\)</li>
       </ul>
     </section>
   </template>

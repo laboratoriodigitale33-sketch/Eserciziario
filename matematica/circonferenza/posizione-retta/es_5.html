@@ -1,0 +1,116 @@
+<article class="exercise" data-exercise-id="es_5">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_5",
+    "title": "Circonferenza in forma generale e rette orizzontali",
+    "order": 5,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/circonferenza/posizione-retta",
+    "subject": "Matematica",
+    "category": "Circonferenza",
+    "topic": "Posizione reciproca retta-circonferenza",
+    "difficulty": "medio",
+    "level": "intermedio",
+    "schoolYear": "Terza superiore",
+    "estimatedTime": "12 min",
+    "tags": ["circonferenza", "forma generale", "retta", "discriminante", "secante", "tangente", "esterna"],
+    "hasImages": true
+  }
+  </script>
+
+  <template data-exercise-statement>
+    <section class="exercise-text">
+      <h2>Esercizio 5 - Circonferenza in forma generale e rette orizzontali</h2>
+      <p>
+        Data la circonferenza
+        \[
+          \mathcal{C}: x^2+y^2-2x+4y-4=0,
+        \]
+        studia la posizione reciproca delle rette:
+      </p>
+      <ul>
+        <li>\(r_1: y=0\)</li>
+        <li>\(r_2: y=1\)</li>
+        <li>\(r_3: y=3\)</li>
+      </ul>
+    </section>
+
+    <div class="schema-wrap" role="img" aria-label="Circonferenza e tre rette orizzontali">
+      <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="640" height="420" rx="14" fill="#fbf8f1" />
+        <g transform="translate(300 220) scale(34 -34)">
+          <line x1="-5" y1="0" x2="8" y2="0" stroke="#3d3530" stroke-width="0.055" />
+          <line x1="0" y1="-6" x2="0" y2="5" stroke="#3d3530" stroke-width="0.055" />
+          <circle cx="1" cy="-2" r="3" fill="none" stroke="#8b3a2a" stroke-width="0.095" />
+          <line x1="-5" y1="0" x2="8" y2="0" stroke="#3a6a4a" stroke-width="0.075" />
+          <line x1="-5" y1="1" x2="8" y2="1" stroke="#b5622a" stroke-width="0.075" />
+          <line x1="-5" y1="3" x2="8" y2="3" stroke="#3a5a7a" stroke-width="0.075" stroke-dasharray="0.2 0.13" />
+          <circle cx="1" cy="1" r="0.12" fill="#b5622a" />
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="14">
+          <text x="492" y="221" fill="#3a6a4a">y = 0</text>
+          <text x="492" y="187" fill="#b5622a">y = 1</text>
+          <text x="492" y="119" fill="#3a5a7a">y = 3</text>
+          <text x="340" y="188" fill="#b5622a">(1,1)</text>
+        </g>
+      </svg>
+      <p class="schema-caption">Anche con una circonferenza in forma generale, la classificazione si fa sostituendo la retta e calcolando \(\Delta\).</p>
+    </div>
+  </template>
+
+  <template data-exercise-solution>
+    <section class="exercise-solution">
+      <h3>Svolgimento con il discriminante</h3>
+
+      <h4>Retta \(r_1:y=0\)</h4>
+      <p>Sostituiamo \(y=0\):</p>
+      \[
+        x^2+0^2-2x+4\cdot0-4=0
+      \]
+      \[
+        x^2-2x-4=0.
+      \]
+      \[
+        \Delta=(-2)^2-4\cdot1\cdot(-4)=4+16=20&gt;0.
+      \]
+      <p>Quindi \(r_1\) e' <strong>secante</strong>.</p>
+
+      <h4>Retta \(r_2:y=1\)</h4>
+      \[
+        x^2+1-2x+4-4=0
+      \]
+      \[
+        x^2-2x+1=0.
+      \]
+      \[
+        \Delta=(-2)^2-4\cdot1\cdot1=4-4=0.
+      \]
+      <p>Quindi \(r_2\) e' <strong>tangente</strong>.</p>
+      \[
+        x=\frac{2}{2}=1.
+      \]
+      <p>Il punto di tangenza e' \((1,1)\).</p>
+
+      <h4>Retta \(r_3:y=3\)</h4>
+      \[
+        x^2+9-2x+12-4=0
+      \]
+      \[
+        x^2-2x+17=0.
+      \]
+      \[
+        \Delta=(-2)^2-4\cdot1\cdot17=4-68=-64&lt;0.
+      \]
+      <p>Quindi \(r_3\) e' <strong>esterna</strong>.</p>
+    </section>
+
+    <section class="exercise-result">
+      <h3>Risultato finale</h3>
+      <ul>
+        <li>\(y=0\): secante.</li>
+        <li>\(y=1\): tangente nel punto \((1,1)\).</li>
+        <li>\(y=3\): esterna.</li>
+      </ul>
+    </section>
+  </template>
+</article>

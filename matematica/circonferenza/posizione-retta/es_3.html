@@ -2,169 +2,133 @@
   <script type="application/json" class="exercise-metadata">
   {
     "id": "es_3",
-    "title": "Circonferenza non centrata e retta secante — metodo del discriminante",
+    "title": "Circonferenza non centrata nell'origine e retta obliqua",
     "order": 3,
     "macroCategory": "matematica",
     "categoryPath": "matematica/circonferenza/posizione-retta",
+    "subject": "Matematica",
+    "category": "Circonferenza",
     "topic": "Posizione reciproca retta-circonferenza",
     "difficulty": "medio",
-    "tags": ["circonferenza", "retta", "sistema", "discriminante", "secante", "corda", "intersezioni"],
+    "level": "intermedio",
+    "schoolYear": "Terza superiore",
+    "estimatedTime": "14 min",
+    "tags": ["circonferenza", "retta", "discriminante", "sistema", "secante", "corda"],
     "hasImages": true
   }
   </script>
 
   <template data-exercise-statement>
     <section class="exercise-text">
-      <h2>Esercizio 3 — Circonferenza non centrata e retta secante</h2>
+      <h2>Esercizio 3 - Circonferenza non centrata nell'origine</h2>
       <p>
-        Data la circonferenza
-        \[
-          \mathcal{C}:(x-3)^2+(y+1)^2=20
-        \]
-        e la retta
-        \[
-          r:2x-y-9=0,
-        \]
-        determina con il metodo del discriminante la posizione reciproca tra la retta e la circonferenza. Se la retta è secante, calcola anche i punti di intersezione e la lunghezza della corda.
+        Data la circonferenza \(\mathcal{C}: (x-3)^2+(y+1)^2=20\) e la retta
+        \(r: 2x-y-9=0\), determina la posizione reciproca di \(r\) rispetto a
+        \(\mathcal{C}\). Se la retta e' secante, calcola anche la lunghezza
+        della corda.
       </p>
     </section>
 
     <section class="exercise-data">
       <h3>Dati</h3>
       <ul>
-        <li>Circonferenza: \((x-3)^2+(y+1)^2=20\).</li>
-        <li>Retta: \(2x-y-9=0\), cioè \(y=2x-9\).</li>
+        <li>Circonferenza: \((x-3)^2+(y+1)^2=20\)</li>
+        <li>Retta: \(2x-y-9=0\), cioe' \(y=2x-9\)</li>
       </ul>
     </section>
 
-    <section class="exercise-request">
-      <h3>Richiesta</h3>
-      <ol>
-        <li>Costruire l'equazione risolvente tramite sostituzione.</li>
-        <li>Studiare il discriminante \(\Delta\).</li>
-        <li>Determinare eventuali punti di intersezione e lunghezza della corda.</li>
-      </ol>
-    </section>
-
-    <section class="exercise-figure">
-      <h3>Figura</h3>
-      <div class="schema-wrap" role="img" aria-label="Circonferenza con centro tre meno uno e retta due x meno y meno nove uguale zero secante">
-        <svg viewBox="0 0 660 500" xmlns="http://www.w3.org/2000/svg">
-          <rect width="660" height="500" rx="18" fill="#fbf8f1" />
-          <g transform="translate(250 260) scale(34 -34)">
-            <g stroke="#d9cfbd" stroke-width="0.025">
-              <path d="M -4 -6 H 10 M -4 -5 H 10 M -4 -4 H 10 M -4 -3 H 10 M -4 -2 H 10 M -4 -1 H 10 M -4 0 H 10 M -4 1 H 10 M -4 2 H 10 M -4 3 H 10 M -4 4 H 10 M -4 5 H 10 M -4 6 H 10" />
-              <path d="M -4 -6 V 6 M -3 -6 V 6 M -2 -6 V 6 M -1 -6 V 6 M 0 -6 V 6 M 1 -6 V 6 M 2 -6 V 6 M 3 -6 V 6 M 4 -6 V 6 M 5 -6 V 6 M 6 -6 V 6 M 7 -6 V 6 M 8 -6 V 6 M 9 -6 V 6 M 10 -6 V 6" />
-            </g>
-            <line x1="-4.2" y1="0" x2="10.2" y2="0" stroke="#3d3530" stroke-width="0.055" />
-            <line x1="0" y1="-6.2" x2="0" y2="6.2" stroke="#3d3530" stroke-width="0.055" />
-            <circle cx="3" cy="-1" r="4.4721" fill="none" stroke="#8b3a2a" stroke-width="0.09" />
-            <line x1="1.5" y1="-6" x2="6" y2="3" stroke="#3a6a4a" stroke-width="0.08" />
-            <circle cx="1.8404" cy="-5.3192" r="0.12" fill="#3a6a4a" />
-            <circle cx="5.7596" cy="2.5192" r="0.12" fill="#3a6a4a" />
-            <circle cx="3" cy="-1" r="0.12" fill="#1a1612" />
-          </g>
-          <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#1a1612">
-            <text x="594" y="263">x</text>
-            <text x="256" y="35">y</text>
-            <text x="350" y="300">C(3,-1)</text>
-            <text x="438" y="175" fill="#3a6a4a">r: 2x-y-9=0</text>
-            <text x="80" y="448" fill="#3a6a4a">A</text>
-            <text x="444" y="170" fill="#3a6a4a">B</text>
-          </g>
-          <text x="330" y="472" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#7a6f65">
-            Il discriminante positivo corrisponde a due punti reali di intersezione.
-          </text>
-        </svg>
-        <p class="schema-caption">Schema qualitativo: la retta taglia la circonferenza in due punti.</p>
-      </div>
-    </section>
+    <div class="schema-wrap" role="img" aria-label="Circonferenza e retta secante">
+      <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="640" height="420" rx="14" fill="#fbf8f1" />
+        <g transform="translate(250 210) scale(30 -30)">
+          <line x1="-5" y1="0" x2="11" y2="0" stroke="#3d3530" stroke-width="0.055" />
+          <line x1="0" y1="-6" x2="0" y2="6" stroke="#3d3530" stroke-width="0.055" />
+          <circle cx="3" cy="-1" r="4.472" fill="none" stroke="#8b3a2a" stroke-width="0.095" />
+          <line x1="-1" y1="-11" x2="8" y2="7" stroke="#3a5a7a" stroke-width="0.08" />
+          <circle cx="1.84" cy="-5.32" r="0.12" fill="#3a6a4a" />
+          <circle cx="5.76" cy="2.52" r="0.12" fill="#3a6a4a" />
+          <circle cx="3" cy="-1" r="0.12" fill="#1a1612" />
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="14" fill="#1a1612">
+          <text x="352" y="244">C(3,-1)</text>
+          <text x="442" y="120" fill="#3a5a7a">r: 2x - y - 9 = 0</text>
+          <text x="296" y="365" fill="#3a6a4a">A</text>
+          <text x="430" y="137" fill="#3a6a4a">B</text>
+        </g>
+      </svg>
+      <p class="schema-caption">La figura mostra che la retta taglia la circonferenza in due punti; lo confermeremo con \(\Delta&gt;0\).</p>
+    </div>
   </template>
 
   <template data-exercise-solution>
     <section class="exercise-solution">
-      <h3>Svolgimento</h3>
+      <h3>Svolgimento con il discriminante</h3>
 
-      <h4>Passo 1 — Esplicitazione della retta</h4>
+      <h4>Passo 1 - Sostituzione della retta</h4>
       <p>Dalla retta \(2x-y-9=0\) ricaviamo:</p>
       \[
         y=2x-9.
       \]
-
-      <h4>Passo 2 — Sostituzione nella circonferenza</h4>
-      <p>Sostituiamo \(y=2x-9\) in \((x-3)^2+(y+1)^2=20\):</p>
+      <p>Sostituiamo nella circonferenza:</p>
       \[
-        (x-3)^2+(2x-9+1)^2=20.
+        (x-3)^2+\bigl((2x-9)+1\bigr)^2=20
       \]
-      <p>Poiché \(2x-9+1=2x-8\), otteniamo:</p>
       \[
         (x-3)^2+(2x-8)^2=20.
       \]
-      <p>Sviluppiamo:</p>
+
+      <h4>Passo 2 - Equazione di secondo grado</h4>
       \[
-        x^2-6x+9+4x^2-32x+64=20.
+        x^2-6x+9+4x^2-32x+64=20
       \]
-      <p>Portando tutto al primo membro:</p>
       \[
         5x^2-38x+53=0.
       \]
 
-      <h4>Passo 3 — Discriminante</h4>
-      <p>L'equazione ha coefficienti \(a=5\), \(b=-38\), \(c=53\). Quindi:</p>
+      <h4>Passo 3 - Calcolo del discriminante</h4>
       \[
-        \Delta=b^2-4ac=(-38)^2-4\cdot 5\cdot 53.
+        \Delta=(-38)^2-4\cdot5\cdot53=1444-1060=384.
       \]
-      \[
-        \Delta=1444-1060=384&gt;0.
-      \]
-      <p>Poiché \(\Delta&gt;0\), la retta è <strong>secante</strong>.</p>
+      <p>Poiche' \(\Delta&gt;0\), la retta e' <strong>secante</strong>.</p>
 
-      <h4>Passo 4 — Punti di intersezione</h4>
-      <p>Risolviamo l'equazione:</p>
+      <h4>Passo 4 - Punti di intersezione</h4>
       \[
-        x=\frac{38\pm\sqrt{384}}{10}.
+        x=\frac{38\pm\sqrt{384}}{10}
+         =\frac{38\pm8\sqrt6}{10}
+         =\frac{19\pm4\sqrt6}{5}.
       \]
-      <p>Dato che \(\sqrt{384}=8\sqrt{6}\), segue:</p>
+      <p>Usando \(y=2x-9\):</p>
       \[
-        x=\frac{38\pm 8\sqrt{6}}{10}=\frac{19\pm 4\sqrt{6}}{5}.
+        y=\frac{-7\pm8\sqrt6}{5}.
       \]
-      <p>Ora calcoliamo \(y=2x-9\):</p>
+      <p>I punti sono quindi:</p>
       \[
-        y=2\cdot \frac{19\pm 4\sqrt{6}}{5}-9
-        =\frac{38\pm 8\sqrt{6}-45}{5}
-        =\frac{-7\pm 8\sqrt{6}}{5}.
-      \]
-      <p>I punti di intersezione sono quindi</p>
-      \[
-        A\left(\frac{19-4\sqrt{6}}{5},\frac{-7-8\sqrt{6}}{5}\right),
+        A\left(\frac{19-4\sqrt6}{5},\,\frac{-7-8\sqrt6}{5}\right),
         \qquad
-        B\left(\frac{19+4\sqrt{6}}{5},\frac{-7+8\sqrt{6}}{5}\right).
+        B\left(\frac{19+4\sqrt6}{5},\,\frac{-7+8\sqrt6}{5}\right).
       \]
 
-      <h4>Passo 5 — Lunghezza della corda</h4>
-      <p>La lunghezza della corda è la distanza tra i due punti. Le differenze tra le coordinate sono:</p>
+      <h4>Passo 5 - Lunghezza della corda</h4>
+      <p>La corda e' il segmento \(AB\). Calcoliamo le differenze tra le coordinate:</p>
       \[
-        \Delta x=\frac{8\sqrt{6}}{5},\qquad
-        \Delta y=\frac{16\sqrt{6}}{5}.
-      \]
-      <p>Quindi:</p>
-      \[
-        AB=\sqrt{\left(\frac{8\sqrt{6}}{5}\right)^2+\left(\frac{16\sqrt{6}}{5}\right)^2}
-        =\sqrt{\frac{384}{25}+\frac{1536}{25}}
-        =\sqrt{\frac{1920}{25}}.
+        \Delta x=\frac{8\sqrt6}{5}, \qquad
+        \Delta y=\frac{16\sqrt6}{5}.
       \]
       \[
-        AB=\frac{\sqrt{1920}}{5}=\frac{8\sqrt{30}}{5}.
+        AB=\sqrt{\left(\frac{8\sqrt6}{5}\right)^2+
+        \left(\frac{16\sqrt6}{5}\right)^2}
+        =\sqrt{\frac{1920}{25}}
+        =\frac{8\sqrt{30}}{5}.
       \]
     </section>
 
     <section class="exercise-result">
-      <h3>Risultato finale</h3>
+      <h3>Risultato</h3>
       <ul>
-        <li>Equazione risolvente: \(5x^2-38x+53=0\).</li>
-        <li>\(\Delta=384&gt;0\), quindi la retta è <strong>secante</strong>.</li>
-        <li>Intersezioni: \(A\left(\frac{19-4\sqrt{6}}{5},\frac{-7-8\sqrt{6}}{5}\right)\), \(B\left(\frac{19+4\sqrt{6}}{5},\frac{-7+8\sqrt{6}}{5}\right)\).</li>
-        <li>Lunghezza della corda: \(AB=\dfrac{8\sqrt{30}}{5}\).</li>
+        <li>\(\Delta=384&gt;0\), quindi la retta e' <strong>secante</strong>.</li>
+        <li>\(A\left(\frac{19-4\sqrt6}{5},\frac{-7-8\sqrt6}{5}\right)\)</li>
+        <li>\(B\left(\frac{19+4\sqrt6}{5},\frac{-7+8\sqrt6}{5}\right)\)</li>
+        <li>Lunghezza della corda: \(AB=\frac{8\sqrt{30}}{5}\).</li>
       </ul>
     </section>
   </template>
