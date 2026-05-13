@@ -1,0 +1,119 @@
+<article class="exercise exercise-card" data-exercise-id="es_5">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_5",
+    "title": "Forma indeterminata meno infinito più infinito con polinomi",
+    "order": 5,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/limiti",
+    "topic": "Forme indeterminate",
+    "difficulty": "facile",
+    "tags": ["limiti", "forme indeterminate", "meno infinito più infinito", "polinomi"],
+    "hasImages": false,
+    "description": "Limite di una somma di polinomi in forma meno infinito più infinito risolto tramite riduzione dei termini simili."
+  }
+  </script>
+
+  <header class="exercise-header">
+    <span class="exercise-badge">Facile</span>
+    <h2 class="exercise-title">Esercizio 5 — Forma indeterminata \( -\infty + \infty \)</h2>
+  </header>
+
+  <section class="exercise-text">
+    <p>Calcolare il seguente limite:</p>
+    \[
+      \lim_{x \to +\infty}
+      \left[
+        \left(-4x^3 + 2x^2 - 7x + 5\right)
+        +
+        \left(4x^3 - 2x^2 + 7x - 9\right)
+      \right]
+    \]
+  </section>
+
+  <section class="exercise-request">
+    <h3>Obiettivo</h3>
+    <p>
+      Risolvere una forma indeterminata del tipo \( -\infty + \infty \), evitando di trattare gli infiniti come numeri ordinari.
+    </p>
+  </section>
+
+  <section class="exercise-solution">
+    <h3>Metodo scelto</h3>
+    <p>
+      Consideriamo separatamente i due polinomi:
+    </p>
+    \[
+      -4x^3 + 2x^2 - 7x + 5
+    \]
+    <p>e</p>
+    \[
+      4x^3 - 2x^2 + 7x - 9.
+    \]
+
+    <p>
+      Per \(x \to +\infty\), il primo polinomio tende a \(-\infty\), perché il termine dominante è \(-4x^3\).
+      Il secondo polinomio tende invece a \(+\infty\), perché il termine dominante è \(4x^3\).
+      Il limite si presenta quindi nella forma indeterminata:
+    </p>
+    \[
+      -\infty + \infty.
+    \]
+
+    <h3>Svolgimento passo per passo</h3>
+    <p>Sommiamo i due polinomi raccogliendo i termini simili:</p>
+    \[
+      \left(-4x^3 + 2x^2 - 7x + 5\right)
+      +
+      \left(4x^3 - 2x^2 + 7x - 9\right)
+    \]
+
+    <p>Eliminiamo le parentesi:</p>
+    \[
+      -4x^3 + 2x^2 - 7x + 5
+      +
+      4x^3 - 2x^2 + 7x - 9
+    \]
+
+    <p>Ora raggruppiamo i termini dello stesso grado:</p>
+    \[
+      \left(-4x^3 + 4x^3\right)
+      +
+      \left(2x^2 - 2x^2\right)
+      +
+      \left(-7x + 7x\right)
+      +
+      \left(5 - 9\right)
+    \]
+
+    <p>I termini con \(x^3\), \(x^2\) e \(x\) si annullano:</p>
+    \[
+      0 + 0 + 0 - 4 = -4.
+    \]
+
+    <p>Quindi il limite diventa:</p>
+    \[
+      \lim_{x \to +\infty} (-4) = -4.
+    \]
+
+    <section class="exercise-result">
+      <div class="result-box">
+        <span class="res-label">Risultato finale</span>
+        <span class="res-value">
+          \[
+            \boxed{-4}
+          \]
+        </span>
+      </div>
+    </section>
+
+    <div class="concept-note">
+      <div class="cn-label">Osservazione</div>
+      <p>
+        Non bisogna scrivere \( -\infty + \infty = 0 \). Questa operazione non è definita.
+        La forma è indeterminata proprio perché dipende da come crescono i termini coinvolti.
+        In questo caso i termini divergenti si cancellano esattamente e rimane il valore costante \(-4\).
+      </p>
+    </div>
+  </section>
+</article>

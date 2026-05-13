@@ -1,0 +1,118 @@
+<article class="exercise exercise-card" data-exercise-id="es_4">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_4",
+    "title": "Forma indeterminata infinito su infinito con polinomi",
+    "order": 4,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/limiti",
+    "topic": "Forme indeterminate",
+    "difficulty": "facile",
+    "tags": ["limiti", "forme indeterminate", "infinito su infinito", "polinomi"],
+    "hasImages": false,
+    "description": "Limite razionale in forma infinito su infinito risolto dividendo per la massima potenza di x."
+  }
+  </script>
+
+  <header class="exercise-header">
+    <span class="exercise-badge">Facile</span>
+    <h2 class="exercise-title">Esercizio 4 — Forma indeterminata \( \infty/\infty \)</h2>
+  </header>
+
+  <section class="exercise-text">
+    <p>Calcolare il seguente limite:</p>
+    \[
+      \lim_{x \to +\infty} \frac{6x^4 - 3x^2 + 7}{2x^4 + 5x^3 - x + 1}
+    \]
+  </section>
+
+  <section class="exercise-request">
+    <h3>Obiettivo</h3>
+    <p>Risolvere una forma indeterminata del tipo \( \infty/\infty \), riconoscendo il termine dominante al numeratore e al denominatore.</p>
+  </section>
+
+  <section class="exercise-solution">
+    <h3>Metodo scelto</h3>
+    <p>
+      Poiché \(x \to +\infty\), sia il numeratore sia il denominatore tendono a \(+\infty\). 
+      Il limite si presenta quindi nella forma indeterminata
+      \[
+        \frac{\infty}{\infty}.
+      \]
+      Per eliminarla dividiamo tutti i termini per la massima potenza di \(x\) presente, cioè \(x^4\).
+    </p>
+
+    <h3>Svolgimento passo per passo</h3>
+    <p>Partiamo dal limite:</p>
+    \[
+      \lim_{x \to +\infty} \frac{6x^4 - 3x^2 + 7}{2x^4 + 5x^3 - x + 1}
+    \]
+
+    <p>Dividiamo numeratore e denominatore per \(x^4\):</p>
+    \[
+      \lim_{x \to +\infty}
+      \frac{
+        \frac{6x^4}{x^4} - \frac{3x^2}{x^4} + \frac{7}{x^4}
+      }{
+        \frac{2x^4}{x^4} + \frac{5x^3}{x^4} - \frac{x}{x^4} + \frac{1}{x^4}
+      }
+    \]
+
+    <p>Semplificando otteniamo:</p>
+    \[
+      \lim_{x \to +\infty}
+      \frac{
+        6 - \frac{3}{x^2} + \frac{7}{x^4}
+      }{
+        2 + \frac{5}{x} - \frac{1}{x^3} + \frac{1}{x^4}
+      }
+    \]
+
+    <p>
+      Quando \(x \to +\infty\), tutte le frazioni del tipo \(1/x^n\), con \(n>0\), tendono a \(0\):
+    </p>
+    \[
+      \frac{3}{x^2} \to 0,
+      \qquad
+      \frac{7}{x^4} \to 0,
+      \qquad
+      \frac{5}{x} \to 0,
+      \qquad
+      \frac{1}{x^3} \to 0,
+      \qquad
+      \frac{1}{x^4} \to 0.
+    \]
+
+    <p>Quindi il limite diventa:</p>
+    \[
+      \frac{6 - 0 + 0}{2 + 0 - 0 + 0}
+      =
+      \frac{6}{2}
+      =
+      3.
+    \]
+
+    <section class="exercise-result">
+      <div class="result-box">
+        <span class="res-label">Risultato finale</span>
+        <span class="res-value">
+          \[
+            \boxed{3}
+          \]
+        </span>
+      </div>
+    </section>
+
+    <div class="concept-note">
+      <div class="cn-label">Osservazione</div>
+      <p>
+        Nei limiti razionali per \(x \to \pm\infty\), se numeratore e denominatore hanno lo stesso grado,
+        il limite è il rapporto tra i coefficienti dei termini di grado massimo.
+        In questo caso:
+        \[
+          \frac{6x^4}{2x^4} \to \frac{6}{2}=3.
+        \]
+      </p>
+    </div>
+  </section>
+</article>

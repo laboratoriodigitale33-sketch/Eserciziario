@@ -111,14 +111,16 @@
         "zero su zero",
         "scomposizione",
         "infinito su infinito",
-        "funzioni razionali"
+        "funzioni razionali",
+        "forme indeterminate",
+        "meno infinito più infinito"
       ],
       "level": "base",
       "schoolYear": "Quinta superiore",
-      "estimatedTime": "3 esercizi",
+      "estimatedTime": "5 esercizi",
       "file": "matematica/limiti/index.html",
       "manifest": "matematica/limiti/limiti.json",
-      "count": 3,
+      "count": 5,
       "isCollection": true,
       "isWip": false
     }
