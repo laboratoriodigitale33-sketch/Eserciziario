@@ -117,14 +117,17 @@
         "geometria analitica",
         "equazione della circonferenza",
         "assi cartesiani",
-        "sistema"
+        "sistema",
+        "equazione",
+        "termine noto",
+        "sistema lineare"
       ],
       "level": "",
       "schoolYear": "",
-      "estimatedTime": "3 esercizi",
+      "estimatedTime": "5 esercizi",
       "file": "matematica/circonferenza/equazione-circonferenza/index.html",
       "manifest": "matematica/circonferenza/equazione-circonferenza/exercises.json",
-      "count": 3,
+      "count": 5,
       "isCollection": true,
       "isWip": false
     },
