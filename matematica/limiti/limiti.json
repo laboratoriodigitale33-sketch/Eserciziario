@@ -1,38 +1,87 @@
 {
   "category": "Limiti",
   "slug": "limiti",
-  "path": "C:/Users/rober/OneDrive/Desktop/Eserciziario/matematica/limiti",
+  "path": "matematica/limiti",
   "count": 3,
   "exercises": [
     {
-      "id": "limite-01-polinomio",
       "title": "Limite di un polinomio",
-      "topic": "",
-      "subtopic": "",
-      "difficulty": "",
-      "order": null,
-      "tags": [],
-      "file": "limite-01-polinomio.html"
+      "description": "Calcolo di un limite finito usando la continuità dei polinomi.",
+      "subject": "Matematica",
+      "category": "Analisi",
+      "topic": "Limiti",
+      "collection": "Limiti",
+      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
+      "icon": "∞",
+      "order": 10,
+      "tags": [
+        "limiti",
+        "polinomi",
+        "continuità"
+      ],
+      "level": "base",
+      "schoolYear": "Quinta superiore",
+      "estimatedTime": "5 min",
+      "isWip": false,
+      "id": "limite-01-polinomio",
+      "file": "limite-01-polinomio.html",
+      "source": "limite-01-polinomio.html",
+      "sourceFormat": "metadata"
     },
     {
+      "title": "Forma indeterminata 0/0",
+      "description": "Limite razionale risolto tramite differenza di quadrati.",
+      "subject": "Matematica",
+      "category": "Analisi",
+      "topic": "Limiti",
+      "collection": "Limiti",
+      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
+      "icon": "∞",
+      "order": 20,
+      "tags": [
+        "limiti",
+        "zero su zero",
+        "scomposizione"
+      ],
+      "level": "base",
+      "schoolYear": "Quinta superiore",
+      "estimatedTime": "6 min",
+      "isWip": false,
       "id": "limite-02-zero-su-zero",
-      "title": "Forma 0/0",
-      "topic": "",
-      "subtopic": "",
-      "difficulty": "",
-      "order": null,
-      "tags": [],
-      "file": "limite-02-zero-su-zero.html"
+      "file": "limite-02-zero-su-zero.html",
+      "source": "limite-02-zero-su-zero.html",
+      "sourceFormat": "metadata"
     },
     {
+      "title": "Forma indeterminata infinito su infinito",
+      "description": "Limite di una funzione razionale per x che tende a infinito, risolto confrontando i termini di grado massimo.",
+      "subject": "Matematica",
+      "category": "Analisi",
+      "topic": "Limiti",
+      "collection": "Limiti",
+      "collectionDescription": "Esercizi svolti sui limiti con soluzioni espandibili.",
+      "icon": "∞",
+      "order": 30,
+      "tags": [
+        "limiti",
+        "infinito su infinito",
+        "polinomi",
+        "funzioni razionali"
+      ],
+      "level": "base",
+      "schoolYear": "Quinta superiore",
+      "estimatedTime": "7 min",
+      "isWip": false,
       "id": "limite-03-infinito-su-infinito",
-      "title": "Forma infinito su infinito",
-      "topic": "",
-      "subtopic": "",
-      "difficulty": "",
-      "order": null,
-      "tags": [],
-      "file": "limite-03-infinito-su-infinito.html"
+      "file": "limite-03-infinito-su-infinito.html",
+      "source": "limite-03-infinito-su-infinito.html",
+      "sourceFormat": "metadata"
     }
-  ]
+  ],
+  "generator": "generate_exercises.py",
+  "title": "Limiti",
+  "subject": "Matematica",
+  "topic": "Limiti",
+  "description": "Raccolta di esercizi svolti: 3 esercizi con testo e soluzione espandibile.",
+  "sourceDir": "."
 }
