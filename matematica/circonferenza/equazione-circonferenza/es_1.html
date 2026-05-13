@@ -1,0 +1,230 @@
+<article class="exercise exercise-card" data-exercise-id="es_1">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_1",
+    "title": "Equazione della circonferenza passante per tre punti con coordinate semplici",
+    "order": 1,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/circonferenza/equazione-circonferenza",
+    "topic": "Equazione della circonferenza",
+    "difficulty": "facile",
+    "tags": ["circonferenza", "tre punti", "geometria analitica", "equazione della circonferenza"],
+    "hasImages": true
+  }
+  </script>
+
+  <header class="exercise-header">
+    <h2>Esercizio 1 — Circonferenza passante per \(A(0,0)\), \(B(4,0)\), \(C(0,2)\)</h2>
+  </header>
+
+  <section class="exercise-text">
+    <p>
+      Determinare l’equazione della circonferenza passante per i tre punti
+      \(A(0,0)\), \(B(4,0)\) e \(C(0,2)\).
+    </p>
+  </section>
+
+  <section class="exercise-data">
+    <h3>Dati</h3>
+    <ul>
+      <li>\(A(0,0)\)</li>
+      <li>\(B(4,0)\)</li>
+      <li>\(C(0,2)\)</li>
+    </ul>
+
+    <figure class="schema-wrap">
+      <svg viewBox="0 0 520 380" role="img" aria-labelledby="schema-title-es-1">
+        <title id="schema-title-es-1">Schema della circonferenza passante per i punti A, B e C</title>
+
+        <!-- sfondo -->
+        <rect x="0" y="0" width="520" height="380" fill="#ffffff"/>
+
+        <!-- griglia -->
+        <g stroke="#e6e6e6" stroke-width="1">
+          <line x1="80" y1="40" x2="80" y2="320"/>
+          <line x1="120" y1="40" x2="120" y2="320"/>
+          <line x1="160" y1="40" x2="160" y2="320"/>
+          <line x1="200" y1="40" x2="200" y2="320"/>
+          <line x1="240" y1="40" x2="240" y2="320"/>
+          <line x1="280" y1="40" x2="280" y2="320"/>
+          <line x1="320" y1="40" x2="320" y2="320"/>
+          <line x1="360" y1="40" x2="360" y2="320"/>
+          <line x1="400" y1="40" x2="400" y2="320"/>
+          <line x1="440" y1="40" x2="440" y2="320"/>
+
+          <line x1="80" y1="40" x2="440" y2="40"/>
+          <line x1="80" y1="80" x2="440" y2="80"/>
+          <line x1="80" y1="120" x2="440" y2="120"/>
+          <line x1="80" y1="160" x2="440" y2="160"/>
+          <line x1="80" y1="200" x2="440" y2="200"/>
+          <line x1="80" y1="240" x2="440" y2="240"/>
+          <line x1="80" y1="280" x2="440" y2="280"/>
+          <line x1="80" y1="320" x2="440" y2="320"/>
+        </g>
+
+        <!-- assi -->
+        <g stroke="#333333" stroke-width="2">
+          <line x1="80" y1="200" x2="450" y2="200"/>
+          <line x1="120" y1="330" x2="120" y2="30"/>
+        </g>
+
+        <!-- frecce assi -->
+        <g fill="#333333">
+          <polygon points="450,200 440,195 440,205"/>
+          <polygon points="120,30 115,40 125,40"/>
+        </g>
+
+        <!-- etichette assi -->
+        <text x="455" y="205" font-size="16" fill="#333333">x</text>
+        <text x="126" y="28" font-size="16" fill="#333333">y</text>
+
+        <!-- circonferenza: centro (2,1), raggio sqrt(5) -->
+        <circle cx="200" cy="160" r="89.44" fill="none" stroke="#2b6cb0" stroke-width="3"/>
+
+        <!-- punti -->
+        <g fill="#c53030">
+          <circle cx="120" cy="200" r="5"/>
+          <circle cx="280" cy="200" r="5"/>
+          <circle cx="120" cy="120" r="5"/>
+        </g>
+
+        <!-- centro -->
+        <g fill="#2f855a">
+          <circle cx="200" cy="160" r="4.5"/>
+        </g>
+
+        <!-- etichette -->
+        <text x="100" y="218" font-size="16" fill="#111111">A(0,0)</text>
+        <text x="288" y="218" font-size="16" fill="#111111">B(4,0)</text>
+        <text x="128" y="112" font-size="16" fill="#111111">C(0,2)</text>
+        <text x="208" y="154" font-size="15" fill="#2f855a">Centro \((2,1)\)</text>
+
+        <!-- tacche e numeri asse x -->
+        <g font-size="13" fill="#555555">
+          <text x="115" y="218">0</text>
+          <text x="155" y="218">1</text>
+          <text x="195" y="218">2</text>
+          <text x="235" y="218">3</text>
+          <text x="275" y="218">4</text>
+          <text x="315" y="218">5</text>
+          <text x="355" y="218">6</text>
+          <text x="395" y="218">7</text>
+        </g>
+
+        <!-- tacche e numeri asse y -->
+        <g font-size="13" fill="#555555">
+          <text x="100" y="204">0</text>
+          <text x="100" y="164">1</text>
+          <text x="100" y="124">2</text>
+          <text x="100" y="84">3</text>
+          <text x="96" y="244">-1</text>
+          <text x="96" y="284">-2</text>
+        </g>
+      </svg>
+      <figcaption>Rappresentazione qualitativa dei tre punti e della circonferenza cercata.</figcaption>
+    </figure>
+  </section>
+
+  <section class="exercise-request">
+    <h3>Obiettivo</h3>
+    <p>
+      Trovare l’equazione della circonferenza nella forma generale
+      \[
+      x^2+y^2+ax+by+c=0.
+      \]
+    </p>
+  </section>
+
+  <section class="exercise-solution">
+    <h3>Soluzione</h3>
+
+    <p>
+      Usiamo la forma generale della circonferenza:
+      \[
+      x^2+y^2+ax+by+c=0.
+      \]
+      Poiché la circonferenza passa per i tre punti dati, le loro coordinate devono soddisfare l’equazione.
+    </p>
+
+    <h4>1. Sostituzione del punto \(A(0,0)\)</h4>
+    <p>
+      Sostituendo \(x=0\), \(y=0\), otteniamo:
+      \[
+      0^2+0^2+a\cdot 0+b\cdot 0+c=0
+      \quad \Rightarrow \quad c=0.
+      \]
+    </p>
+
+    <h4>2. Sostituzione del punto \(B(4,0)\)</h4>
+    <p>
+      Sostituendo \(x=4\), \(y=0\):
+      \[
+      4^2+0^2+4a+0+c=0.
+      \]
+      Siccome \(c=0\), segue:
+      \[
+      16+4a=0
+      \quad \Rightarrow \quad a=-4.
+      \]
+    </p>
+
+    <h4>3. Sostituzione del punto \(C(0,2)\)</h4>
+    <p>
+      Sostituendo \(x=0\), \(y=2\):
+      \[
+      0^2+2^2+0+2b+c=0.
+      \]
+      Con \(c=0\):
+      \[
+      4+2b=0
+      \quad \Rightarrow \quad b=-2.
+      \]
+    </p>
+
+    <h4>4. Equazione della circonferenza</h4>
+    <p>
+      Sostituendo i valori trovati:
+      \[
+      a=-4, \qquad b=-2, \qquad c=0,
+      \]
+      otteniamo:
+      \[
+      x^2+y^2-4x-2y=0.
+      \]
+    </p>
+
+    <h4>5. Controllo con il completamento del quadrato</h4>
+    <p>
+      Riscriviamo l’equazione:
+      \[
+      x^2-4x+y^2-2y=0
+      \]
+      \[
+      (x^2-4x+4)+(y^2-2y+1)=5
+      \]
+      \[
+      (x-2)^2+(y-1)^2=5.
+      \]
+      Quindi il centro è \(C(2,1)\) e il raggio è
+      \[
+      r=\sqrt{5}.
+      \]
+    </p>
+
+    <section class="exercise-result">
+      <h3>Risultato finale</h3>
+      <p>
+        L’equazione della circonferenza è
+        \[
+        \boxed{x^2+y^2-4x-2y=0}.
+        \]
+      </p>
+      <p>
+        In forma canonica:
+        \[
+        \boxed{(x-2)^2+(y-1)^2=5}.
+        \]
+      </p>
+    </section>
+  </section>
+</article>
