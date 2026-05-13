@@ -103,6 +103,32 @@
       "isWip": false
     },
     {
+      "id": "matematica-circonferenza-equazione-circonferenza",
+      "title": "Equazione Circonferenza",
+      "description": "Raccolta di esercizi svolti: 3 esercizi con testo e soluzione espandibile.",
+      "subject": "Matematica",
+      "category": "Circonferenza",
+      "topic": "Equazione Circonferenza",
+      "icon": "",
+      "order": 30,
+      "tags": [
+        "circonferenza",
+        "tre punti",
+        "geometria analitica",
+        "equazione della circonferenza",
+        "assi cartesiani",
+        "sistema"
+      ],
+      "level": "",
+      "schoolYear": "",
+      "estimatedTime": "3 esercizi",
+      "file": "matematica/circonferenza/equazione-circonferenza/index.html",
+      "manifest": "matematica/circonferenza/equazione-circonferenza/exercises.json",
+      "count": 3,
+      "isCollection": true,
+      "isWip": false
+    },
+    {
       "id": "matematica-circonferenza-posizione-retta",
       "title": "Posizione reciproca retta-circonferenza",
       "description": "Raccolta di 7 esercizi svolti sulla posizione reciproca tra una retta e una circonferenza, risolti con sostituzione e metodo del discriminante. Ogni esercizio presenta testo, dati, figura, svolgimento simbolico e risultato.",
@@ -110,7 +136,7 @@
       "category": "Circonferenza",
       "topic": "Posizione reciproca retta-circonferenza",
       "icon": "⭕",
-      "order": 30,
+      "order": 40,
       "tags": [
         "circonferenza",
         "retta",
@@ -142,7 +168,7 @@
       "category": "Limiti",
       "topic": "Limiti",
       "icon": "∞",
-      "order": 40,
+      "order": 50,
       "tags": [
         "limiti",
         "polinomi",
