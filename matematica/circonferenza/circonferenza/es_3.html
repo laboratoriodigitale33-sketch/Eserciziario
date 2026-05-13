@@ -1,0 +1,105 @@
+<article class="exercise" data-exercise-id="es_3">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_3",
+    "title": "Circonferenza non centrata nell'origine e retta obliqua",
+    "order": 3,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/circonferenza/posizione-retta",
+    "topic": "Posizione reciproca retta-circonferenza",
+    "difficulty": "medio",
+    "tags": ["circonferenza", "retta", "distanza punto-retta", "centro", "raggio", "forma canonica"],
+    "hasImages": true
+  }
+  </script>
+
+  <header class="exercise-header">
+    <h2>Esercizio 3 — Circonferenza non centrata nell'origine</h2>
+  </header>
+
+  <section class="exercise-text">
+    <p>
+      Data la circonferenza \(\mathcal{C}: (x-3)^2 + (y+1)^2 = 20\) e la retta
+      \(r: 2x - y - 9 = 0\), determina la posizione reciproca di \(r\) rispetto a \(\mathcal{C}\).
+      Se la retta è secante, calcola anche la lunghezza della corda.
+    </p>
+  </section>
+
+  <section class="exercise-data">
+    <h3>Dati</h3>
+    <ul>
+      <li>Circonferenza in forma canonica: \((x-3)^2 + (y+1)^2 = 20\)</li>
+      <li>Centro: \(C = (3,\, -1)\), &nbsp; raggio: \(r = \sqrt{20} = 2\sqrt{5}\)</li>
+      <li>Retta: \(2x - y - 9 = 0\)</li>
+    </ul>
+  </section>
+
+  <section class="exercise-request">
+    <h3>Richiesta</h3>
+    <ol>
+      <li>Classificare la posizione della retta rispetto alla circonferenza.</li>
+      <li>Se secante, calcolare la lunghezza della corda individuata.</li>
+    </ol>
+  </section>
+
+  <section class="exercise-solution">
+    <h3>Svolgimento</h3>
+
+    <h4>Passo 1 — Lettura dei dati dalla forma canonica</h4>
+    <p>
+      L'equazione \((x-3)^2 + (y+1)^2 = 20\) è già in forma canonica \((x - x_0)^2 + (y - y_0)^2 = r^2\).
+      Quindi:
+    </p>
+    \[
+      C = (3,\, -1), \qquad r = \sqrt{20} = 2\sqrt{5} \approx 4{,}47
+    \]
+
+    <h4>Passo 2 — Distanza del centro dalla retta</h4>
+    <p>La retta è \(2x - y - 9 = 0\), con \(a = 2\), \(b = -1\), \(c = -9\). Applico la formula:</p>
+    \[
+      d = \frac{|a \cdot x_C + b \cdot y_C + c|}{\sqrt{a^2 + b^2}}
+       = \frac{|2 \cdot 3 + (-1)(-1) + (-9)|}{\sqrt{4 + 1}}
+       = \frac{|6 + 1 - 9|}{\sqrt{5}}
+       = \frac{|-2|}{\sqrt{5}}
+       = \frac{2}{\sqrt{5}}
+       = \frac{2\sqrt{5}}{5}
+    \]
+
+    <h4>Passo 3 — Confronto con il raggio</h4>
+    <p>Confronto \(d\) con \(r = 2\sqrt{5}\):</p>
+    \[
+      d = \frac{2\sqrt{5}}{5} \approx 0{,}894 \qquad \ll \qquad r = 2\sqrt{5} \approx 4{,}47
+    \]
+    <p>Poiché \(d < r\), la retta è <strong>secante</strong>.</p>
+
+    <h4>Passo 4 — Lunghezza della corda</h4>
+    <p>
+      Quando la retta è secante, la distanza \(d\) dal centro alla retta è la distanza tra il centro
+      e il punto medio della corda. Usando il teorema di Pitagora nel triangolo rettangolo formato
+      da \(r\), \(d\) e metà-corda \(\ell/2\):
+    </p>
+    \[
+      \left(\frac{\ell}{2}\right)^2 = r^2 - d^2 = 20 - \frac{4 \cdot 5}{25} = 20 - \frac{4}{5} = \frac{96}{5}
+    \]
+    \[
+      \frac{\ell}{2} = \sqrt{\frac{96}{5}} = \frac{4\sqrt{6}}{\sqrt{5}} = \frac{4\sqrt{30}}{5}
+    \]
+    \[
+      \ell = \frac{8\sqrt{30}}{5} \approx \frac{8 \times 5{,}477}{5} \approx 8{,}76
+    \]
+
+    <div class="schema-wrap">
+      <img src="assets/schema_es_3.svg" alt="Schema con circonferenza centrata in (3,-1), retta 2x-y-9=0 secante, distanza d dal centro e corda di lunghezza ℓ">
+      <p class="schema-caption">Il segmento \(d\) è perpendicolare alla corda e congiunge il centro \(C\) al punto medio della corda</p>
+    </div>
+  </section>
+
+  <section class="exercise-result">
+    <h3>Risultato</h3>
+    <ul>
+      <li>La retta \(2x - y - 9 = 0\) è <strong>secante</strong> alla circonferenza.</li>
+      <li>Distanza centro–retta: \(d = \dfrac{2\sqrt{5}}{5}\)</li>
+      <li>Lunghezza della corda: \(\ell = \dfrac{8\sqrt{30}}{5} \approx 8{,}76\)</li>
+    </ul>
+  </section>
+</article>

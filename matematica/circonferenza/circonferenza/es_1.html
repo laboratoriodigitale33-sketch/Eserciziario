@@ -1,0 +1,160 @@
+<article class="exercise" data-exercise-id="es_1">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_1",
+    "title": "Retta orizzontale e circonferenza centrata nell'origine",
+    "order": 1,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/circonferenza/posizione-retta",
+    "topic": "Posizione reciproca retta-circonferenza",
+    "difficulty": "facile",
+    "tags": ["circonferenza", "retta", "posizione reciproca", "sistema", "secante", "tangente", "esterna"],
+    "hasImages": true
+  }
+  </script>
+
+  <header class="exercise-header">
+    <h2>Esercizio 1 — Retta orizzontale e circonferenza centrata nell'origine</h2>
+  </header>
+
+  <template data-exercise-statement>
+    <section class="exercise-text">
+      <p>
+        Data la circonferenza \(\mathcal{C}: x^2 + y^2 = 25\) e le rette:
+      </p>
+      <ul>
+        <li>\(r_1: y = 3\)</li>
+        <li>\(r_2: y = 5\)</li>
+        <li>\(r_3: y = 7\)</li>
+      </ul>
+      <p>Determina la posizione reciproca di ciascuna retta rispetto alla circonferenza.</p>
+    </section>
+
+    <section class="exercise-data">
+      <h3>Dati</h3>
+      <ul>
+        <li>Circonferenza: \(x^2 + y^2 = 25\)</li>
+        <li>Centro: \(C=(0,0)\)</li>
+        <li>Raggio: \(R=5\)</li>
+        <li>Rette: \(r_1: y=3\), \(r_2: y=5\), \(r_3: y=7\)</li>
+      </ul>
+    </section>
+
+    <section class="exercise-request">
+      <h3>Richiesta</h3>
+      <p>
+        Stabilire se ciascuna retta è <em>secante</em>, <em>tangente</em> oppure <em>esterna</em> alla circonferenza,
+        motivando il risultato anche tramite il sistema retta-circonferenza.
+      </p>
+    </section>
+  </template>
+
+  <template data-exercise-solution>
+    <section class="exercise-solution">
+      <h3>Svolgimento</h3>
+
+      <h4>Metodo scelto</h4>
+      <p>
+        Poiché le tre rette sono orizzontali, possiamo usare un metodo molto diretto: sostituiamo ogni equazione
+        \(y=k\) nell'equazione della circonferenza. In questo modo troviamo le eventuali ascisse dei punti di
+        intersezione. Il numero di soluzioni reali determina la posizione reciproca:
+      </p>
+      <ul>
+        <li>due soluzioni reali distinte \(\Rightarrow\) retta <strong>secante</strong>;</li>
+        <li>una soluzione reale doppia \(\Rightarrow\) retta <strong>tangente</strong>;</li>
+        <li>nessuna soluzione reale \(\Rightarrow\) retta <strong>esterna</strong>.</li>
+      </ul>
+
+      <h4>Richiamo geometrico</h4>
+      <p>
+        La circonferenza \(x^2+y^2=25\) ha centro \(C=(0,0)\) e raggio \(R=5\). Una retta orizzontale \(y=k\)
+        ha distanza \(|k|\) dal centro. Quindi si può anche confrontare direttamente \(|k|\) con \(R\):
+      </p>
+      \[
+        |k|<R \Rightarrow \text{secante}, \qquad
+        |k|=R \Rightarrow \text{tangente}, \qquad
+        |k|>R \Rightarrow \text{esterna}.
+      \]
+
+      <h4>Retta \(r_1: y=3\)</h4>
+      <p>Sostituiamo \(y=3\) in \(x^2+y^2=25\):</p>
+      \[
+        x^2+3^2=25
+      \]
+      \[
+        x^2+9=25
+      \]
+      \[
+        x^2=16
+      \]
+      \[
+        x=\pm 4.
+      \]
+      <p>
+        Le soluzioni reali sono due, quindi la retta interseca la circonferenza in due punti distinti:
+      </p>
+      \[
+        A=(-4,3), \qquad B=(4,3).
+      \]
+      <p>
+        Dunque \(r_1\) è <strong>secante</strong>. Geometricamente, infatti, la distanza dal centro è
+        \(|3|=3\), minore del raggio \(R=5\).
+      </p>
+
+      <h4>Retta \(r_2: y=5\)</h4>
+      <p>Sostituiamo \(y=5\):</p>
+      \[
+        x^2+5^2=25
+      \]
+      \[
+        x^2+25=25
+      \]
+      \[
+        x^2=0
+      \]
+      \[
+        x=0.
+      \]
+      <p>
+        C'è una sola soluzione reale, cioè una soluzione doppia. Il punto di contatto è:
+      </p>
+      \[
+        T=(0,5).
+      \]
+      <p>
+        Dunque \(r_2\) è <strong>tangente</strong>. Geometricamente, la distanza dal centro è
+        \(|5|=5\), uguale al raggio.
+      </p>
+
+      <h4>Retta \(r_3: y=7\)</h4>
+      <p>Sostituiamo \(y=7\):</p>
+      \[
+        x^2+7^2=25
+      \]
+      \[
+        x^2+49=25
+      \]
+      \[
+        x^2=-24.
+      \]
+      <p>
+        L'equazione non ha soluzioni reali, perché il quadrato di un numero reale non può essere negativo.
+        Quindi la retta non incontra la circonferenza: \(r_3\) è <strong>esterna</strong>.
+      </p>
+
+      <div class="schema-wrap">
+        <img src="assets/schema_es_1.svg" alt="Schema della circonferenza x²+y²=25 con le rette orizzontali y=3, y=5 e y=7">
+        <p class="schema-caption">Confronto tra le rette \(y=3\), \(y=5\), \(y=7\) e la circonferenza \(x^2+y^2=25\).</p>
+      </div>
+    </section>
+
+    <section class="exercise-result">
+      <h3>Risultato finale</h3>
+      <ul>
+        <li>\(r_1: y=3\) è <strong>secante</strong>, con punti di intersezione \((-4,3)\) e \((4,3)\).</li>
+        <li>\(r_2: y=5\) è <strong>tangente</strong>, con punto di tangenza \((0,5)\).</li>
+        <li>\(r_3: y=7\) è <strong>esterna</strong>, quindi non ha punti di intersezione reali con la circonferenza.</li>
+      </ul>
+    </section>
+  </template>
+</article>

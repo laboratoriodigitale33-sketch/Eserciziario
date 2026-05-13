@@ -1,0 +1,223 @@
+<article class="exercise" data-exercise-id="es_2">
+  <script type="application/json" class="exercise-metadata">
+  {
+    "id": "es_2",
+    "title": "Retta obliqua e circonferenza centrata nell'origine — metodo algebrico",
+    "order": 2,
+    "macroCategory": "matematica",
+    "categoryPath": "matematica/circonferenza/posizione-retta",
+    "topic": "Posizione reciproca retta-circonferenza",
+    "difficulty": "facile",
+    "tags": ["circonferenza", "retta", "discriminante", "sistema", "secante", "tangente", "esterna", "parametro"],
+    "hasImages": true
+  }
+  </script>
+
+  <header class="exercise-header">
+    <h2>Esercizio 2 — Retta obliqua e circonferenza — metodo del discriminante</h2>
+  </header>
+
+  <template data-exercise-statement>
+    <section class="exercise-text">
+      <p>
+        Data la circonferenza \(\mathcal{C}: x^2 + y^2 = 10\) e il fascio di rette parallele
+        \(r_k: y=x+k\), determina per quali valori reali di \(k\) la retta è:
+      </p>
+      <ol type="a">
+        <li>secante alla circonferenza;</li>
+        <li>tangente alla circonferenza;</li>
+        <li>esterna alla circonferenza.</li>
+      </ol>
+    </section>
+
+    <section class="exercise-data">
+      <h3>Dati</h3>
+      <ul>
+        <li>Circonferenza: \(x^2+y^2=10\)</li>
+        <li>Centro: \(C=(0,0)\)</li>
+        <li>Raggio: \(R=\sqrt{10}\)</li>
+        <li>Retta variabile: \(r_k: y=x+k\), con \(k\in\mathbb{R}\)</li>
+      </ul>
+    </section>
+
+    <section class="exercise-request">
+      <h3>Richiesta</h3>
+      <p>
+        Studiare la posizione reciproca tra \(r_k\) e \(\mathcal{C}\) al variare del parametro \(k\), usando il
+        sistema retta-circonferenza e il discriminante dell'equazione di secondo grado ottenuta.
+      </p>
+    </section>
+  </template>
+
+  <template data-exercise-solution>
+    <section class="exercise-solution">
+      <h3>Svolgimento</h3>
+
+      <h4>Idea del metodo</h4>
+      <p>
+        I punti comuni tra una retta e una circonferenza si trovano risolvendo il sistema formato dalle loro
+        equazioni. Poiché la retta è già esplicitata come \(y=x+k\), sostituiamo questa espressione dentro
+        l'equazione della circonferenza. Otteniamo un'equazione di secondo grado in \(x\). Il suo discriminante
+        \(\Delta\) stabilisce il numero di intersezioni reali:
+      </p>
+      <ul>
+        <li>\(\Delta>0\): due punti di intersezione \(\Rightarrow\) retta <strong>secante</strong>;</li>
+        <li>\(\Delta=0\): un punto di intersezione doppio \(\Rightarrow\) retta <strong>tangente</strong>;</li>
+        <li>\(\Delta<0\): nessun punto di intersezione reale \(\Rightarrow\) retta <strong>esterna</strong>.</li>
+      </ul>
+
+      <h4>1. Impostazione del sistema</h4>
+      <p>Il sistema è:</p>
+      \[
+        \begin{cases}
+        x^2+y^2=10 \\
+        y=x+k
+        \end{cases}
+      \]
+      <p>Sostituiamo \(y=x+k\) nella circonferenza:</p>
+      \[
+        x^2+(x+k)^2=10.
+      \]
+
+      <h4>2. Riduzione a equazione di secondo grado</h4>
+      <p>Sviluppiamo il quadrato:</p>
+      \[
+        x^2+x^2+2kx+k^2=10.
+      \]
+      <p>Portiamo tutto al primo membro:</p>
+      \[
+        2x^2+2kx+k^2-10=0.
+      \]
+      <p>
+        Questa è un'equazione del tipo \(ax^2+bx+c=0\), con:
+      </p>
+      \[
+        a=2, \qquad b=2k, \qquad c=k^2-10.
+      \]
+
+      <h4>3. Calcolo del discriminante</h4>
+      <p>Il discriminante dell'equazione di secondo grado è:</p>
+      \[
+        \Delta=b^2-4ac.
+      \]
+      <p>Sostituendo \(a=2\), \(b=2k\), \(c=k^2-10\), si ottiene:</p>
+      \[
+        \Delta=(2k)^2-4\cdot 2\cdot (k^2-10).
+      \]
+      \[
+        \Delta=4k^2-8k^2+80.
+      \]
+      \[
+        \Delta=80-4k^2=4(20-k^2).
+      \]
+      <p>
+        Il fattore \(4\) è positivo, quindi il segno di \(\Delta\) dipende solo dal segno di \(20-k^2\).
+      </p>
+
+      <h4>4. Studio dei casi</h4>
+
+      <p><strong>Caso secante.</strong> La retta è secante quando \(\Delta>0\):</p>
+      \[
+        4(20-k^2)>0.
+      \]
+      <p>Poiché \(4>0\), dividiamo per \(4\):</p>
+      \[
+        20-k^2>0.
+      \]
+      \[
+        k^2<20.
+      \]
+      <p>Quindi:</p>
+      \[
+        -\sqrt{20}<k<\sqrt{20}.
+      \]
+      <p>Dato che \(\sqrt{20}=2\sqrt{5}\), otteniamo:</p>
+      \[
+        -2\sqrt{5}<k<2\sqrt{5}.
+      \]
+
+      <p><strong>Caso tangente.</strong> La retta è tangente quando \(\Delta=0\):</p>
+      \[
+        4(20-k^2)=0.
+      \]
+      \[
+        20-k^2=0.
+      \]
+      \[
+        k^2=20.
+      \]
+      \[
+        k=\pm\sqrt{20}=\pm 2\sqrt{5}.
+      \]
+      <p>
+        Per completezza, i punti di tangenza sono:
+      </p>
+      \[
+        k=2\sqrt{5} \Rightarrow T_1=(-\sqrt{5},\sqrt{5}),
+      \]
+      \[
+        k=-2\sqrt{5} \Rightarrow T_2=(\sqrt{5},-\sqrt{5}).
+      \]
+
+      <p><strong>Caso esterno.</strong> La retta è esterna quando \(\Delta<0\):</p>
+      \[
+        4(20-k^2)<0.
+      \]
+      \[
+        20-k^2<0.
+      \]
+      \[
+        k^2>20.
+      \]
+      <p>Quindi:</p>
+      \[
+        k<-2\sqrt{5} \qquad \text{oppure} \qquad k>2\sqrt{5}.
+      \]
+
+      <h4>5. Controllo geometrico tramite distanza dal centro</h4>
+      <p>
+        La retta \(y=x+k\) può essere scritta in forma implicita come:
+      </p>
+      \[
+        x-y+k=0.
+      \]
+      <p>
+        La distanza di un punto \(C=(x_0,y_0)\) da una retta \(ax+by+c=0\) è:
+      </p>
+      \[
+        d=\frac{|ax_0+by_0+c|}{\sqrt{a^2+b^2}}.
+      \]
+      <p>Nel nostro caso \(C=(0,0)\), \(a=1\), \(b=-1\), \(c=k\), quindi:</p>
+      \[
+        d=\frac{|1\cdot 0+(-1)\cdot 0+k|}{\sqrt{1^2+(-1)^2}}
+        =\frac{|k|}{\sqrt{2}}.
+      \]
+      <p>
+        La tangenza avviene quando la distanza dal centro è uguale al raggio \(R=\sqrt{10}\):
+      </p>
+      \[
+        \frac{|k|}{\sqrt{2}}=\sqrt{10}.
+      \]
+      \[
+        |k|=\sqrt{20}=2\sqrt{5}.
+      \]
+      <p>
+        Questo conferma il risultato trovato con il discriminante.
+      </p>
+
+      <div class="schema-wrap">
+        <img src="assets/schema_es_2.svg" alt="Schema della circonferenza x²+y²=10 con le rette y=x, y=x+2√5 e y=x−2√5">
+        <p class="schema-caption">Il fascio di rette \(y=x+k\): tra le due tangenti la retta è secante; oltre le tangenti è esterna.</p>
+      </div>
+    </section>
+
+    <section class="exercise-result">
+      <h3>Risultato finale</h3>
+      <ul>
+        <li>Retta <strong>secante</strong> per \(-2\sqrt{5}<k<2\sqrt{5}\).</li>
+        <li>Retta <strong>tangente</strong> per \(k=\pm 2\sqrt{5}\).</li>
+        <li>Retta <strong>esterna</strong> per \(k<-2\sqrt{5}\) oppure \(k>2\sqrt{5}\).</li>
+      </ul>
+    </section>
+  </template>
+</article>

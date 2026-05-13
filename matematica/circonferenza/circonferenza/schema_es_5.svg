@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -30 130 120" width="360" height="333">
+  <defs>
+    <marker id="axf" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#7a6f65"/>
+    </marker>
+  </defs>
+
+  <rect x="-10" y="-30" width="130" height="120" fill="#ede5d5" rx="4"/>
+
+  <!-- assi: scala 1 unit = 12 px, origine = (10, 60) del viewport -->
+  <line x1="-5" y1="60" x2="120" y2="60" stroke="#7a6f65" stroke-width="0.8" marker-end="url(#axf)"/>
+  <line x1="10" y1="90" x2="10" y2="-25" stroke="#7a6f65" stroke-width="0.8" marker-end="url(#axf)"/>
+  <text x="114" y="57" font-family="IBM Plex Mono" font-size="7" fill="#7a6f65">x</text>
+  <text x="13"  y="-20" font-family="IBM Plex Mono" font-size="7" fill="#7a6f65">y</text>
+
+  <!-- tacche -->
+  <text x="34" y="68" font-family="IBM Plex Mono" font-size="6" fill="#7a6f65" text-anchor="middle">2</text>
+  <text x="46" y="68" font-family="IBM Plex Mono" font-size="6" fill="#7a6f65" text-anchor="middle">3</text>
+  <text x="70" y="68" font-family="IBM Plex Mono" font-size="6" fill="#7a6f65" text-anchor="middle">5</text>
+  <text x="7" y="48" font-family="IBM Plex Mono" font-size="6" fill="#7a6f65" text-anchor="end">1</text>
+  <text x="7" y="12" font-family="IBM Plex Mono" font-size="6" fill="#7a6f65" text-anchor="end">4</text>
+  <text x="7" y="72" font-family="IBM Plex Mono" font-size="6" fill="#7a6f65" text-anchor="end">−1</text>
+
+  <!-- C = (3,-1) → SVG (46, 72); r=√5≈2.236 → 26.8px -->
+  <circle cx="46" cy="72" r="26.8" fill="rgba(58,90,122,0.1)" stroke="#1a1612" stroke-width="2"/>
+
+  <!-- centro C -->
+  <circle cx="46" cy="72" r="2.5" fill="#8b3a2a"/>
+  <text x="49" y="70" font-family="IBM Plex Mono" font-size="7" fill="#8b3a2a">C(3,−1)</text>
+
+  <!-- P = (5,4) → SVG (70, 12) -->
+  <circle cx="70" cy="12" r="3" fill="#3a5a7a"/>
+  <text x="73" y="11" font-family="IBM Plex Mono" font-size="7" fill="#3a5a7a">P(5, 4)</text>
+
+  <!-- Tangenti approssimate visivamente (m1≈0.95, m2≈-20.95) -->
+  <!-- Tangente 1 (poco inclinata): passa per P(70,12), pendenza positiva moderata -->
+  <!-- Punto di tangenza T1 approssimato vicino alla circonferenza -->
+  <line x1="70" y1="12" x2="28" y2="54" stroke="#3a6a4a" stroke-width="1.8"/>
+  <!-- T1 approssimato sul bordo della circonferenza -->
+  <circle cx="35" cy="47" r="2.5" fill="#3a6a4a" stroke="#1a1612" stroke-width="1"/>
+  <text x="22" y="46" font-family="IBM Plex Mono" font-size="7" fill="#3a6a4a">T₁</text>
+
+  <!-- Tangente 2 (molto inclinata): passa per P(70,12), quasi verticale -->
+  <line x1="70" y1="12" x2="56" y2="98" stroke="#c9a84c" stroke-width="1.8"/>
+  <circle cx="58" cy="99" r="2.5" fill="#c9a84c" stroke="#1a1612" stroke-width="1"/>
+  <text x="61" y="100" font-family="IBM Plex Mono" font-size="7" fill="#b5882a">T₂</text>
+
+  <!-- segmento CP -->
+  <line x1="46" y1="72" x2="70" y2="12" stroke="#1a1612" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <!-- segmenti di tangenza PT1, PT2 -->
+  <text x="45" y="28" font-family="IBM Plex Mono" font-size="7" fill="#3a6a4a">|PT|=2√6</text>
+
+  <!-- angolo retto T1 (indicativo) -->
+  <rect x="33" y="49" width="4" height="4" fill="none" stroke="#3a6a4a" stroke-width="0.8" transform="rotate(-45, 35, 51)"/>
+</svg>
